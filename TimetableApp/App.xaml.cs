@@ -10,7 +10,7 @@ namespace TimetableApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new PageDangNhap());
         }
 
         protected override void OnStart()

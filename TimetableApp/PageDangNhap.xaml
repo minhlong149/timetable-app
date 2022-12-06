@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimetableApp.PageDangNhap"
+             Title="Đăng nhập">
+    <ContentPage.Content>
+        <Grid Padding="20, 10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Login Page" FontSize="30" FontAttributes="Bold"
+                   Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center"  />
+            
+            <Label Text="Mã SV:" FontSize="22" Grid.Row="1" Grid.Column="0"  VerticalOptions="Center"/>
+            <Label Text="Mật khẩu:" FontSize="22" Grid.Row="2" Grid.Column="0" VerticalOptions="Center"/>
+
+            <Entry x:Name="txtUsername" Placeholder="Enter your name" Keyboard="Text"
+                   Grid.Row="1" Grid.Column="1" VerticalOptions="Center"/>
+            <Entry x:Name="txtPassword" Placeholder="Enter your password" Keyboard="Text"
+                   Grid.Row="2" Grid.Column="1" VerticalOptions="Center" />
+
+            <Button x:Name="btnLogin" Clicked="btnLogin_Clicked" Text="Đăng nhập"
+                    Grid.Row="3" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Start" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
