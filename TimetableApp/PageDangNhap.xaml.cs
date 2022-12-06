@@ -37,11 +37,14 @@ namespace TimetableApp
                     {
                         SinhVien.DangNhap = DSSVDangNhap[0];
                         await DisplayAlert("Success", "Hello, " + SinhVien.DangNhap.MaSV, "OK");
+
+                        string shellRoute = SinhVien.DangNhap.MaSV.Contains("admin") ? "//admin" : "//student";
+                        await Shell.Current.GoToAsync(shellRoute);
+
                     }
                     else
                     {
-                        await DisplayAlert("Failed", "Please try again!", "OK");
-
+                        await DisplayAlert("Failed", "The username or password is incorrect", "Try again");
                     }
                 }
             }
