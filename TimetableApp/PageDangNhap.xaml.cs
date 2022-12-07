@@ -25,7 +25,7 @@ namespace TimetableApp
         {
             string TenDangNhap = txtUsername.Text;
             string MatKhau = txtPassword.Text;
-            string uri = $"http://lno-ie307.somee.com/api/DangNhap?TenDangNhap={TenDangNhap}&MatKhau={MatKhau}";
+            string uri = $"http://lno-ie307.somee.com/api/TaiKhoan?TenDangNhap={TenDangNhap}&MatKhau={MatKhau}";
             try
             {
                 HttpResponseMessage response = await client.GetAsync(uri);
@@ -38,7 +38,7 @@ namespace TimetableApp
                         SinhVien.DangNhap = DSSVDangNhap[0];
                         await DisplayAlert("Success", "Hello, " + SinhVien.DangNhap.MaSV, "OK");
 
-                        string shellRoute = SinhVien.DangNhap.MaSV.Contains("admin") ? "//admin" : "//student";
+                        string shellRoute = SinhVien.DangNhap.QuyenAdmin ? "//admin" : "//student";
                         await Shell.Current.GoToAsync(shellRoute);
 
                     }
