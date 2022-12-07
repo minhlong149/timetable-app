@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimetableApp.PageChiTietLop">
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView  x:Name="LstLop" SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem x:Name="Add" Text="Đăng ký" 
+                                               BackgroundColor="Blue" Invoked="Add_Invoked"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <StackLayout HeightRequest="170" Margin="0" Spacing="0">
+                                <!--Thông tin về lớp học-->
+                                <Label  FontSize="15">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding MaLop}"></Span>
+                                                <Span Text="_" />
+                                                <Span x:Name="Mon" Text="{Binding TenMon}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                </Label>
+
+                                <Label  FontSize="15">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                            <Span Text="GV: "></Span>
+                                            <Span Text="{Binding GiaoVien}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                 </Label>
+
+                                <Label  FontSize="15">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                            <Span Text="P."></Span>
+                                            <Span Text="{Binding PhongHoc}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                </Label>
+
+                                <Label  FontSize="15">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Tiết: "/>
+                                            <Span Text="{Binding SoTiet}"/>
+                                            <Span Text="       "/>
+                                            <Span Text="Thứ "/>
+                                            <Span Text="{Binding Thu}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                        </SwipeView>
+                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
