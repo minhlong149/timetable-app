@@ -12,12 +12,11 @@ using Xamarin.Forms.Xaml;
 namespace TimetableApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PageMonHoc : ContentPage
+    public partial class PageAdminMon : ContentPage
     {
-        public PageMonHoc()
+        public PageAdminMon()
         {
             InitializeComponent();
-            Title = "Danh sách các môn học";
             ListViewInit();
         }
         async void ListViewInit()
@@ -27,7 +26,16 @@ namespace TimetableApp
             var lstMonConverted = JsonConvert.DeserializeObject<List<MonHoc>>(lstMon);
             LstMonHoc.ItemsSource = lstMonConverted;
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ListViewInit();
+        }
 
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new PageAdThemMon());
+        }
 
         private void LstMonHoc_ItemTapped(object sender, ItemTappedEventArgs e)
         {

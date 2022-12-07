@@ -8,6 +8,8 @@ namespace TimetableApp.Class
     {
         public string MaLop { get; set; }
         public string MaMon { get; set; }
+        public string TenMon { get; set; }
+        public string Tiet { get; set; }
         public string Thu { get; set; }
         public string SoTiet { get; set; }
         public string TietBD { get; set; }

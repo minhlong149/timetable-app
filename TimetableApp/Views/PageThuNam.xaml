@@ -19,14 +19,14 @@
                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Label Text="{Binding MaLop}" Grid.Row="0" Grid.Column="0"/>
-                                <Label Grid.Row="1" Grid.Column="0">
+                                <Label Grid.Row="1" Grid.ColumnSpan="2">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="Thứ "/>
                                             <Span Text="{Binding Thu}"/>
                                             <Span Text=", "/>
                                             <Span Text="tiết "/>
-                                            <Span Text="{Binding TietBD}"/>
+                                            <Span Text="{Binding Tiet}"/>
                                             <Span Text=", "/>
                                             <Span Text="{Binding PhongHoc}"/>
                                         </FormattedString>

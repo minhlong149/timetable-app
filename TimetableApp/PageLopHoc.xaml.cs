@@ -7,20 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace TimetableApp.Views
+namespace TimetableApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PageCN : ContentPage
+    public partial class PageLopHoc : ContentPage
     {
-        public PageCN()
+        public PageLopHoc()
         {
             InitializeComponent();
-            Title = "Thời khóa biểu";
-        }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
         }
     }
 }
