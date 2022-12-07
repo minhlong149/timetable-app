@@ -22,9 +22,9 @@
             <Label Text="Mã SV:" FontSize="22" Grid.Row="1" Grid.Column="0"  VerticalOptions="Center"/>
             <Label Text="Mật khẩu:" FontSize="22" Grid.Row="2" Grid.Column="0" VerticalOptions="Center"/>
 
-            <Entry x:Name="txtUsername" Placeholder="Enter your username"
+            <Entry x:Name="txtUsername" Placeholder="Enter your name" Keyboard="Text"
                    Grid.Row="1" Grid.Column="1" VerticalOptions="Center"/>
-            <Entry x:Name="txtPassword" Placeholder="Enter your password" IsPassword="True"
+            <Entry x:Name="txtPassword" Placeholder="Enter your password" Keyboard="Text"
                    Grid.Row="2" Grid.Column="1" VerticalOptions="Center" />
 
             <Button x:Name="btnLogin" Clicked="btnLogin_Clicked" Text="Đăng nhập"

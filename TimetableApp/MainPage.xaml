@@ -3,18 +3,30 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:TimetableApp"
        FlyoutBehavior="Disabled"
-       x:Class="TimetableApp.MainPage">
+       x:Class="TimetableApp.MainPage"
+       xmlns:views ="clr-namespace:TimetableApp.Views">
 
     <ShellItem Route="login">
         <ShellContent ContentTemplate="{DataTemplate local:PageDangNhap}"/>
     </ShellItem>
-
+    
     <TabBar Route="student" FlyoutDisplayOptions="AsMultipleItems">
-       
-    </TabBar>
-
-    <TabBar Route="admin" FlyoutDisplayOptions="AsMultipleItems">
-       
+        <Tab Title="TKB" Icon="tnb.png"  >
+            <ShellContent Title="CN" ContentTemplate="{DataTemplate views:PageCN}" />
+            <ShellContent Title="Hai" ContentTemplate="{DataTemplate views:PageThuHai}"/>
+            <ShellContent Title="Ba" ContentTemplate="{DataTemplate views:PageThuBa}"/>
+            <ShellContent Title="Tư" ContentTemplate="{DataTemplate views:PageThuTu}"/>
+            <ShellContent Title="Năm" ContentTemplate="{DataTemplate views:PageThuNam}"/>
+            <ShellContent Title="Sáu" ContentTemplate="{DataTemplate views:PageThuSau}"/>
+            <ShellContent Title="Bảy" ContentTemplate="{DataTemplate views:PageThuBay}"/>
+        </Tab>
+        <Tab Title="Deadline" Icon="dl.png">
+            <ShellContent ContentTemplate="{Binding }"/>
+        </Tab>
+        <Tab Title="Todo" Icon="todo.png"/>
+        <Tab Title="Môn" Icon="mon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:PageMonHoc}"/>
+        </Tab>
     </TabBar>
 
 
