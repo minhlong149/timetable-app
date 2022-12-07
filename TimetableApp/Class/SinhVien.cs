@@ -10,6 +10,7 @@ namespace TimetableApp
         public string TenSV { get; set; }
         public string TenDangNhap { get; set; }
         public string MatKhau { get; set; }
+        public bool QuyenAdmin { get; set; }
 
         public static SinhVien DangNhap;
     }
