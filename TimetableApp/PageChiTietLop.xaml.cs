@@ -20,12 +20,12 @@ namespace TimetableApp
         public PageChiTietLop(MonHoc monHoc)
         {
             InitializeComponent();
-            SelectClassBySubject(monHoc.MaMon);
+            SelectStudentClass(monHoc.MaMon);
             Title = monHoc.TenMon;
             
 
         }
-        async void SelectClassBySubject(string mamon)
+        async void SelectStudentClass(string mamon)
         {
 
             HttpClient httpClient = new HttpClient();
