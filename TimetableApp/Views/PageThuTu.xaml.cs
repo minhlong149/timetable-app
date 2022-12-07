@@ -30,5 +30,10 @@ namespace TimetableApp.Views
                     dsLop.Add(lop);
             LsLopHN.ItemsSource = dsLop;
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ListViewInit();
+        }
     }
 }

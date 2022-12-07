@@ -16,5 +16,10 @@ namespace TimetableApp.Views
         {
             InitializeComponent();
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+        }
     }
 }

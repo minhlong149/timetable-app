@@ -22,7 +22,7 @@ namespace TimetableApp
             InitializeComponent();
             SelectClassBySubject(monHoc.MaMon);
             Title = monHoc.TenMon;
-            this.BindingContext = monHoc;
+            
 
         }
         async void SelectClassBySubject(string mamon)
@@ -68,14 +68,13 @@ namespace TimetableApp
                 if (int.Parse(kqdk.ToString()) >0)
                 {
                     await DisplayAlert("Thông báo", "Bạn đã đăng ký lớp " + lopHoc.MaLop + " thành công!", "OK");
+
                 }
                 else
                     await DisplayAlert("Thông báo", "Đã có lỗi xảy ra!\tVui lòng thử lại", "OK");
             }
-            
-           
-            
-            
+     
         }
+      
     }
 }

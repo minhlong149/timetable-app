@@ -19,7 +19,7 @@
                                                CommandParameter="{Binding .}"/>
                                 </SwipeItems>
                             </SwipeView.RightItems>
-                            <StackLayout HeightRequest="170" Margin="0" Spacing="0">
+                            <StackLayout HeightRequest="80" Margin="0" Spacing="0">
                                 <!--Thông tin về lớp học-->
                                 <Label  FontSize="15">
                                         <Label.FormattedText>
@@ -53,7 +53,7 @@
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="Tiết: "/>
-                                            <Span Text="{Binding SoTiet}"/>
+                                            <Span Text="{Binding Tiet}"/>
                                             <Span Text="       "/>
                                             <Span Text="Thứ "/>
                                             <Span Text="{Binding Thu}"/>
