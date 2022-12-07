@@ -4,7 +4,7 @@
              x:Class="TimetableApp.PageMonHoc">
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="LstMonHoc" ItemSelected="LstMonHoc_ItemSelected" RowHeight="100" >
+            <ListView x:Name="LstMonHoc" ItemTapped="LstMonHoc_ItemTapped" RowHeight="100" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

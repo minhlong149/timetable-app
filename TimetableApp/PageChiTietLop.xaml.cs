@@ -17,13 +17,14 @@ namespace TimetableApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageChiTietLop : ContentPage
     {
+        MonHoc mon = new MonHoc();
         public PageChiTietLop(MonHoc monHoc)
         {
             InitializeComponent();
-            SelectStudentClass(monHoc.MaMon);
             Title = monHoc.TenMon;
+            SelectStudentClass(monHoc.MaMon);
+            mon = monHoc;
             
-
         }
         async void SelectStudentClass(string mamon)
         {
@@ -39,42 +40,80 @@ namespace TimetableApp
 
         private async void Add_Invoked(object sender, EventArgs e)
         {
-            SwipeItem swipeItem = (SwipeItem)sender;
-            LopHoc lopHoc = swipeItem.CommandParameter as LopHoc;
-            HttpClient httpClient = new HttpClient();
-
-            var lstLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/SinhVien?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
-            var lstLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstLop);
-
-            string jsondk = JsonConvert.SerializeObject(lopHoc);
-            StringContent stringContent = new StringContent(jsondk,Encoding.UTF8,"application/json");
-            HttpResponseMessage kq;
-            var daki = 0;
-            foreach (LopHoc lop in lstLopConverted)
+            if (SinhVien.DangNhap.QuyenAdmin)
             {
-                if (lopHoc.MaLop == lop.MaLop)
-                {
-                    daki= daki+1;
-                } 
+                await DisplayAlert("Thông báo", "Đây là chức năng của sinh viên!", "OK");
             }
-            /*Kiểm tra đã đăng ký hay chưa*/
-            if (daki > 0)
-                await DisplayAlert("Thông báo", "Bạn đã đăng ký lớp " + lopHoc.MaLop, "OK");
-
-            else if (daki == 0)
+            else
             {
-                kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/SinhVien?MaSV=" + SinhVien.DangNhap.MaSV.ToString() + "&MaLop=" + lopHoc.MaLop.ToString(),stringContent);
-                var kqdk = await kq.Content.ReadAsStringAsync();
-                if (int.Parse(kqdk.ToString()) >0)
+                SwipeItem swipeItem = (SwipeItem)sender;
+                LopHoc lopHoc = swipeItem.CommandParameter as LopHoc;
+                HttpClient httpClient = new HttpClient();
+
+                var lstLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/SinhVien?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
+                var lstLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstLop);
+
+                string jsondk = JsonConvert.SerializeObject(lopHoc);
+                StringContent stringContent = new StringContent(jsondk, Encoding.UTF8, "application/json");
+                HttpResponseMessage kq;
+                var daki = 0;
+                foreach (LopHoc lop in lstLopConverted)
                 {
-                    await DisplayAlert("Thông báo", "Bạn đã đăng ký lớp " + lopHoc.MaLop + " thành công!", "OK");
+                    if (lopHoc.MaLop == lop.MaLop)
+                    {
+                        daki = daki + 1;
+                    }
+                }
+                /*Kiểm tra đã đăng ký hay chưa*/
+                if (daki > 0)
+                    await DisplayAlert("Thông báo", "Bạn đã đăng ký lớp " + lopHoc.MaLop, "OK");
+                else if (daki == 0)
+                {
+                    kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/SinhVien?MaSV=" + SinhVien.DangNhap.MaSV.ToString() + "&MaLop=" + lopHoc.MaLop.ToString(), stringContent);
+                    var kqdk = await kq.Content.ReadAsStringAsync();
+                    if (int.Parse(kqdk.ToString()) > 0)
+                    {
+                        await DisplayAlert("Thông báo", "Bạn đã đăng ký lớp " + lopHoc.MaLop + " thành công!", "OK");
+                    }
+                    else
+                        await DisplayAlert("Thông báo", "Đã có lỗi xảy ra!\tVui lòng thử lại", "OK");
+                }
+            }
+        }
+   //ADMIN
+        private async void Del_Invoked(object sender, EventArgs e)
+        {
+            if (SinhVien.DangNhap.QuyenAdmin)
+            {
+                SwipeItem swipeItem = (SwipeItem)sender;
+                LopHoc lopHoc = swipeItem.CommandParameter as LopHoc;
+                HttpClient httpClient = new HttpClient();
+
+                HttpResponseMessage kq;
+                kq = await httpClient.DeleteAsync("http://www.lno-ie307.somee.com/api/LopHoc?maLop=" + lopHoc.MaLop.ToString());
+                var kqdk = await kq.Content.ReadAsStringAsync();
+                if (int.Parse(kqdk.ToString()) > 0)
+                {
+                    await DisplayAlert("Thông báo", "Đã xóa lớp " + lopHoc.MaLop + " thành công!", "OK");
 
                 }
                 else
                     await DisplayAlert("Thông báo", "Đã có lỗi xảy ra!\tVui lòng thử lại", "OK");
             }
-     
+            else
+               await DisplayAlert("Thông báo", "Bạn không được cấp quyền xóa!\t Vui lòng liên hệ admin", "OK");
+                
         }
-      
+
+        private void AddLop_Clicked(object sender, EventArgs e)
+        {
+            if(SinhVien.DangNhap.QuyenAdmin)
+                Navigation.PushAsync(new PageAdThemLop(mon));
+            else
+            {
+                DisplayAlert("Thông báo", "Bạn không được cấp quyền để thêm lớp", "OK");
+            }    
+
+        }
     }
 }

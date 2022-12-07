@@ -17,6 +17,7 @@ namespace TimetableApp
         public PageMonHoc()
         {
             InitializeComponent();
+            Title = "Danh sách các môn học";
             ListViewInit();
         }
         async void ListViewInit()
@@ -27,10 +28,11 @@ namespace TimetableApp
             LstMonHoc.ItemsSource = lstMonConverted;
         }
 
-    private void LstMonHoc_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+
+        private void LstMonHoc_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            MonHoc monHoc = (MonHoc)e.SelectedItem;
-            Navigation.PushModalAsync(new PageChiTietLop(monHoc));
+            MonHoc monHoc = (MonHoc)e.Item;
+            Navigation.PushAsync(new PageChiTietLop(monHoc));
         }
     }
 }

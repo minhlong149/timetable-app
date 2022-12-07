@@ -15,6 +15,7 @@ namespace TimetableApp.Views
         public PageCN()
         {
             InitializeComponent();
+            Title = "Thời khóa biểu";
         }
         protected override void OnAppearing()
         {

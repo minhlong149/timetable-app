@@ -2,6 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimetableApp.PageChiTietLop">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="AddLop" Text="Thêm" Clicked="AddLop_Clicked"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <CollectionView  x:Name="LstLop" SelectionMode="Single">
@@ -16,6 +19,9 @@
                                 <SwipeItems>
                                     <SwipeItem x:Name="Add" Text="Đăng ký" 
                                                BackgroundColor="Blue" Invoked="Add_Invoked"
+                                               CommandParameter="{Binding .}"/>
+                                    <SwipeItem x:Name="Del" Text="Xóa"
+                                               BackgroundColor="Red" Invoked="Del_Invoked"
                                                CommandParameter="{Binding .}"/>
                                 </SwipeItems>
                             </SwipeView.RightItems>

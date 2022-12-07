@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TimetableApp.Class;
@@ -12,30 +14,34 @@ namespace TimetableApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageAdThemMon : ContentPage
     {
-        MonHoc _monHoc;
+        
         public PageAdThemMon()
         {
             InitializeComponent();
         }
-        public PageAdThemMon(MonHoc monHoc)
-        {
-            InitializeComponent();
-            _monHoc = monHoc;
-            AddMaMon.Text = monHoc.MaMon;
-            AddTenMon.Text = monHoc.TenMon;
-            AddTC.Text = monHoc.SoTC.ToString();
-            AddMaMon.Focus();
-        }
-
+       
         private async void Save_Clicked(object sender, EventArgs e)
         {
-            if (_monHoc != null)
-            {
-               _monHoc.MaMon = AddMaMon.Text;
-               _monHoc.TenMon = AddTenMon.Text;
-               _monHoc.SoTC = int.Parse(AddTC.Text.ToString());
-                /*post dữ liệu lên teams 23/11*/
-            }
+            MonHoc _monHoc = new MonHoc();
+            _monHoc.MaMon = AddMaMon.Text;
+            _monHoc.TenMon = AddTenMon.Text;
+            _monHoc.SoTC = int.Parse(AddTC.Text.ToString());
+
+
+            HttpClient httpClient = new HttpClient();
+            string json = JsonConvert.SerializeObject(_monHoc);
+            StringContent stringContent = new StringContent(json, Encoding.UTF8,"application/json");
+            HttpResponseMessage kq;
+           
+                kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/MonHoc", stringContent);
+                var kqthem = await kq.Content.ReadAsStringAsync();
+                if (int.Parse(kqthem.ToString()) > 0)
+                {
+                    await DisplayAlert("Thông báo", "Thêm môn học thành công", "OK");
+                }
+                else
+                    await DisplayAlert("Thông báo", "Thêm môn học không thành công", "Thử lại");
+            
         }
     }
 }

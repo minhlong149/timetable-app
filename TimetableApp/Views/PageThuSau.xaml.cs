@@ -17,6 +17,7 @@ namespace TimetableApp.Views
         public PageThuSau()
         {
             InitializeComponent();
+            Title = "Thời khóa biểu";
             ListViewInit();
         }
         async void ListViewInit()

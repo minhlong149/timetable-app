@@ -11,7 +11,7 @@
     </ShellItem>
     
     <TabBar Route="student" FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="TKB" Icon="tnb.png"  >
+        <Tab Title="TKB" Icon="tnb.png" >
             <ShellContent Title="CN" ContentTemplate="{DataTemplate views:PageCN}" />
             <ShellContent Title="Hai" ContentTemplate="{DataTemplate views:PageThuHai}"/>
             <ShellContent Title="Ba" ContentTemplate="{DataTemplate views:PageThuBa}"/>
@@ -28,6 +28,7 @@
             <ShellContent ContentTemplate="{DataTemplate local:PageMonHoc}"/>
         </Tab>
     </TabBar>
-
-
+    <TabBar Route="admin" FlyoutDisplayOptions="AsSingleItem">
+        <ShellContent Title="Môn" ContentTemplate="{DataTemplate local:PageAdminMon}"/>
+    </TabBar>
 </Shell>
