@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimetableApp.PageThongTin">
+    <ContentPage.Content>
+        <Grid Padding="20,50" RowSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Frame Grid.Row="0" Grid.Column="1" CornerRadius="100" Padding="0" >
+                <Image Source="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" Aspect="AspectFill" />
+            </Frame>
+
+            <StackLayout Grid.Row="1" Grid.ColumnSpan="3">
+                <Label x:Name="txtWelcome" FontSize="28"
+                   FontAttributes="Bold" TextColor="Black"  HorizontalOptions="CenterAndExpand"/>
+
+                <Label Text="Mã SV" 
+                   FontSize="Medium" VerticalOptions="Center" />
+
+                <Entry x:Name="txtMaSV" IsReadOnly="True" VerticalOptions="Center"/>
+
+                <Label Text="Tên SV" 
+                   FontSize="Medium" VerticalOptions="Center" />
+
+                <Entry x:Name="txtTenSV" 
+                   Placeholder="Enter your name" VerticalOptions="Center"/>
+
+                <Label Text="Tên đăng nhập" 
+                   FontSize="Medium" VerticalOptions="Center" />
+
+                <Entry x:Name="txtTenDangNhap" 
+                   Placeholder="Enter your name" VerticalOptions="Center"/>
+
+                <Label Text="Mật khẩu" 
+                   FontSize="Medium" VerticalOptions="Center" />
+
+                <Entry x:Name="txtMatKhau" IsPassword="True"
+                   Placeholder="Enter your name" VerticalOptions="Center"/>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Button Text="Đăng xuất" 
+                    HorizontalOptions="Center" Padding="20,10" Clicked="Button_Clicked_1"/>
+
+                    <Button Text="Cập nhập thông tin" HorizontalOptions="Center" Padding="20,10"
+                        Clicked="Button_Clicked"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

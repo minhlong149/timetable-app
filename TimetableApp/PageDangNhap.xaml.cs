@@ -36,7 +36,7 @@ namespace TimetableApp
                     if (DSSVDangNhap.Count() == 1)
                     {
                         SinhVien.DangNhap = DSSVDangNhap[0];
-                        await DisplayAlert("Success", "Hello, " + SinhVien.DangNhap.MaSV, "OK");
+                        await DisplayAlert("Success", "Hello, " + SinhVien.DangNhap.TenSV, "OK");
 
                         string shellRoute = SinhVien.DangNhap.QuyenAdmin ? "//admin" : "//student";
                         await Shell.Current.GoToAsync(shellRoute);
