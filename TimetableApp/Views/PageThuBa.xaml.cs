@@ -17,6 +17,7 @@ namespace TimetableApp.Views
         public PageThuBa()
         {
             InitializeComponent();
+            Title = "Thời khóa biểu";
             ListViewInit();
         }
         async void ListViewInit()
@@ -27,10 +28,13 @@ namespace TimetableApp.Views
             List<LopHoc> dsLop = new List<LopHoc>();
             foreach (LopHoc lop in lstLopConverted)
                 if (lop.Thu == "3")
-                {
                     dsLop.Add(lop);
-                }
             LsLopHN.ItemsSource = dsLop; 
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ListViewInit();
         }
     }
 }

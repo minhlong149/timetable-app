@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimetableApp.PageAdThemMon"
+             Title="Thêm môn học mới">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label Grid.Row="0" Grid.Column="0" Text="Mã môn: " 
+                       FontSize="20" />
+                <Entry x:Name="AddMaMon" Grid.Row="0" Grid.Column="1" Placeholder="Nhập mã môn học" Text="{Binding MaMon}"
+                       FontSize="20" />
+                <Label Grid.Row="1" Grid.Column="0" Text="Tên môn học:  " 
+                       FontSize="20" />
+                <Entry x:Name="AddTenMon" Grid.Row="1" Grid.Column="1" Placeholder="Nhập tên môn học" Text="{Binding TenMon}"
+                       FontSize="20" />
+                <Label Grid.Row="2" Grid.Column="0" Text="Tín chỉ: " FontSize="20"/>
+                <Entry x:Name="AddTC" Grid.Row="2" Grid.Column="1" Placeholder="Nhập số tín chỉ của môn" FontSize="20" Text="{Binding SoTC}"/>
+            </Grid>
+            <Button x:Name="Save" Text="LƯU" Clicked="Save_Clicked"
+                    HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

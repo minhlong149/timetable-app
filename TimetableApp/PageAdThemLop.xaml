@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimetableApp.PageAdThemLop">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+<!--API thêm tiết BD , và tiết KT-->
+                
+                <Label Grid.Row="0" Grid.Column="0" Text="Giảng viên " FontSize="20"/>
+                <Entry x:Name="AddGV" Grid.Row="0" Grid.Column="1" Placeholder="Nhập tên giảng viên" FontSize="20" Text="{Binding Tiet}"/>
+                <Label Grid.Row="1" Grid.Column="0" Text="Thứ:  " 
+                       FontSize="20" />
+                <Entry x:Name="AddThu" Grid.Row="1" Grid.Column="1" Placeholder="Nhập thứ" Text="{Binding Thu}"
+                       FontSize="20" />
+                <Label Grid.Row="2" Grid.Column="0" Text="Tiết: " FontSize="20"/>
+                <Entry x:Name="AddTiet" Grid.Row="3" Grid.Column="1" Placeholder="Nhập số tiết của môn" FontSize="20" Text="{Binding Tiet}"/>
+                <Label Grid.Row="3" Grid.Column="0" Text="Phòng: " FontSize="20"/>
+                <Entry x:Name="AddPhong" Grid.Row="3" Grid.Column="1" Placeholder="Nhập phòng học" FontSize="20" Text="{Binding Phong}"/>
+            </Grid>
+            <Button x:Name="Save" Text="LƯU" Clicked="Save_Clicked"
+                    HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
