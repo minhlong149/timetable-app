@@ -23,7 +23,7 @@ namespace TimetableApp.Views
         async void ListViewInit()
         {
             HttpClient httpClient = new HttpClient();
-            var lstLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/SinhVien?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
+            var lstLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/LopHoc?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
             var lstLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstLop);
             List<LopHoc> dsLop = new List<LopHoc>();
             foreach (LopHoc lop in lstLopConverted)

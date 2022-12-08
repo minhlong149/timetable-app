@@ -49,7 +49,7 @@ namespace TimetableApp
                 LopHoc lopHoc = swipeItem.CommandParameter as LopHoc;
                 HttpClient httpClient = new HttpClient();
 
-                var lstLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/SinhVien?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
+                var lstLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/LopHoc?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
                 var lstLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstLop);
 
                 string jsondk = JsonConvert.SerializeObject(lopHoc);
@@ -69,7 +69,7 @@ namespace TimetableApp
                     await DisplayAlert("Thông báo", "Bạn đã đăng ký lớp " + lopHoc.MaLop, "OK");
                 else if (daki == 0)
                 {
-                    kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/SinhVien?MaSV=" + SinhVien.DangNhap.MaSV.ToString() + "&MaLop=" + lopHoc.MaLop.ToString(), stringContent);
+                    kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/LopHoc?MaSV=" + SinhVien.DangNhap.MaSV.ToString() + "&MaLop=" + lopHoc.MaLop.ToString(), stringContent);
                     var kqdk = await kq.Content.ReadAsStringAsync();
                     if (int.Parse(kqdk.ToString()) > 0)
                     {
