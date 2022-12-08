@@ -32,7 +32,6 @@ namespace TimetableApp
             HttpClient httpClient = new HttpClient();
             var lstLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/LopHoc?MaMon=" + mamon.ToString());
             var lstLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstLop);
-
             //So sánh danh sách tất cả các môn với danh sách các môn => chỉ chọn hiện thị những môn chưa chưa đăng ký
            
             LstLop.ItemsSource = lstLopConverted;
@@ -64,6 +63,7 @@ namespace TimetableApp
                         daki = daki + 1;
                     }
                 }
+
                 /*Kiểm tra đã đăng ký hay chưa*/
                 if (daki > 0)
                     await DisplayAlert("Thông báo", "Bạn đã đăng ký lớp " + lopHoc.MaLop, "OK");
@@ -80,6 +80,8 @@ namespace TimetableApp
                 }
             }
         }
+
+
    //ADMIN
         private async void Del_Invoked(object sender, EventArgs e)
         {
@@ -102,6 +104,7 @@ namespace TimetableApp
             }
             else
                await DisplayAlert("Thông báo", "Bạn không được cấp quyền xóa!\t Vui lòng liên hệ admin", "OK");
+            await Navigation.PopAsync();
                 
         }
 
@@ -114,6 +117,28 @@ namespace TimetableApp
                 DisplayAlert("Thông báo", "Bạn không được cấp quyền để thêm lớp", "OK");
             }    
 
+        }
+        
+
+        private void Up_Invoked(object sender, EventArgs e)
+        {
+            if (SinhVien.DangNhap.QuyenAdmin)
+            {
+                SwipeItem swipeItem = (SwipeItem)sender;
+                LopHoc lop = swipeItem.CommandParameter as LopHoc;
+                Navigation.PushAsync(new PageAdThemLop(lop));
+            }
+            else
+            {
+                DisplayAlert("Thông báo", "Bạn không được cấp quyền để sửa lớp", "OK");
+            }
+            
+        }
+        
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            SelectStudentClass(mon.MaMon);
         }
     }
 }
