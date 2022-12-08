@@ -28,6 +28,9 @@
         <Tab Title="Môn" Icon="mon.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageMonHoc}"/>
         </Tab>
+
+        <ShellContent Title="Đăng nhập" Icon="HomeIcon.png"
+                      ContentTemplate="{DataTemplate local:PageThongTin}" />
     </TabBar>
     <TabBar Route="admin" FlyoutDisplayOptions="AsSingleItem">
         <Tab Title="Môn">
