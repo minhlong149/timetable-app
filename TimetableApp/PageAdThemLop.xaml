@@ -24,7 +24,7 @@
                 <Entry x:Name="AddThu" Grid.Row="1" Grid.Column="1" Placeholder="Nhập thứ" Text="{Binding Thu}"
                        FontSize="20" />
                 <Label Grid.Row="2" Grid.Column="0" Text="Tiết: " FontSize="20"/>
-                <Entry x:Name="AddTiet" Grid.Row="3" Grid.Column="1" Placeholder="Nhập số tiết của môn" FontSize="20" Text="{Binding Tiet}"/>
+                <Entry x:Name="AddTiet" Grid.Row="2" Grid.Column="1" Placeholder="Nhập số tiết của môn" FontSize="20" Text="{Binding Tiet}"/>
                 <Label Grid.Row="3" Grid.Column="0" Text="Phòng: " FontSize="20"/>
                 <Entry x:Name="AddPhong" Grid.Row="3" Grid.Column="1" Placeholder="Nhập phòng học" FontSize="20" Text="{Binding Phong}"/>
             </Grid>

@@ -4,7 +4,8 @@
        xmlns:local="clr-namespace:TimetableApp"
        FlyoutBehavior="Disabled"
        x:Class="TimetableApp.MainPage"
-       xmlns:views ="clr-namespace:TimetableApp.Views">
+       xmlns:views ="clr-namespace:TimetableApp.Views"
+       xmlns:ad ="clr-namespace:TimetableApp.AdminViews">
 
     <ShellItem Route="login">
         <ShellContent ContentTemplate="{DataTemplate local:PageDangNhap}"/>
@@ -29,6 +30,12 @@
         </Tab>
     </TabBar>
     <TabBar Route="admin" FlyoutDisplayOptions="AsSingleItem">
-        <ShellContent Title="Môn" ContentTemplate="{DataTemplate local:PageAdminMon}"/>
+        <Tab Title="Môn">
+            <ShellContent ContentTemplate="{DataTemplate local:PageAdminMon}"/>
+        </Tab> 
+        <Tab Title="Thông báo">
+            <ShellContent Title="Thông báo đã gửi" ContentTemplate="{DataTemplate ad:PageLstThongBao}" />
+            <ShellContent Title="Gửi thông báo mới" ContentTemplate="{DataTemplate ad:PageTaoThongBao}"/>
+        </Tab>
     </TabBar>
 </Shell>

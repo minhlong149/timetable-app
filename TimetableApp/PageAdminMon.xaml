@@ -5,25 +5,34 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddSubject" Text="Thêm" Clicked="ToolbarItem_Clicked" Order="Primary" Priority="1"/>
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout>
-                <ListView x:Name="LstMonHoc" ItemTapped="LstMonHoc_ItemTapped" RowHeight="100" >
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid ColumnSpacing="0" RowSpacing="10" >
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                    </Grid.ColumnDefinitions>
+        <ListView x:Name="LstMonHoc" ItemTapped="LstMonHoc_ItemTapped" RowHeight="100" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    
+                    <ViewCell>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems> 
+                                    <SwipeItem x:Name="DelMon" Text="Xóa" BackgroundColor="Red" 
+                                               Invoked="DelMon_Invoked" CommandParameter="{Binding .}"/>
+                                    <SwipeItem x:Name="UpDateMon" Text="Sửa" BackgroundColor="blue" 
+                                               Invoked="UpDateMon_Invoked" CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Grid ColumnSpacing="0" RowSpacing="10" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
                                     
-                                    <Label Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" >
+                            <Label Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" >
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{Binding MaMon}" FontSize="20"/>
@@ -32,14 +41,14 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Grid.Row="1" Grid.Column="0" Text="Tín chỉ: " FontSize="20" VerticalOptions="Center"/>
-                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding SoTC}" FontSize="20" HorizontalOptions="Start" />
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-        </StackLayout>
+                            <Label Grid.Row="1" Grid.Column="0" Text="Tín chỉ: " FontSize="20" VerticalOptions="Center"/>
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding SoTC}" FontSize="20" HorizontalOptions="Start" />
+                        </Grid>
+                        </SwipeView>
+                     </ViewCell>
+                </DataTemplate>
+             </ListView.ItemTemplate>
+         </ListView>
+
     </ContentPage.Content>
 </ContentPage>

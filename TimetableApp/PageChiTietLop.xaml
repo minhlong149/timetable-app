@@ -6,7 +6,7 @@
         <ToolbarItem x:Name="AddLop" Text="Thêm" Clicked="AddLop_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
+
             <CollectionView  x:Name="LstLop" SelectionMode="Single">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"></GridItemsLayout>
@@ -15,19 +15,30 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems>
-                                    <SwipeItem x:Name="Add" Text="Đăng ký" 
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem x:Name="Add" Text="Đăng ký" 
                                                BackgroundColor="Blue" Invoked="Add_Invoked"
                                                CommandParameter="{Binding .}"/>
-                                    <SwipeItem x:Name="Del" Text="Xóa"
+                                <SwipeItem x:Name="Del" Text="Xóa"
                                                BackgroundColor="Red" Invoked="Del_Invoked"
                                                CommandParameter="{Binding .}"/>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-                            <StackLayout HeightRequest="80" Margin="0" Spacing="0">
-                                <!--Thông tin về lớp học-->
-                                <Label  FontSize="15">
+                                <SwipeItem x:Name="Up" Text="Sửa"
+                                            BackgroundColor="Blue" Invoked="Up_Invoked"
+                                            CommandParameter="{Binding .}"/>
+                                           
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <!--Thông tin về lớp học-->
+                            <Grid ColumnSpacing="0" RowSpacing="0" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                          
+                                <Label Grid.Row="0" FontSize="15">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{Binding MaLop}"></Span>
@@ -37,7 +48,7 @@
                                         </Label.FormattedText>
                                 </Label>
 
-                                <Label  FontSize="15">
+                                <Label Grid.Row="1"  FontSize="15">
                                         <Label.FormattedText>
                                             <FormattedString>
                                             <Span Text="GV: "></Span>
@@ -46,7 +57,7 @@
                                         </Label.FormattedText>
                                  </Label>
 
-                                <Label  FontSize="15">
+                                <Label Grid.Row="2" FontSize="15">
                                         <Label.FormattedText>
                                             <FormattedString>
                                             <Span Text="P."></Span>
@@ -55,7 +66,7 @@
                                         </Label.FormattedText>
                                 </Label>
 
-                                <Label  FontSize="15">
+                                <Label Grid.Row="3" FontSize="15">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="Tiết: "/>
@@ -66,13 +77,12 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                            </StackLayout>
+                            </Grid>
                         </SwipeView>
                         
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
-        </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>

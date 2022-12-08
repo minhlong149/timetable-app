@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace TimetableApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PageLopHoc : ContentPage
+    public partial class PageAdminLop : ContentPage
     {
-        public PageLopHoc()
+        public PageAdminLop()
         {
             InitializeComponent();
         }
