@@ -8,9 +8,8 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid ColumnSpacing="0" RowSpacing="10" >
+                            <Grid ColumnSpacing="0" RowSpacing="0" >
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
@@ -19,14 +18,14 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Row="0" Grid.Column="0" Text="Lớp: " FontSize="20" VerticalOptions="Center"/>
-                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding MaLop}" FontSize="20" VerticalOptions="CenterAndExpand"/>
+                                <Label Grid.Row="0" Grid.Column="0" Text="Lớp: " FontSize="15" VerticalOptions="Center"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding MaLop}" FontSize="15" VerticalOptions="CenterAndExpand"/>
 
-                                <Label Grid.Row="1" Grid.Column="0" Text="Nội dung: " FontSize="20" VerticalOptions="Center"/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding NoiDung}" FontSize="20" VerticalOptions="CenterAndExpand"/>
+                                <Label Grid.Row="1" Grid.Column="0" Text="Nội dung: " FontSize="15" VerticalOptions="Center"/>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding NoiDung}" FontSize="15" VerticalOptions="CenterAndExpand"/>
 
-                                <Label Grid.Row="2" Grid.Column="0" Text="Tình trạng: " FontSize="20" VerticalOptions="Center"/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding HoanThanh}" FontSize="20" VerticalOptions="CenterAndExpand"/>
+                                <Label Grid.Row="2" Grid.Column="0" Text="Tình trạng: " FontSize="15" VerticalOptions="Center"/>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding HoanThanh}" FontSize="15" VerticalOptions="CenterAndExpand"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
