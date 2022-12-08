@@ -31,7 +31,7 @@
             <ShellContent ContentTemplate="{DataTemplate local:PageMonHoc}"/>
         </Tab>
 
-        <ShellContent Title="Đăng nhập" Icon="HomeIcon.png"
+        <ShellContent Title="Thông tin" Icon="HomeIcon.png"
                       ContentTemplate="{DataTemplate local:PageThongTin}" />
     </TabBar>
     <TabBar Route="admin" FlyoutDisplayOptions="AsSingleItem">
@@ -41,6 +41,8 @@
         <Tab Title="Thông báo">
             <ShellContent Title="Thông báo đã gửi" ContentTemplate="{DataTemplate ad:PageLstThongBao}" />
             <ShellContent Title="Gửi thông báo mới" ContentTemplate="{DataTemplate ad:PageTaoThongBao}"/>
+            <ShellContent Title="Thông tin" Icon="HomeIcon.png"
+                      ContentTemplate="{DataTemplate local:PageThongTin}" />
         </Tab>
     </TabBar>
 </Shell>
