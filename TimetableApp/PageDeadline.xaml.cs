@@ -23,12 +23,7 @@ namespace TimetableApp
         async void GetDeadlineByMaSVAndMaLop()
         {
             HttpClient httpClient = new HttpClient();
-            var lstLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/LopHoc?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
-            var lstLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstLop);
-            var lstDeadline = "";
-            foreach (var lop in lstLopConverted ) {
-                lstDeadline = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/Homework?MaSV=" + SinhVien.DangNhap.MaSV.ToString() + "&MaLop=" + lop.ToString());
-            }
+            var lstDeadline = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/Homework?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
             var lstDeadlineConverted = JsonConvert.DeserializeObject<List<Deadline>>(lstDeadline);
             LstDeadline.ItemsSource = lstDeadlineConverted;
         }
