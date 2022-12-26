@@ -2,12 +2,24 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimetableApp.PageDeadline">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="THÊM" x:Name="TIAddDeadline" Clicked="TIAddDeadline_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="LstDeadline" ItemSelected="LstDeadline_ItemSelected" RowHeight="70" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems SwipeBehaviorOnInvoked="RemainOpen">
+                                    <SwipeItem x:Name="DelDeadline" Text="Xóa" BackgroundColor="Red" 
+                                               Invoked="DelDeadline_Invoked" CommandParameter="{Binding .}"/>
+                                    <SwipeItem x:Name="UpDateDeadline" Text="Sửa" BackgroundColor="blue" 
+                                               Invoked="UpDateDeadline_Invoked" CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
                             <Grid ColumnSpacing="0" RowSpacing="0" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
@@ -27,6 +39,7 @@
                                 <Label Grid.Row="2" Grid.Column="0" Text="Tình trạng: " FontSize="15" VerticalOptions="Center"/>
                                 <Label Grid.Row="2" Grid.Column="1" Text="{Binding HoanThanh}" FontSize="15" VerticalOptions="CenterAndExpand"/>
                             </Grid>
+                        </SwipeView>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

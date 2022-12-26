@@ -24,9 +24,6 @@
         <Tab Title="Deadline" Icon="dl.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageDeadline }"/>
         </Tab>
-        <Tab Title="Todo" Icon="todo.png">
-            <ShellContent ContentTemplate="{DataTemplate local:PageTodo }"/>
-        </Tab>
         <Tab Title="Môn" Icon="mon.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageMonHoc}"/>
         </Tab>
