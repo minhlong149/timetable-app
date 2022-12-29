@@ -10,8 +10,8 @@ using Xamarin.Forms.Xaml;
 using TimetableApp.Class;
 using System.Net.Http;
 using Newtonsoft.Json;
-namespace TimetableApp
 
+namespace TimetableApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageQLLopHoc : ContentPage

@@ -3,17 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimetableApp.PageQLLopHoc">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="15">
             <Picker x:Name="pckClasses" Title="Pick a class"
                 ItemsSource="{Binding MaLop}"
                 ItemDisplayBinding="{Binding MaLop}" 
                 SelectedIndexChanged="pckClasses_SelectedIndexChanged"
                 FontSize="20" TextColor="Black" />
             
-            <ListView x:Name="lstStudents">
+            <ListView x:Name="lstStudents" IsEnabled="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding TenSV}" Detail="{Binding MaSV}" />
+                        <ViewCell>
+                            <Grid RowDefinitions="auto" ColumnDefinitions="*, Auto" Padding="5,10">
+                                <Label Grid.Column="0" Text="{Binding TenSV}"
+                                       VerticalOptions="CenterAndExpand" TextColor="Black"/>
+                                <Image Grid.Column="1" Source="close.png"/>
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
