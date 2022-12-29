@@ -38,9 +38,8 @@ namespace TimetableApp
                         SinhVien.DangNhap = DSSVDangNhap[0];
                         await DisplayAlert("Success", "Hello, " + SinhVien.DangNhap.TenSV, "OK");
 
-                        string shellRoute = SinhVien.DangNhap.QuyenAdmin ? "//admin" : "//student";
+                        string shellRoute = SinhVien.DangNhap.QuyenAdmin ? "//adminDefault" : "//studentDefault";
                         await Shell.Current.GoToAsync(shellRoute);
-
                     }
                     else
                     {

@@ -12,7 +12,7 @@
     </ShellItem>
     
     <TabBar Route="student" FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="TKB" Icon="tnb.png" >
+        <Tab Route="studentDefault" Title="TKB" Icon="tnb.png" >
             <ShellContent Title="CN" ContentTemplate="{DataTemplate views:PageCN}" />
             <ShellContent Title="Hai" ContentTemplate="{DataTemplate views:PageThuHai}"/>
             <ShellContent Title="Ba" ContentTemplate="{DataTemplate views:PageThuBa}"/>
@@ -34,15 +34,16 @@
         <ShellContent Title="Thông tin" Icon="HomeIcon.png"
                       ContentTemplate="{DataTemplate local:PageThongTin}" />
     </TabBar>
+    
     <TabBar Route="admin" FlyoutDisplayOptions="AsSingleItem">
-        <Tab Title="Môn">
+        <Tab Route="adminDefault" Title="Môn">
             <ShellContent ContentTemplate="{DataTemplate local:PageAdminMon}"/>
         </Tab> 
         <Tab Title="Thông báo">
             <ShellContent Title="Thông báo đã gửi" ContentTemplate="{DataTemplate ad:PageLstThongBao}" />
             <ShellContent Title="Gửi thông báo mới" ContentTemplate="{DataTemplate ad:PageTaoThongBao}"/>
-            <ShellContent Title="Thông tin" Icon="HomeIcon.png"
-                      ContentTemplate="{DataTemplate local:PageThongTin}" />
         </Tab>
+        <ShellContent Title="Thông tin" Icon="HomeIcon.png"
+                      ContentTemplate="{DataTemplate local:PageThongTin}" />
     </TabBar>
 </Shell>
