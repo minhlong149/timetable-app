@@ -38,7 +38,10 @@
     <TabBar Route="admin" FlyoutDisplayOptions="AsSingleItem">
         <Tab Route="adminDefault" Title="Môn">
             <ShellContent ContentTemplate="{DataTemplate local:PageAdminMon}"/>
-        </Tab> 
+        </Tab>
+        <Tab Title="Lớp học">
+            <ShellContent ContentTemplate="{DataTemplate local:PageQLLopHoc}"/>
+        </Tab>
         <Tab Title="Thông báo">
             <ShellContent Title="Thông báo đã gửi" ContentTemplate="{DataTemplate ad:PageLstThongBao}" />
             <ShellContent Title="Gửi thông báo mới" ContentTemplate="{DataTemplate ad:PageTaoThongBao}"/>

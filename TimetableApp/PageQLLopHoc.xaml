@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimetableApp.PageQLLopHoc">
+    <ContentPage.Content>
+        <StackLayout>
+            <Picker x:Name="pckClasses" Title="Pick a class"
+                ItemsSource="{Binding MaLop}"
+                ItemDisplayBinding="{Binding MaLop}" 
+                SelectedIndexChanged="pckClasses_SelectedIndexChanged"
+                FontSize="20" TextColor="Black" />
+            
+            <ListView x:Name="lstStudents">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding TenSV}" Detail="{Binding MaSV}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
