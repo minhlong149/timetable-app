@@ -11,7 +11,7 @@ using TimetableApp.Class;
 using System.Net.Http;
 using Newtonsoft.Json;
 
-namespace TimetableApp
+namespace TimetableApp.QLSV
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageQLLopHoc : ContentPage

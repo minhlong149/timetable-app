@@ -9,7 +9,7 @@ using Xamarin.Forms.Xaml;
 using System.Net.Http;
 using Newtonsoft.Json;
 
-namespace TimetableApp
+namespace TimetableApp.Account
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageDangNhap : ContentPage
