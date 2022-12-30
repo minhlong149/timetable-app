@@ -12,7 +12,7 @@
     </ShellItem>
     
     <TabBar Route="student" FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Route="studentDefault" Title="TKB" Icon="tnb.png" >
+        <Tab Route="studentDefault" Title="TKB" Icon="today.png" >
             <ShellContent Title="CN" ContentTemplate="{DataTemplate views:PageCN}" />
             <ShellContent Title="Hai" ContentTemplate="{DataTemplate views:PageThuHai}"/>
             <ShellContent Title="Ba" ContentTemplate="{DataTemplate views:PageThuBa}"/>
@@ -21,32 +21,29 @@
             <ShellContent Title="Sáu" ContentTemplate="{DataTemplate views:PageThuSau}"/>
             <ShellContent Title="Bảy" ContentTemplate="{DataTemplate views:PageThuBay}"/>
         </Tab>
-        <Tab Title="Deadline" Icon="dl.png">
+        <Tab Title="Deadline" Icon="checklist.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageDeadline }"/>
-        </Tab>
-        <Tab Title="Todo" Icon="todo.png">
-            <ShellContent ContentTemplate="{DataTemplate local:PageTodo }"/>
         </Tab>
         <Tab Title="Môn" Icon="mon.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageMonHoc}"/>
         </Tab>
 
-        <ShellContent Title="Thông tin" Icon="HomeIcon.png"
+        <ShellContent Title="Thông tin" Icon="person.png"
                       ContentTemplate="{DataTemplate local:PageThongTin}" />
     </TabBar>
     
     <TabBar Route="admin" FlyoutDisplayOptions="AsSingleItem">
-        <Tab Route="adminDefault" Title="Môn">
+        <Tab Route="adminDefault" Title="Môn" Icon="edit_calendar.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageAdminMon}"/>
         </Tab>
-        <Tab Title="Lớp học">
+        <Tab Title="Sinh viên">
             <ShellContent ContentTemplate="{DataTemplate local:PageQLLopHoc}"/>
         </Tab>
-        <Tab Title="Thông báo">
+        <Tab Title="Thông báo" Icon="campaign.png">
             <ShellContent Title="Thông báo đã gửi" ContentTemplate="{DataTemplate ad:PageLstThongBao}" />
             <ShellContent Title="Gửi thông báo mới" ContentTemplate="{DataTemplate ad:PageTaoThongBao}"/>
         </Tab>
-        <ShellContent Title="Thông tin" Icon="HomeIcon.png"
+        <ShellContent Title="Thông tin" Icon="person.png"
                       ContentTemplate="{DataTemplate local:PageThongTin}" />
     </TabBar>
 </Shell>
