@@ -4,19 +4,25 @@
              x:Class="TimetableApp.QLSV.PageQLLopHoc">
     <ContentPage.Content>
         <StackLayout Margin="15">
-            <Picker x:Name="pckClasses" Title="Pick a class"
-                ItemsSource="{Binding MaLop}"
-                ItemDisplayBinding="{Binding MaLop}" 
-                SelectedIndexChanged="pckClasses_SelectedIndexChanged"
-                FontSize="20" TextColor="Black" />
-            
+            <Grid RowDefinitions="auto" ColumnDefinitions="2*, *">
+                <Picker x:Name="pckSubjects" Title="Chọn môn học" Grid.Row="0" Grid.Column="0"
+                        ItemsSource="{Binding TenMon}" ItemDisplayBinding="{Binding TenMon}"
+                        SelectedIndexChanged="pckSubjects_SelectedIndexChanged"
+                        FontSize="20" TextColor="Black" />
+                
+                <Picker x:Name="pckClasses" Title="Chọn lớp học" Grid.Row="0" Grid.Column="1"
+                        ItemsSource="{Binding MaLop}" ItemDisplayBinding="{Binding MaLop}"
+                        SelectedIndexChanged="pckClasses_SelectedIndexChanged"
+                        FontSize="20" TextColor="Black" />
+            </Grid>
+
             <ListView x:Name="lstStudents" SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid RowDefinitions="auto" ColumnDefinitions="*, Auto" Padding="5,10">
                                 <Label Grid.Column="0" Text="{Binding TenSV}"
-                                       VerticalOptions="CenterAndExpand" TextColor="Black"/>
+                                       VerticalOptions="CenterAndExpand" TextColor="Black" FontSize="18"/>
                                 <ImageButton Source="close.png" Grid.Column="1" BorderColor="Transparent" BackgroundColor="Transparent"
                                              Clicked="DeleteStudent" CommandParameter="{Binding MaSV}" />
                             </Grid>

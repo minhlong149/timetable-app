@@ -17,33 +17,42 @@ namespace TimetableApp.QLSV
     public partial class PageQLLopHoc : ContentPage
     {
         HttpClient client;
+        List<MonHoc> subjectList;
+        List<LopHoc> classList;
+
         public PageQLLopHoc()
         {
             InitializeComponent();
             client = new HttpClient();
+            //subjectList = new List<MonHoc>();
+            //classList = new List<LopHoc>();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             PopulatingPicker();
         }
 
         private async void PopulatingPicker()
         {
-            try
-            {
-                string uri = $"http://lno-ie307.somee.com/api/LopHoc";
-                List<LopHoc> classes = new List<LopHoc>();
+            subjectList = await GetSubjectList();
+            pckSubjects.ItemsSource = subjectList;
 
-                HttpResponseMessage response = await client.GetAsync(uri);
-                if (response.IsSuccessStatusCode)
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    classes = JsonConvert.DeserializeObject<List<LopHoc>>(content);
-                }
+            classList = await GetClassList();
+            pckClasses.ItemsSource = null;
+        }
 
-                pckClasses.ItemsSource = classes;
-            }
-            catch (Exception ex)
+        private void pckSubjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Picker picker = (Picker)sender;
+            int selectedIndex = picker.SelectedIndex;
+            if (selectedIndex != -1)
             {
-                Console.WriteLine(@"\tERROR {0}", ex.Message);
-                pckClasses.ItemsSource = new List<LopHoc>();
+                MonHoc selectedSubject = (MonHoc)picker.SelectedItem;
+                pckClasses.ItemsSource = null;
+                pckClasses.ItemsSource = classList.FindAll(lopHoc => lopHoc.TenMon == selectedSubject.TenMon);
+                Console.WriteLine(selectedSubject.MaMon);
             }
         }
 
@@ -87,6 +96,46 @@ namespace TimetableApp.QLSV
         {
             ImageButton imgBtn = (ImageButton)sender;
             Console.WriteLine(imgBtn.CommandParameter);
+        }
+
+        private async Task<List<LopHoc>> GetClassList()
+        {
+            try
+            {
+                string uri = $"http://lno-ie307.somee.com/api/LopHoc";
+                HttpResponseMessage response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<LopHoc>>(content);
+                }
+                return new List<LopHoc>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(@"\tERROR {0}", ex.Message);
+                return new List<LopHoc>();
+            }
+        }
+
+        private async Task<List<MonHoc>> GetSubjectList()
+        {
+            try
+            {
+                string uri = $"http://lno-ie307.somee.com/api/MonHoc";
+                HttpResponseMessage response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<MonHoc>>(content);
+                }
+                return new List<MonHoc>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(@"\tERROR {0}", ex.Message);
+                return new List<MonHoc>();
+            }
         }
     }
 }
