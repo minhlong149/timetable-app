@@ -10,14 +10,15 @@
                 SelectedIndexChanged="pckClasses_SelectedIndexChanged"
                 FontSize="20" TextColor="Black" />
             
-            <ListView x:Name="lstStudents" IsEnabled="False">
+            <ListView x:Name="lstStudents" SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid RowDefinitions="auto" ColumnDefinitions="*, Auto" Padding="5,10">
                                 <Label Grid.Column="0" Text="{Binding TenSV}"
                                        VerticalOptions="CenterAndExpand" TextColor="Black"/>
-                                <Image Grid.Column="1" Source="close.png"/>
+                                <ImageButton Source="close.png" Grid.Column="1" BorderColor="Transparent" BackgroundColor="Transparent"
+                                             Clicked="DeleteStudent" CommandParameter="{Binding MaSV}" />
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

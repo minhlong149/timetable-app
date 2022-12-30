@@ -82,5 +82,11 @@ namespace TimetableApp
                 return new List<SinhVien>();
             }
         }
+
+        private void DeleteStudent(object sender, EventArgs e)
+        {
+            ImageButton imgBtn = (ImageButton)sender;
+            Console.WriteLine(imgBtn.CommandParameter);
+        }
     }
 }
