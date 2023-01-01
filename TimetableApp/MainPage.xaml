@@ -26,7 +26,7 @@
         <Tab Title="Deadline" Icon="checklist.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageDeadline }"/>
         </Tab>
-        <Tab Title="Môn" Icon="mon.png">
+        <Tab Title="Môn" Icon="add_notes.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageMonHoc}"/>
         </Tab>
 
@@ -38,7 +38,7 @@
         <Tab Route="adminDefault" Title="Môn" Icon="edit_calendar.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageAdminMon}"/>
         </Tab>
-        <Tab Title="Sinh viên">
+        <Tab Title="Sinh viên" Icon="edit_note">
             <ShellContent ContentTemplate="{DataTemplate QLSV:PageQLLopHoc}"/>
         </Tab>
         <Tab Title="Thông báo" Icon="campaign.png">
