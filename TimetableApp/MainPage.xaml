@@ -5,14 +5,16 @@
        FlyoutBehavior="Disabled"
        x:Class="TimetableApp.MainPage"
        xmlns:views ="clr-namespace:TimetableApp.Views"
-       xmlns:ad ="clr-namespace:TimetableApp.AdminViews">
+       xmlns:ad ="clr-namespace:TimetableApp.AdminViews"
+       xmlns:account="clr-namespace:TimetableApp.Account"
+       xmlns:QLSV="clr-namespace:TimetableApp.QLSV">
 
     <ShellItem Route="login">
-        <ShellContent ContentTemplate="{DataTemplate local:PageDangNhap}"/>
+        <ShellContent ContentTemplate="{DataTemplate account:PageDangNhap}"/>
     </ShellItem>
     
     <TabBar Route="student" FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="TKB" Icon="tnb.png" >
+        <Tab Route="studentDefault" Title="TKB" Icon="today.png" >
             <ShellContent Title="CN" ContentTemplate="{DataTemplate views:PageCN}" />
             <ShellContent Title="Hai" ContentTemplate="{DataTemplate views:PageThuHai}"/>
             <ShellContent Title="Ba" ContentTemplate="{DataTemplate views:PageThuBa}"/>
@@ -21,25 +23,29 @@
             <ShellContent Title="Sáu" ContentTemplate="{DataTemplate views:PageThuSau}"/>
             <ShellContent Title="Bảy" ContentTemplate="{DataTemplate views:PageThuBay}"/>
         </Tab>
-        <Tab Title="Deadline" Icon="dl.png">
+        <Tab Title="Deadline" Icon="checklist.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageDeadline }"/>
         </Tab>
-        <Tab Title="Môn" Icon="mon.png">
+        <Tab Title="Môn" Icon="add_notes.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageMonHoc}"/>
         </Tab>
 
-        <ShellContent Title="Thông tin" Icon="HomeIcon.png"
-                      ContentTemplate="{DataTemplate local:PageThongTin}" />
+        <ShellContent Title="Thông tin" Icon="person.png"
+                      ContentTemplate="{DataTemplate account:PageThongTin}" />
     </TabBar>
+    
     <TabBar Route="admin" FlyoutDisplayOptions="AsSingleItem">
-        <Tab Title="Môn">
+        <Tab Route="adminDefault" Title="Môn" Icon="edit_calendar.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageAdminMon}"/>
-        </Tab> 
-        <Tab Title="Thông báo">
+        </Tab>
+        <Tab Title="Sinh viên" Icon="edit_note">
+            <ShellContent ContentTemplate="{DataTemplate QLSV:PageQLLopHoc}"/>
+        </Tab>
+        <Tab Title="Thông báo" Icon="campaign.png">
             <ShellContent Title="Thông báo đã gửi" ContentTemplate="{DataTemplate ad:PageLstThongBao}" />
             <ShellContent Title="Gửi thông báo mới" ContentTemplate="{DataTemplate ad:PageTaoThongBao}"/>
-            <ShellContent Title="Thông tin" Icon="HomeIcon.png"
-                      ContentTemplate="{DataTemplate local:PageThongTin}" />
         </Tab>
+        <ShellContent Title="Thông tin" Icon="person.png"
+                      ContentTemplate="{DataTemplate account:PageThongTin}" />
     </TabBar>
 </Shell>
