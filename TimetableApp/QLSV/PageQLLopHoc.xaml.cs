@@ -24,43 +24,82 @@ namespace TimetableApp.QLSV
         {
             InitializeComponent();
             client = new HttpClient();
-            //subjectList = new List<MonHoc>();
-            //classList = new List<LopHoc>();
+            subjectList = new List<MonHoc>();
+            classList = new List<LopHoc>();
+
+            PopulatingPicker();
+            RefreshData();
         }
 
-        protected override void OnAppearing()
+        public void RefreshData()
         {
-            base.OnAppearing();
-            PopulatingPicker();
+            lstStudents.RefreshCommand = new Command(() =>
+            {
+                PopulatingPicker();
+                lstStudents.IsRefreshing = false;
+            });
         }
 
         private async void PopulatingPicker()
         {
-            subjectList = await GetSubjectList();
-            pckSubjects.ItemsSource = subjectList;
+            // Save the picker index before update item source
+            int currentSubjectIndex = pckSubjects.SelectedIndex;
+            int currentClassIndex = pckClasses.SelectedIndex;
 
+            await updateSubjectPicker(currentSubjectIndex);
+            await updatClassPicker(currentClassIndex);
+            await updateStudentList(pckClasses);
+        }
+
+        private async Task updateSubjectPicker(int currentSubjectIndex = -1)
+        {
+            // Update subject picker's item source
+            subjectList = await GetSubjectList();
+            pckSubjects.ItemsSource = null;
+            pckSubjects.ItemsSource = subjectList;
+            pckSubjects.SelectedIndex = currentSubjectIndex;
+        }
+
+        private async Task updatClassPicker(int currentClassIndex = -1)
+        {
+            // Update class pickersubject picker
             classList = await GetClassList();
             pckClasses.ItemsSource = null;
+
+            // Only update class picker if a subject has been selected
+            filterClassListBySubject(pckSubjects);
+
+            pckClasses.SelectedIndex = currentClassIndex;
         }
 
         private void pckSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             Picker picker = (Picker)sender;
+            filterClassListBySubject(picker);
+        }
+
+        private void filterClassListBySubject(Picker picker)
+        {
             int selectedIndex = picker.SelectedIndex;
             if (selectedIndex != -1)
             {
                 MonHoc selectedSubject = (MonHoc)picker.SelectedItem;
                 pckClasses.ItemsSource = null;
                 pckClasses.ItemsSource = classList.FindAll(lopHoc => lopHoc.TenMon == selectedSubject.TenMon);
-                Console.WriteLine(selectedSubject.MaMon);
             }
         }
 
         private async void pckClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
             Picker picker = (Picker)sender;
+            await updateStudentList(picker);
+        }
+
+        private async Task updateStudentList(Picker picker)
+        {
             int selectedIndex = picker.SelectedIndex;
 
+            // Update listview if class has already been selected
             if (selectedIndex != -1)
             {
                 LopHoc selectedClass = (LopHoc)picker.SelectedItem;

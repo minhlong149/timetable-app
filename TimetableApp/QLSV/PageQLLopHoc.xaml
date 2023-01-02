@@ -20,7 +20,8 @@
                         FontSize="20" TextColor="Black" />
             </Grid>
 
-            <ListView x:Name="lstStudents" SelectionMode="None">
+            <ListView x:Name="lstStudents" SelectionMode="None"
+                      IsPullToRefreshEnabled="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
