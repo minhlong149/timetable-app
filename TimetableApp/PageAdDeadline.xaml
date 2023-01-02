@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TimetableApp.AdminViews.PageTaoThongBao"
-             Title="Tạo thông báo mới">
+             x:Class="TimetableApp.PageAdDeadline">
     <ContentPage.Content>
         <StackLayout>
             <Grid Padding="10">
@@ -15,14 +14,14 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Text="Mã sinh viên: " FontSize="20"/>
-                <Entry x:Name="AddMaSV" Grid.Row="0" Grid.Column="1" Placeholder="Nhập mã sinh viên" FontSize="20" Text="{Binding MaSV}"/>
+                <Label Grid.Row="0" Grid.Column="0" Text="Mã lớp học: " FontSize="20"/>
+                <Entry x:Name="AddMaLop" Grid.Row="0" Grid.Column="1" Placeholder="Nhập mã lớp học" FontSize="20" Text="{Binding MaLop}"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Text="Nội dung: " FontSize="20"/>
                 <Entry x:Name="AddNoiDung" Grid.Row="1" Grid.Column="1" Placeholder="Nhập nội dung" FontSize="20" Text="{Binding NoiDung}"/>
 
             </Grid>
-            <Button x:Name="Save" Text="TẠO" Clicked="Save_Clicked"
+            <Button x:Name="Save" Text="LƯU" Clicked="Save_Clicked"
                     HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
         </StackLayout>
     </ContentPage.Content>
