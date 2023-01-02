@@ -6,7 +6,24 @@
         <ListView x:Name="LstThongBao">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding NoiDung}"/>
+                    <ViewCell>
+                    <Grid ColumnSpacing="0" RowSpacing="0" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Text="Nội dung: " FontSize="15" VerticalOptions="Center"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding NoiDung}" FontSize="15" VerticalOptions="CenterAndExpand"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Text="Thông báo đến: " FontSize="15" VerticalOptions="Center"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding MaSV}" FontSize="15" VerticalOptions="CenterAndExpand"/>
+                    </Grid>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
