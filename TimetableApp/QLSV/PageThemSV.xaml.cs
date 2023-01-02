@@ -7,14 +7,19 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace TimetableApp
+namespace TimetableApp.QLSV
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PageTodo : ContentPage
+    public partial class PageThemSV : ContentPage
     {
-        public PageTodo()
+        public PageThemSV()
         {
             InitializeComponent();
+        }
+        public PageThemSV(string MaLop)
+        {
+            InitializeComponent();
+            txtClass.Text = MaLop;
         }
     }
 }

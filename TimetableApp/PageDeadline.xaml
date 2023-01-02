@@ -7,43 +7,80 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="LstDeadline" ItemSelected="LstDeadline_ItemSelected" RowHeight="70" >
-                <ListView.ItemTemplate>
+            <CollectionView  x:Name="LstDeadline">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems SwipeBehaviorOnInvoked="RemainOpen">
-                                    <SwipeItem x:Name="DelDeadline" Text="Xóa" BackgroundColor="Red" 
-                                               Invoked="DelDeadline_Invoked" CommandParameter="{Binding .}"/>
-                                    <SwipeItem x:Name="UpDateDeadline" Text="Sửa" BackgroundColor="blue" 
-                                               Invoked="UpDateDeadline_Invoked" CommandParameter="{Binding .}"/>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-                            <Grid ColumnSpacing="0" RowSpacing="0" >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Row="0" Grid.Column="0" Text="Lớp: " FontSize="15" VerticalOptions="Center"/>
-                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding MaLop}" FontSize="15" VerticalOptions="CenterAndExpand"/>
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,10,10,10">
+                            <Frame HasShadow="True" BackgroundColor="White" CornerRadius="20">
+                                <Grid ColumnSpacing="0" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Padding="15,10,10,15"
+                                           HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Margin="-20,-20,-20,0" BackgroundColor="#08457E">
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding MaLop}" TextColor="White" FontAttributes="Bold" FontSize="20"/> 
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Frame>
 
-                                <Label Grid.Row="1" Grid.Column="0" Text="Nội dung: " FontSize="15" VerticalOptions="Center"/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding NoiDung}" FontSize="15" VerticalOptions="CenterAndExpand"/>
+                                    <Label Grid.Row="1" Grid.ColumnSpan="4">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding TieuDe}" FontSize="25" TextColor="#cd572c" FontAttributes="Bold"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
 
-                                <Label Grid.Row="2" Grid.Column="0" Text="Tình trạng: " FontSize="15" VerticalOptions="Center"/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding HoanThanh}" FontSize="15" VerticalOptions="CenterAndExpand"/>
-                            </Grid>
-                        </SwipeView>
-                        </ViewCell>
+                                    <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Hạn: " TextColor="#08457E" FontSize="20" FontAttributes="Bold"></Span>
+                                                <Span Text="{Binding ThoiGian}" FontSize="20" TextColor="#cd572c"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Nội dung: " TextColor="#08457E" FontSize="20" FontAttributes="Bold"/>
+                                                <Span Text="{Binding NoiDung}" FontSize="20" TextColor="#cd572c"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Tình trạng: " TextColor="#08457E" FontSize="20" FontAttributes="Bold"/>
+                                                <Span Text="{Binding HoanThanh}" FontSize="20" TextColor="#cd572c"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

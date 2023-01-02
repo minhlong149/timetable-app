@@ -9,24 +9,24 @@ using TimetableApp.Class;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace TimetableApp.AdminViews
+namespace TimetableApp
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PageLstThongBao : ContentPage
-    {
-        public PageLstThongBao()
-        {
-            InitializeComponent();
-            Title = "Các thông báo đã gửi";
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class PageThongBao : ContentPage
+	{
+		public PageThongBao ()
+		{
+			InitializeComponent ();
+            Title = "Thông báo";
             SelectAllNotification();
         }
         async void SelectAllNotification()
         {
+
             HttpClient httpClient = new HttpClient();
-            var lstTB = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/Notification");
+            var lstTB = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/Notification?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
             var lstTBConverted = JsonConvert.DeserializeObject<List<ThongBao>>(lstTB);
             LstThongBao.ItemsSource = lstTBConverted;
-
         }
     }
 }

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimetableApp.PageThongBao">
+    <ContentPage.Content>
+        <ListView x:Name="LstThongBao" RowHeight="100">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="0" ColumnSpacing="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding TieuDe}" FontSize="20" VerticalOptions="CenterAndExpand"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" Text="Nội dung: " FontSize="15" VerticalOptions="Center"/>
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding NoiDung}" FontSize="15" VerticalOptions="CenterAndExpand"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" Text="Thông báo đến: " FontSize="15" VerticalOptions="Center"/>
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding MaSV}" FontSize="15" VerticalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

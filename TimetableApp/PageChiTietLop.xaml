@@ -7,14 +7,14 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
 
-            <CollectionView  x:Name="LstLop" SelectionMode="Single">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"></GridItemsLayout>
-                </CollectionView.ItemsLayout>
+        <CollectionView  x:Name="LstLop" SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"></GridItemsLayout>
+            </CollectionView.ItemsLayout>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <SwipeView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
                         <SwipeView.RightItems>
                             <SwipeItems>
                                 <SwipeItem x:Name="Add" Text="Đăng ký" 
@@ -26,63 +26,63 @@
                                 <SwipeItem x:Name="Up" Text="Sửa"
                                             BackgroundColor="Blue" Invoked="Up_Invoked"
                                             CommandParameter="{Binding .}"/>
-                                           
+
                             </SwipeItems>
                         </SwipeView.RightItems>
                         <!--Thông tin về lớp học-->
-                            <Grid ColumnSpacing="0" RowSpacing="0" >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                          
-                                <Label Grid.Row="0" FontSize="15">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding MaLop}"></Span>
-                                                <Span Text="_" />
-                                                <Span x:Name="Mon" Text="{Binding TenMon}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                </Label>
+                        <Grid ColumnSpacing="0" RowSpacing="0" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
 
-                                <Label Grid.Row="1"  FontSize="15">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                            <Span Text="GV: "></Span>
-                                            <Span Text="{Binding GiaoVien}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                 </Label>
+                            <Label Grid.Row="0" FontSize="15">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding MaLop}"></Span>
+                                        <Span Text="_" />
+                                        <Span x:Name="Mon" Text="{Binding TenMon}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
-                                <Label Grid.Row="2" FontSize="15">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                            <Span Text="P."></Span>
-                                            <Span Text="{Binding PhongHoc}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                </Label>
+                            <Label Grid.Row="1"  FontSize="15">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="GV: "></Span>
+                                        <Span Text="{Binding GiaoVien}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
-                                <Label Grid.Row="3" FontSize="15">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="Tiết: "/>
-                                            <Span Text="{Binding Tiet}"/>
-                                            <Span Text="       "/>
-                                            <Span Text="Thứ "/>
-                                            <Span Text="{Binding Thu}"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </Grid>
-                        </SwipeView>
-                        
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                            <Label Grid.Row="2" FontSize="15">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="P."></Span>
+                                        <Span Text="{Binding PhongHoc}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label Grid.Row="3" FontSize="15">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Tiết: "/>
+                                        <Span Text="{Binding Tiet}"/>
+                                        <Span Text="       "/>
+                                        <Span Text="Thứ "/>
+                                        <Span Text="{Binding Thu}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </SwipeView>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
     </ContentPage.Content>
 </ContentPage>

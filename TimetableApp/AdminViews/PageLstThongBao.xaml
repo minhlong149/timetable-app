@@ -3,26 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimetableApp.AdminViews.PageLstThongBao">
     <ContentPage.Content>
-        <ListView x:Name="LstThongBao">
+        <ListView x:Name="LstThongBao" RowHeight="100">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                    <Grid ColumnSpacing="0" RowSpacing="0" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid ColumnSpacing="0" RowSpacing="0" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding TieuDe}" FontSize="25" VerticalOptions="CenterAndExpand"/>
 
-                        <Label Grid.Row="0" Grid.Column="0" Text="Nội dung: " FontSize="15" VerticalOptions="Center"/>
-                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding NoiDung}" FontSize="15" VerticalOptions="CenterAndExpand"/>
+                            <Label Grid.Row="1" Grid.Column="0" Text="Nội dung: " FontSize="17" VerticalOptions="Center"/>
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding NoiDung}" FontSize="17" VerticalOptions="CenterAndExpand"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" Text="Thông báo đến: " FontSize="15" VerticalOptions="Center"/>
-                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding MaSV}" FontSize="15" VerticalOptions="CenterAndExpand"/>
-                    </Grid>
+                            <Label Grid.Row="2" Grid.Column="0" Text="Thông báo đến: " FontSize="17" VerticalOptions="Center"/>
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding MaSV}" FontSize="17" VerticalOptions="CenterAndExpand"/>
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

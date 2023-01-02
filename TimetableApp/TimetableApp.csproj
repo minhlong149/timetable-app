@@ -38,16 +38,25 @@
     <EmbeddedResource Update="PageAdThemMon.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="PageChiTietLop.xaml">
+    <EmbeddedResource Update="Account\PageDangNhap.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="PageDangNhap.xaml">
+    <EmbeddedResource Update="PageChiTietLop.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="PageMonHoc.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="PageThongTin.xaml">
+    <EmbeddedResource Update="PageThongBao.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="QLSV\PageQLLopHoc.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Account\PageThongTin.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="QLSV\PageThemSV.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PageCN.xaml">
@@ -71,13 +80,7 @@
     <EmbeddedResource Update="Views\PageThuTu.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-	<EmbeddedResource Update="PageChiTietDeadline.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
 	<EmbeddedResource Update="PageDeadline.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
-	<EmbeddedResource Update="PageTodo.xaml">
 		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>
   </ItemGroup>

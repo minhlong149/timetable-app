@@ -9,7 +9,7 @@ using Xamarin.Forms.Xaml;
 using System.Net.Http;
 using Newtonsoft.Json;
 
-namespace TimetableApp
+namespace TimetableApp.Account
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageDangNhap : ContentPage
@@ -38,9 +38,8 @@ namespace TimetableApp
                         SinhVien.DangNhap = DSSVDangNhap[0];
                         await DisplayAlert("Success", "Hello, " + SinhVien.DangNhap.TenSV, "OK");
 
-                        string shellRoute = SinhVien.DangNhap.QuyenAdmin ? "//admin" : "//student";
+                        string shellRoute = SinhVien.DangNhap.QuyenAdmin ? "//adminDefault" : "//studentDefault";
                         await Shell.Current.GoToAsync(shellRoute);
-
                     }
                     else
                     {

@@ -24,7 +24,7 @@ namespace TimetableApp
             Title = monHoc.TenMon;
             SelectStudentClass(monHoc.MaMon);
             mon = monHoc;
-            
+
         }
         async void SelectStudentClass(string mamon)
         {
@@ -33,7 +33,7 @@ namespace TimetableApp
             var lstLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/LopHoc?MaMon=" + mamon.ToString());
             var lstLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstLop);
             //So sánh danh sách tất cả các môn với danh sách các môn => chỉ chọn hiện thị những môn chưa chưa đăng ký
-           
+
             LstLop.ItemsSource = lstLopConverted;
         }
 
@@ -82,7 +82,7 @@ namespace TimetableApp
         }
 
 
-   //ADMIN
+        //ADMIN
         private async void Del_Invoked(object sender, EventArgs e)
         {
             if (SinhVien.DangNhap.QuyenAdmin)
@@ -103,22 +103,22 @@ namespace TimetableApp
                     await DisplayAlert("Thông báo", "Đã có lỗi xảy ra!\tVui lòng thử lại", "OK");
             }
             else
-               await DisplayAlert("Thông báo", "Bạn không được cấp quyền xóa!\t Vui lòng liên hệ admin", "OK");
+                await DisplayAlert("Thông báo", "Bạn không được cấp quyền xóa!\t Vui lòng liên hệ admin", "OK");
             await Navigation.PopAsync();
-                
+
         }
 
         private void AddLop_Clicked(object sender, EventArgs e)
         {
-            if(SinhVien.DangNhap.QuyenAdmin)
+            if (SinhVien.DangNhap.QuyenAdmin)
                 Navigation.PushAsync(new PageAdThemLop(mon));
             else
             {
                 DisplayAlert("Thông báo", "Bạn không được cấp quyền để thêm lớp", "OK");
-            }    
+            }
 
         }
-        
+
 
         private void Up_Invoked(object sender, EventArgs e)
         {
@@ -132,9 +132,9 @@ namespace TimetableApp
             {
                 DisplayAlert("Thông báo", "Bạn không được cấp quyền để sửa lớp", "OK");
             }
-            
+
         }
-        
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
