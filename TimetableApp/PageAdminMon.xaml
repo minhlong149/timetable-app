@@ -7,48 +7,42 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <ListView x:Name="LstMonHoc" ItemTapped="LstMonHoc_ItemTapped" RowHeight="100" >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    
-                    <ViewCell>
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems> 
-                                    <SwipeItem x:Name="DelMon" Text="Xóa" BackgroundColor="Red" 
-                                               Invoked="DelMon_Invoked" CommandParameter="{Binding .}"/>
-                                    <SwipeItem x:Name="UpDateMon" Text="Sửa" BackgroundColor="blue" 
-                                               Invoked="UpDateMon_Invoked" CommandParameter="{Binding .}"/>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-
-                            <Grid ColumnSpacing="0" RowSpacing="10" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="2*"/>
-                            </Grid.ColumnDefinitions>
-                                    
-                            <Label Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" >
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding MaMon}" FontSize="20"/>
-                                                <Span Text="_" FontSize="20"/>
-                                                <Span Text="{Binding TenMon}" FontSize="20"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                            <Label Grid.Row="1" Grid.Column="0" Text="Tín chỉ: " FontSize="20" VerticalOptions="Center"/>
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding SoTC}" FontSize="20" HorizontalOptions="Start" />
-                        </Grid>
-                        </SwipeView>
-                     </ViewCell>
-                </DataTemplate>
-             </ListView.ItemTemplate>
-         </ListView>
-
+        <StackLayout>
+            <ListView x:Name="LstMonHoc" ItemTapped="LstMonHoc_ItemTapped" HasUnevenRows="True" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,10,10,10">
+                                    <Frame HasShadow="True" BackgroundColor="White" CornerRadius="20" >
+                                        <Grid ColumnSpacing="0" RowSpacing="10" >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" TextColor="#08457E" >
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding MaMon}" FontSize="20" FontAttributes="Bold"/>
+                                                        <Span Text="_" FontSize="20" FontAttributes="Bold"/>
+                                                        <Span Text="{Binding TenMon}" FontSize="20" FontAttributes="Bold"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Grid.Row="1" Grid.Column="0" Text="Tín chỉ: " FontSize="20" VerticalOptions="Center" FontAttributes="Italic" TextColor="#08457E"/>
+                                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding SoTC}" FontSize="20" VerticalOptions="CenterAndExpand" TextColor="#08457E" />
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

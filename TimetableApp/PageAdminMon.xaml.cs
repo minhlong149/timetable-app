@@ -35,10 +35,10 @@ namespace TimetableApp
         private void LstMonHoc_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             MonHoc monHoc = (MonHoc)e.Item;
-            Navigation.PushAsync(new PageChiTietLop(monHoc));
+            Navigation.PushAsync(new PageAdminLop(monHoc));
         }
 
-        private async void DelMon_Invoked(object sender, EventArgs e)
+      /*  private async void DelMon_Invoked(object sender, EventArgs e)
         {
                SwipeItem swipeItem = (SwipeItem)sender;
                 MonHoc mon = swipeItem.CommandParameter as MonHoc;
@@ -58,7 +58,7 @@ namespace TimetableApp
             SwipeItem swipeItem = (SwipeItem)sender;
             MonHoc mon = swipeItem.CommandParameter as MonHoc;
             Navigation.PushAsync(new PageAdThemMon(mon));
-        }
+        }*/
         protected override void OnAppearing()
         {
             base.OnAppearing();
