@@ -16,13 +16,6 @@
     <TabBar Route="student" FlyoutDisplayOptions="AsMultipleItems">
         <Tab Route="studentDefault" Title="TKB" Icon="today.png" >
             <ShellContent ContentTemplate="{DataTemplate views:PageSchedule}" />
-            <!--#region <ShellContent Title="CN" ContentTemplate="{DataTemplate views:PageCN}"/>
-            <ShellContent Title="Hai" ContentTemplate="{DataTemplate views:PageThuHai}"/>
-            <ShellContent Title="Ba" ContentTemplate="{DataTemplate views:PageThuBa}"/>
-            <ShellContent Title="Tư" ContentTemplate="{DataTemplate views:PageThuTu}"/>
-            <ShellContent Title="Năm" ContentTemplate="{DataTemplate views:PageThuNam}"/>
-            <ShellContent Title="Sáu" ContentTemplate="{DataTemplate views:PageThuSau}"/>
-            <ShellContent Title="Bảy" ContentTemplate="{DataTemplate views:PageThuBay}"/>-->
         </Tab>
         <Tab Title="Deadline" Icon="checklist.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageDeadline }"/>
