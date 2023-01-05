@@ -11632,7 +11632,7 @@ namespace TimetableApp.Droid
 			public const int abc_vector_test = 2131165275;
 			
 			// aapt resource value: 0x7F07005C
-			public const int avd_hide_password = 2131165276;
+			public const int add_notes = 2131165276;
 			
 			// aapt resource value: 0x7F07005D
 			public const int avd_hide_password = 2131165277;
