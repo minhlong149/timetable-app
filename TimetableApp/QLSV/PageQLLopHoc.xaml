@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimetableApp.QLSV.PageQLLopHoc">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Example Item" Clicked="ToolbarItem_Clicked"
+                 Order="Primary" Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Margin="15">
+            <Grid RowDefinitions="auto" ColumnDefinitions="2*, *">
+                <Picker x:Name="pckSubjects" Title="Chọn môn học" Grid.Row="0" Grid.Column="0"
+                        ItemsSource="{Binding TenMon}" ItemDisplayBinding="{Binding TenMon}"
+                        SelectedIndexChanged="pckSubjects_SelectedIndexChanged"
+                        FontSize="20" TextColor="Black" />
+                
+                <Picker x:Name="pckClasses" Title="Chọn lớp học" Grid.Row="0" Grid.Column="1"
+                        ItemsSource="{Binding MaLop}" ItemDisplayBinding="{Binding MaLop}"
+                        SelectedIndexChanged="pckClasses_SelectedIndexChanged"
+                        FontSize="20" TextColor="Black" />
+            </Grid>
+
+            <ListView x:Name="lstStudents" SelectionMode="None"
+                      IsPullToRefreshEnabled="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid RowDefinitions="auto" ColumnDefinitions="*, Auto" Padding="5,10">
+                                <Label Grid.Column="0" Text="{Binding TenSV}"
+                                       VerticalOptions="CenterAndExpand" TextColor="Black" FontSize="18"/>
+                                <ImageButton Source="close.png" Grid.Column="1" BorderColor="Transparent" BackgroundColor="Transparent"
+                                             Clicked="DeleteStudent" CommandParameter="{Binding MaSV}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
