@@ -26,9 +26,11 @@
                 <Label Grid.Row="2" Grid.Column="0" Text="Tiết: " FontSize="20"/>
                 <Entry x:Name="AddTiet" Grid.Row="2" Grid.Column="1" Placeholder="Nhập số tiết của môn" FontSize="20" Text="{Binding Tiet}"/>
                 <Label Grid.Row="3" Grid.Column="0" Text="Phòng: " FontSize="20"/> 
-                <Entry x:Name="AddPhong" Grid.Row="3" Grid.Column="1" Placeholder="Nhập phòng học" FontSize="20" Text="{Binding Phong}"
-/>
-                <!--#region  ItemsSource="{Binding Phong}" ItemDisplayBinding="{Binding Phong}" SelectedIndexChanged="AddPhong_SelectedIndexChanged"-->
+                <!--<Entry x:Name="AddPhong" Grid.Row="3" Grid.Column="1" Placeholder="Nhập phòng học" FontSize="20" Text="{Binding Phong}"-->
+
+                <Picker x:Name="AddPhong" Grid.Row="3" Grid.Column="1" Title="Chọn phòng"  ItemsSource="{Binding Ten}" ItemDisplayBinding="{Binding Ten}"  SelectedIndexChanged="AddPhong_SelectedIndexChanged"/>
+                <Label  x:Name ="NameLabel" Text="{Binding Ten}" IsVisible="false"
+                   FontAttributes="Italic" HorizontalOptions="Center" />
             </Grid>
             <Button x:Name="Save" Text="LƯU" Clicked="Save_Clicked"
                     HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>

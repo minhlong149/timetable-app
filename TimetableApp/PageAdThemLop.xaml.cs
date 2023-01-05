@@ -16,23 +16,25 @@ namespace TimetableApp
     {
 		private readonly LopHoc _lop;
 		MonHoc _mon = new MonHoc();
-
+		List<Phong> listphong;
 
 		public PageAdThemLop(MonHoc monHoc)
 		{
 			InitializeComponent();
 			Title = "Thêm lớp " + monHoc.TenMon;
 			_mon = monHoc;
+			Phong();
 		}
 		public PageAdThemLop(LopHoc lop)
 		{
 			InitializeComponent();
+			Phong();
 			Title = "Chỉnh sửa lớp ";
 			_lop = lop;
 			AddGV.Text = lop.GiaoVien;
 			AddThu.Text = lop.Thu;
 			AddTiet.Text = lop.Tiet;
-			AddPhong.Text = lop.PhongHoc;
+			NameLabel.Text = lop.PhongHoc;
 			AddGV.Focus();
 		}
 		private async void Save_Clicked(object sender, EventArgs e)
@@ -43,7 +45,7 @@ namespace TimetableApp
 				_lop.GiaoVien = AddGV.Text;
 				_lop.Thu = AddThu.Text;
 				_lop.Tiet = AddTiet.Text;
-				_lop.PhongHoc = AddPhong.Text;
+				_lop.PhongHoc = NameLabel.Text;
 
 				HttpClient httpClient = new HttpClient();
 				string jsonup = JsonConvert.SerializeObject(_lop);
@@ -69,7 +71,7 @@ namespace TimetableApp
 				lopHoc.GiaoVien = AddGV.Text;
 				lopHoc.Thu = AddThu.Text;
 				lopHoc.Tiet = AddTiet.Text;
-				lopHoc.PhongHoc = AddPhong.Text; /*Tạo sẵn list các phòng và để picker*/
+				lopHoc.PhongHoc = NameLabel.Text; /*Tạo sẵn list các phòng và để picker*/
 
 
 				HttpClient httpClient = new HttpClient();
@@ -88,12 +90,10 @@ namespace TimetableApp
 			}
 			await Navigation.PopAsync();
 		}
-/*
-		private void AddPhong_SelectedIndexChanged(object sender, EventArgs e)
+		
+		void Phong ()
 		{
-			var picker = (Picker)sender;
-			int selectrow = picker.SelectedIndex;
-			List<Phong> listphong = new List<Phong>();
+			listphong = new List<Phong>();
 			listphong.Add( new Phong { Ten = "A205" } );
 			listphong.Add(new Phong { Ten = "A213" });
 			listphong.Add(new Phong { Ten = "GĐ1 (A1)" });
@@ -102,23 +102,30 @@ namespace TimetableApp
 			listphong.Add(new Phong { Ten = "B106" });
 			listphong.Add(new Phong { Ten = "B206" });
 			listphong.Add(new Phong { Ten = "C113" });
+			AddPhong.ItemsSource = listphong;
+		}
+		private void AddPhong_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			var picker = (Picker)sender;
+			int selectrow = picker.SelectedIndex;
+			
 			if (selectrow == 0)
-				AddPhong.Text = listphong.First().Ten;
+				NameLabel.Text = listphong.First().Ten;
 			else if (selectrow == 1)
-				AddPhong.Text = listphong[selectrow].Ten;
+				NameLabel.Text = listphong[selectrow].Ten;
 			else if (selectrow == 2)
-				AddPhong.Text = listphong[selectrow].Ten;
+				NameLabel.Text = listphong[selectrow].Ten;
 			else if (selectrow == 3)
-				AddPhong.Text = listphong[selectrow].Ten;
+				NameLabel.Text = listphong[selectrow].Ten;
 			else if (selectrow == 4)
-				AddPhong.Text = listphong[selectrow].Ten;
+				NameLabel.Text = listphong[selectrow].Ten;
 			else if (selectrow == 5)
-				AddPhong.Text = listphong[selectrow].Ten;
+				NameLabel.Text = listphong[selectrow].Ten;
 			else if (selectrow == 6)
-				AddPhong.Text = listphong[selectrow].Ten;
+				NameLabel.Text = listphong[selectrow].Ten;
 			else if (selectrow == 7)
-				AddPhong.Text = listphong[selectrow].Ten;
+				NameLabel.Text = listphong[selectrow].Ten;
 
-		}*/
+		}
 	}
 }
