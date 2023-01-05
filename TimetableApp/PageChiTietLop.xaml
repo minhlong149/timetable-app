@@ -2,11 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimetableApp.PageChiTietLop">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="AddLop" Text="Thêm" Clicked="AddLop_Clicked"/>
-    </ContentPage.ToolbarItems>
-    <ContentPage.Content>
 
+    <ContentPage.Content>
+        <StackLayout>
             <CollectionView  x:Name="LstLop" SelectionMode="Single">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"></GridItemsLayout>
@@ -81,13 +79,13 @@
                                 <Button x:Name="AddClass" BackgroundColor="#cd572c" TextColor="White" 
                                             Grid.Row="3" Grid.Column="3" Margin="-10,-10,-35,0" Padding="-10,-10,-10,-10"  
                                             HeightRequest="25" WidthRequest="55" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
-                                            Font="13" Text="Đăng ký" TextTransform="None" Clicked="AddClass_Clicked" />
+                                            FontSize="13" Text="Đăng ký" TextTransform="None" Clicked="AddClass_Clicked" />
                             </Grid>
                         </Frame>
                     </StackLayout>
                 </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

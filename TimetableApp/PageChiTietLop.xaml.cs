@@ -37,17 +37,6 @@ namespace TimetableApp
         }
 
 
-        private void AddLop_Clicked(object sender, EventArgs e)
-        {
-            if(SinhVien.DangNhap.QuyenAdmin)
-                Navigation.PushAsync(new PageAdThemLop(mon));
-            else
-            {
-                DisplayAlert("Thông báo", "Bạn không được cấp quyền để thêm lớp", "OK");
-            }    
-
-        }
-
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -90,5 +79,7 @@ namespace TimetableApp
 						await DisplayAlert("Thông báo", "Đã có lỗi xảy ra!\tVui lòng thử lại", "OK");
 				}
 		}
+
+
 	}
 }

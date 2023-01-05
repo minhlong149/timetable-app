@@ -79,11 +79,6 @@ namespace TimetableApp.Views
 			LstLopHN.ItemsSource = dsLop;
 		}
 
-		private void Tue_Clicked1(object sender, EventArgs e)
-		{
-			throw new NotImplementedException();
-		}
-
 		private async void Wed_Clicked(object sender, EventArgs e)
 		{
 			HttpClient httpClient = new HttpClient();

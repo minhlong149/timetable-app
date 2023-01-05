@@ -14,17 +14,20 @@ namespace TimetableApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageAdminMon : ContentPage
     {
-        public PageAdminMon()
+		List<MonHoc> mons;
+		public PageAdminMon()
         {
             InitializeComponent();
             ListViewInit();
         }
         async void ListViewInit()
         {
-            HttpClient httpClient = new HttpClient();
+			mons = new List<MonHoc>();
+			HttpClient httpClient = new HttpClient();
             var lstMon = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/MonHoc");
             var lstMonConverted = JsonConvert.DeserializeObject<List<MonHoc>>(lstMon);
-            LstMonHoc.ItemsSource = lstMonConverted;
+			mons = lstMonConverted;
+			LstMonHoc.ItemsSource = lstMonConverted;
         }
         
         private void ToolbarItem_Clicked(object sender, EventArgs e)
@@ -65,6 +68,10 @@ namespace TimetableApp
             ListViewInit();
         }
 
-      
-    }
+		private void searchAd_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			var texto = searchAd.Text;
+			LstMonHoc.ItemsSource = mons.Where(x => x.TenMon.ToLower().Contains(texto));
+		}
+	}
 }

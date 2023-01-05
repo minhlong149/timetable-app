@@ -79,8 +79,12 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <Button Grid.Row="4" Grid.Column="2" Text="Xóa"/>
-                                <Button Grid.Row="4" Grid.Column="3" Text="Sửa"/>
+                                <Button x:Name="Del" Grid.Row="4" Grid.Column="2" Text="Xóa" Clicked="Del_Clicked" 
+                                        HeightRequest="30" WidthRequest="55" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
+                                            FontSize="13" TextTransform="None" Margin="-10, 0,-80,0" Padding="-10,-10,-10,-10"/>
+                                <Button x:Name="Update" Grid.Row="4" Grid.Column="3" Text="Sửa" Clicked="Update_Clicked"
+                                         HeightRequest="30" WidthRequest="55" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
+                                            FontSize="13" TextTransform="None" Margin="-10, 0,-35,0" Padding="-10,-10,-10,-10"/>
                             </Grid>
                         </Frame>
                     </StackLayout>

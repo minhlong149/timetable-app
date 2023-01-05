@@ -8,6 +8,9 @@
 
     <ContentPage.Content>
         <StackLayout>
+            <SearchBar x:Name="searchAd" TextChanged="searchAd_TextChanged"
+                       Placeholder="Nhập tên môn học"
+                       CancelButtonColor="#08457E"></SearchBar>
             <ListView x:Name="LstMonHoc" ItemTapped="LstMonHoc_ItemTapped" HasUnevenRows="True" >
                 <ListView.ItemTemplate>
                     <DataTemplate>

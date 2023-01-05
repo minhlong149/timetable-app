@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -14,6 +15,7 @@ namespace TimetableApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageMonHoc : ContentPage
     {
+        List<MonHoc> mons;
         public PageMonHoc()
         {
             InitializeComponent();
@@ -22,9 +24,11 @@ namespace TimetableApp
         }
         async void ListViewInit()
         {
-            HttpClient httpClient = new HttpClient();
+            mons= new List<MonHoc>();
+			HttpClient httpClient = new HttpClient();
             var lstMon = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/MonHoc");
             var lstMonConverted = JsonConvert.DeserializeObject<List<MonHoc>>(lstMon);
+            mons = lstMonConverted;
             LstMonHoc.ItemsSource = lstMonConverted;
         }
 
@@ -34,5 +38,11 @@ namespace TimetableApp
             MonHoc monHoc = (MonHoc)e.Item;
             Navigation.PushAsync(new PageChiTietLop(monHoc));
         }
+
+		private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			var texto = searchBar.Text;
+			LstMonHoc.ItemsSource = mons.Where(x => x.TenMon.ToLower().Contains(texto));
+		}
     }
 }
