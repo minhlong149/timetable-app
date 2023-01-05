@@ -12,14 +12,7 @@ namespace TimetableApp
 
         public PageTKBSV_VM()
         {
-            Events = new EventCollection
-            {
-                //[DateTime.Now] = new List<LopHoc>
-                //{
-                //    new LopHoc { Name = "Cool event1", Description = "This is Cool event1's description!" },
-                //    new LopHoc { Name = "Cool event2", Description = "This is Cool event2's description!" }
-                //},
-            };
+           
         }
     }
 }

@@ -11,6 +11,64 @@
                 HorizontalOptions="FillAndExpand"
                 CalendarLayout="Week"
                 WeekViewUnit="MonthName">
+
+                <controls:Calendar.HeaderSectionTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Frame Grid.Column="0" Padding="0"
+                                   BackgroundColor="{Binding BackgroundColor}" HasShadow="True"
+                                   HeightRequest="36" WidthRequest="36" CornerRadius="18"
+                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                
+                                <Label Text="←" InputTransparent="True"
+                                       FontAttributes="Bold" FontSize="Medium" TextColor="{Binding ArrowsColor}"
+                                       HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                                       VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PrevLayoutUnitCommand}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+
+                            <Label Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"
+                                   FontAttributes="Bold" FontSize="Medium" TextColor="{Binding MonthLabelColor}">
+                                
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding LayoutUnitText, Mode=TwoWay}" />
+                                        <Span Text=", " />
+                                        <Span Text="{Binding Year, Mode=TwoWay}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Frame Grid.Column="2" Padding="0"
+                                   BackgroundColor="{Binding BackgroundColor}" HasShadow="True"
+                                   HeightRequest="36" WidthRequest="36" CornerRadius="18"
+                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+
+                                <Label Text="→" InputTransparent="True"
+                                       FontAttributes="Bold" FontSize="Medium" TextColor="{Binding ArrowsColor}"
+                                       HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                                       VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NextLayoutUnitCommand}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </Grid>
+
+                    </DataTemplate>
+                </controls:Calendar.HeaderSectionTemplate>
             </controls:Calendar>
         </StackLayout>
     </ContentPage.Content>
