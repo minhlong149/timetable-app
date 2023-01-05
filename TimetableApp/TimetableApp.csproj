@@ -14,7 +14,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.4" />
-    <PackageReference Include="XCalendar.Forms" Version="4.2.1" />
+    <PackageReference Include="Xamarin.Plugin.Calendar" Version="2.0.9699" />
   </ItemGroup>
 
   <ItemGroup>

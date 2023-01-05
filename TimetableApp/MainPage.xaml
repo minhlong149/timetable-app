@@ -23,6 +23,9 @@
             <ShellContent Title="Sáu" ContentTemplate="{DataTemplate views:PageThuSau}"/>
             <ShellContent Title="Bảy" ContentTemplate="{DataTemplate views:PageThuBay}"/>
         </Tab>
+        <ShellContent Title="New"
+                      ContentTemplate="{DataTemplate local:PageTKBSV}" />
+        
         <Tab Title="Deadline" Icon="checklist.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageDeadline }"/>
         </Tab>

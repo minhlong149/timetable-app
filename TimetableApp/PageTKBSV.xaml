@@ -1,12 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TimetableApp.PageTKBSV">
+             x:Class="TimetableApp.PageTKBSV"
+             xmlns:controls="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <controls:Calendar
+                x:Name="timeTable"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                CalendarLayout="Week"
+                WeekViewUnit="MonthName">
+            </controls:Calendar>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
