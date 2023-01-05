@@ -16,6 +16,8 @@ namespace TimetableApp
         {
             InitializeComponent();
             timeTable.ShownDate = DateTime.Today;
+            timeTable.SelectedDate = DateTime.Today;
+            BindingContext = new PageTKBSV_VM();
         }
     }
 }

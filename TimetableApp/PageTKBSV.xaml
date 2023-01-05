@@ -10,7 +10,16 @@
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand"
                 CalendarLayout="Week"
-                WeekViewUnit="MonthName">
+                WeekViewUnit="MonthName"
+                Events="{Binding Events}">
+
+                <controls:Calendar.EventTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="15,0,0,0">
+                            <Label Text="{Binding MaLop}" FontAttributes="Bold" FontSize="Medium" />
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:Calendar.EventTemplate>
 
                 <controls:Calendar.HeaderSectionTemplate>
                     <DataTemplate>
