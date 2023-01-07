@@ -34,7 +34,10 @@ namespace TimetableApp
 			AddGV.Text = lop.GiaoVien;
 			AddThu.Text = lop.Thu;
 			AddTiet.Text = lop.Tiet;
+			AddPhong.Title = lop.PhongHoc;
 			NameLabel.Text = lop.PhongHoc;
+			Date1.Date = lop.NgayBD;
+			Date2.Date = lop.NgayKT;
 			AddGV.Focus();
 		}
 		private async void Save_Clicked(object sender, EventArgs e)
@@ -46,6 +49,7 @@ namespace TimetableApp
 				_lop.Thu = AddThu.Text;
 				_lop.Tiet = AddTiet.Text;
 				_lop.PhongHoc = NameLabel.Text;
+				_lop.NgayBD = DateTime.Parse(DateBD.Text);
 
 				HttpClient httpClient = new HttpClient();
 				string jsonup = JsonConvert.SerializeObject(_lop);
@@ -53,9 +57,8 @@ namespace TimetableApp
 				HttpResponseMessage kq;
 
 				kq = await httpClient.PutAsync("http://www.lno-ie307.somee.com/api/LopHoc", stringContent);
-				var kqthem = await kq.Content.ReadAsStringAsync();
 
-				if (int.Parse(kqthem.ToString()) > 0)
+				if (kq.ToString() =="1")
 				{
 					await DisplayAlert("Thông báo", "Sửa lớp học " + _lop.MaLop.ToString() + " thành công", "OK");
 				}
@@ -66,12 +69,13 @@ namespace TimetableApp
 			else
 			{
 				LopHoc lopHoc = new LopHoc();
-
 				lopHoc.MaMon = _mon.MaMon;
 				lopHoc.GiaoVien = AddGV.Text;
 				lopHoc.Thu = AddThu.Text;
 				lopHoc.Tiet = AddTiet.Text;
-				lopHoc.PhongHoc = NameLabel.Text; /*Tạo sẵn list các phòng và để picker*/
+				lopHoc.PhongHoc = NameLabel.Text;
+				lopHoc.NgayBD = DateTime.Parse(DateBD.Text);
+				lopHoc.NgayKT = DateTime.Parse(DateKT.Text);/*Tạo sẵn list các phòng và để picker*/
 
 
 				HttpClient httpClient = new HttpClient();
@@ -81,14 +85,16 @@ namespace TimetableApp
 
 				kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/LopHoc", stringContent);
 				var kqthem = await kq.Content.ReadAsStringAsync();
+				Console.WriteLine(kq.ToString());
 				if (int.Parse(kqthem.ToString()) > 0)
 				{
 					await DisplayAlert("Thông báo", "Thêm lớp thành công", "OK");
+					await Navigation.PopAsync();
 				}
 				else
 					await DisplayAlert("Thông báo", "Thêm lớp không thành công", "Thử lại");
 			}
-			await Navigation.PopAsync();
+			
 		}
 		
 		void Phong ()
@@ -127,5 +133,26 @@ namespace TimetableApp
 				NameLabel.Text = listphong[selectrow].Ten;
 
 		}
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+
+
+
+		}
+		private void Date1_DateSelected(object sender, DateChangedEventArgs e)
+		{
+
+				DateBD.Text = Date1.ToString();
+				Date1.MaximumDate = DateTime.Now.AddMonths(7);
+		}
+		private void Date2_DateSelected(object sender, DateChangedEventArgs e)
+		{
+				Date2.MinimumDate = DateTime.Now;
+				DateKT.Text = Date2.ToString();
+				Date2.MaximumDate = DateTime.Now.AddMonths(7);
+		}
+
+		
 	}
-}
+	}

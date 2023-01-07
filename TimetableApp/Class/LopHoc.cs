@@ -14,7 +14,9 @@ namespace TimetableApp.Class
         public string SoTiet { get; set; }
         public string TietBD { get; set; }
         public string TietKT { get; set; }
-        public string GiaoVien { get; set; }
+		public DateTime NgayBD { get; set; }
+		public DateTime NgayKT { get; set; }
+		public string GiaoVien { get; set; }
         public string PhongHoc { get; set; }
     }
 }
