@@ -18,17 +18,17 @@ namespace TimetableApp
         {
             client = new HttpClient();
             Events = new EventCollection { };
-            createEvent();
+            updateEvent();
         }
 
-        private async void createEvent()
+        private async void updateEvent()
         {
             List<LopHoc> studentClasses = await GetClassList();
             foreach (LopHoc studentClass in studentClasses)
             {
-                // TODO: update start and end date of each class from dB
-                DateTime startDate = DateTime.Now.AddDays(-10);
-                DateTime endDate = DateTime.Now.AddDays(+10);
+                // Get start and end date of each class from dB
+                DateTime startDate = studentClass.NgayBD;
+                DateTime endDate = studentClass.NgayKT;
 
                 // Find the weekdate that the class actualy start
                 DateTime classDate = startDate;
@@ -40,19 +40,17 @@ namespace TimetableApp
                 // Loop through every week to add the class to the date
                 for (; classDate < endDate; classDate = classDate.AddDays(7))
                 {
-                    Events.Add(classDate, new List<LopHoc> { studentClass });
-
-                    // TODO: handle multiple class a day
-                    //if (!Events.ContainsKey(classStart))
-                    //{
-                    //    Events.Add(classStart, new List<LopHoc> { studentClass });
-                    //}
-                    //else
-                    //{
-                    //    List<LopHoc> icollection = (List<LopHoc>)Events[classStart];
-                    //    icollection.Add(studentClass);
-                    //    Events[classStart] = icollection;
-                    //}
+                    if (!Events.ContainsKey(classDate))
+                    {
+                        Events.Add(classDate, new List<LopHoc> { studentClass });
+                    }
+                    else
+                    {
+                        // Handle multiple class a day
+                        List<LopHoc> classesOnThisDay = (List<LopHoc>)Events[classDate];
+                        classesOnThisDay.Add(studentClass);
+                        Events[classDate] = classesOnThisDay;
+                    }
                 }
             }
         }
