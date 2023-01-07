@@ -16,14 +16,19 @@
                 <controls:Calendar.EventTemplate>
                     <DataTemplate>
                         <StackLayout Padding="15,0,0,0">
-                            <Label Text="{Binding MaLop}" FontAttributes="Bold" FontSize="Medium" />
+                            <Label x:Name="txtMaLop" Text="{Binding MaLop}" FontAttributes="Bold" FontSize="Medium" />
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                                      BindingContext="{x:Reference txtMaLop}" CommandParameter="{Binding Text}" />
+                            </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </DataTemplate>
                 </controls:Calendar.EventTemplate>
 
                 <controls:Calendar.HeaderSectionTemplate>
                     <DataTemplate>
-                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="15,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -37,11 +42,9 @@
                                    BackgroundColor="{Binding BackgroundColor}" HasShadow="True"
                                    HeightRequest="36" WidthRequest="36" CornerRadius="18"
                                    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                                
-                                <Label Text="←" InputTransparent="True"
-                                       FontAttributes="Bold" FontSize="Medium" TextColor="{Binding ArrowsColor}"
-                                       HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
-                                       VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+
+                                <Image Source="navigate_before.png" BackgroundColor="Transparent" 
+                                             HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
 
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding PrevLayoutUnitCommand}" />
@@ -65,10 +68,8 @@
                                    HeightRequest="36" WidthRequest="36" CornerRadius="18"
                                    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
 
-                                <Label Text="→" InputTransparent="True"
-                                       FontAttributes="Bold" FontSize="Medium" TextColor="{Binding ArrowsColor}"
-                                       HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
-                                       VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                                <Image Source="navigate_next.png" BackgroundColor="Transparent" 
+                                             HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
 
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding NextLayoutUnitCommand}" />
@@ -78,6 +79,14 @@
 
                     </DataTemplate>
                 </controls:Calendar.HeaderSectionTemplate>
+
+                <controls:Calendar.EmptyTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="NO EVENTS FOR THE SELECTED DATE" HorizontalTextAlignment="Center" Margin="0,5,0,5" />
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:Calendar.EmptyTemplate>
             </controls:Calendar>
         </StackLayout>
     </ContentPage.Content>
