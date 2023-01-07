@@ -19,13 +19,5 @@ namespace TimetableApp
             timeTable.SelectedDate = DateTime.Today;
             BindingContext = new PageTKBSV_VM();
         }
-
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            string maLop = ((TappedEventArgs)e).Parameter as string;
-            DisplayAlert("Clicked", maLop, "OK");
-
-            // TODO: Chuyển qua một trang thông tin về lớp
-        }
     }
 }

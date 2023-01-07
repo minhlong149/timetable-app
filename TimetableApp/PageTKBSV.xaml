@@ -2,33 +2,69 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimetableApp.PageTKBSV"
-             xmlns:controls="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar">
+             xmlns:controls="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar"
+             Title="Thời khoá biểu">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="20,10">
             <controls:Calendar
                 x:Name="timeTable"
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand"
                 CalendarLayout="Week"
                 WeekViewUnit="MonthName"
+                EventIndicatorColor="#03A9F4"
+                TodayOutlineColor="#03A9F4"
+                EventIndicatorSelectedColor="White"
+                EventIndicatorSelectedTextColor="White"
                 Events="{Binding Events}">
 
                 <controls:Calendar.EventTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="15,0,0,0">
-                            <Label x:Name="txtMaLop" Text="{Binding MaLop}" FontAttributes="Bold" FontSize="Medium" />
+                        <Frame BorderColor="Gray" CornerRadius="8" Padding="15" HasShadow="True">
+                            <StackLayout>
+                                <Label FontAttributes="Bold" FontSize="Medium">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding MaLop}" />
+                                            <Span Text=" - " />
+                                            <Span Text="{Binding TenMon}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
 
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
-                                                      BindingContext="{x:Reference txtMaLop}" CommandParameter="{Binding Text}" />
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
+                                <BoxView BackgroundColor="Gray" HeightRequest="1" HorizontalOptions="Fill" Margin="0,5" />
+
+                                <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
+                                    <Grid RowDefinitions="25" ColumnDefinitions="Auto, *">
+                                        <Image Source="schedule.png" Grid.Column="0" Opacity=".6" />
+                                        <Label Text="{Binding Tiet}" Grid.Column="1"
+                                               FontSize="Body"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Grid>
+
+                                    <Grid RowDefinitions="25" ColumnDefinitions="Auto, *">
+                                        <Image Source="apartment.png" Grid.Column="0" Opacity=".6"/>
+                                        <Label Text="{Binding PhongHoc}" Grid.Column="1"
+                                               FontSize="Body"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Grid>
+
+                                    <Grid RowDefinitions="25" ColumnDefinitions="Auto, *">
+                                        <Image Source="person.png" Grid.Column="0" Opacity=".6"/>
+                                        <Label Text="{Binding GiaoVien}" Grid.Column="1"
+                                               FontSize="Body"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Grid>
+                                </FlexLayout>
+
+                            </StackLayout>
+                        </Frame>
                     </DataTemplate>
                 </controls:Calendar.EventTemplate>
 
                 <controls:Calendar.HeaderSectionTemplate>
                     <DataTemplate>
-                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="15,10">
+                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Padding="0,0,0,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
