@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -21,7 +22,7 @@ namespace TimetableApp
 		public PageAdThemLop(MonHoc monHoc)
 		{
 			InitializeComponent();
-			Title = "Thêm lớp " + monHoc.TenMon;
+			Title = "Thêm lớp " + monHoc.MaMon;
 			_mon = monHoc;
 			Phong();
 		}
@@ -42,15 +43,19 @@ namespace TimetableApp
 		}
 		private async void Save_Clicked(object sender, EventArgs e)
 		{
-
-            if(_lop != null)
+			if(string.IsNullOrWhiteSpace(AddGV.Text) || (string.IsNullOrWhiteSpace(AddThu.Text) || (string.IsNullOrWhiteSpace(AddTiet.Text) || (string.IsNullOrWhiteSpace(AddPhong.Title)))))
+				{
+				await DisplayAlert("Thông báo", "Vui lòng nhập đầy đủ thông tin!", "OK");
+			}
+			else 
+			if (_lop != null)
 			{
 				_lop.GiaoVien = AddGV.Text;
 				_lop.Thu = AddThu.Text;
 				_lop.Tiet = AddTiet.Text;
 				_lop.PhongHoc = NameLabel.Text;
-				_lop.NgayBD = DateTime.Parse(DateBD.Text);
-
+				_lop.NgayBD = Date1.Date;
+				_lop.NgayKT = Date2.Date;
 				HttpClient httpClient = new HttpClient();
 				string jsonup = JsonConvert.SerializeObject(_lop);
 				StringContent stringContent = new StringContent(jsonup, Encoding.UTF8, "application/json");
@@ -74,8 +79,8 @@ namespace TimetableApp
 				lopHoc.Thu = AddThu.Text;
 				lopHoc.Tiet = AddTiet.Text;
 				lopHoc.PhongHoc = NameLabel.Text;
-				lopHoc.NgayBD = DateTime.Parse(DateBD.Text);
-				lopHoc.NgayKT = DateTime.Parse(DateKT.Text);/*Tạo sẵn list các phòng và để picker*/
+				lopHoc.NgayBD = Date1.Date;
+				lopHoc.NgayKT = Date2.Date; /*Tạo sẵn list các phòng và để picker*/
 
 
 				HttpClient httpClient = new HttpClient();
@@ -142,15 +147,13 @@ namespace TimetableApp
 		}
 		private void Date1_DateSelected(object sender, DateChangedEventArgs e)
 		{
-
-				DateBD.Text = Date1.ToString();
-				Date1.MaximumDate = DateTime.Now.AddMonths(7);
+			Date1.Date = DateTime.Today;
+			Date1.MaximumDate = DateTime.Now.AddMonths(7);
 		}
 		private void Date2_DateSelected(object sender, DateChangedEventArgs e)
 		{
-				Date2.MinimumDate = DateTime.Now;
-				DateKT.Text = Date2.ToString();
-				Date2.MaximumDate = DateTime.Now.AddMonths(7);
+			Date2.MinimumDate = Date1.Date;
+			Date2.MaximumDate = DateTime.Now.AddMonths(7);
 		}
 
 		

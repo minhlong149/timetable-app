@@ -4,31 +4,39 @@
              x:Class="TimetableApp.PageAdThemMon"
              Title="Thêm môn học mới">
     <ContentPage.Content>
-        <StackLayout>
-            <Grid Padding="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
+        <Frame  BackgroundColor="#08457E" >
+            <StackLayout Margin="10,90,10,10">
+                <Frame HasShadow="True" BackgroundColor="White" CornerRadius="15" >
+                    <Grid Margin="0,0,0,20" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="85"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="MÔN HỌC MỚI" FontSize="30" FontAttributes="Bold" TextColor="#08457E" HorizontalTextAlignment="Center"
+                               Margin="10"/>
+                        <Label Grid.Row="1" Grid.Column="0" Text="Mã môn: " 
+                       FontSize="20" TextColor="Black" Margin="0,20,0,0" />
+                        <Entry x:Name="AddMaMon" Grid.Row="1" Grid.Column="1" Placeholder="Nhập mã môn học" TextColor="Black" Text="{Binding MaMon}"
+                       FontSize="20" />
+                        <Label Grid.Row="2" Grid.Column="0" Text="Tên môn:  " TextColor="Black"
+                       FontSize="20" Margin="0,20,0,0" />
+                        <Entry x:Name="AddTenMon" Grid.Row="2" Grid.Column="1" Placeholder="Nhập tên môn học" TextColor="Black" Text="{Binding TenMon}"
+                       FontSize="20" />
+                        <Label Grid.Row="3" Grid.Column="0" Text="Tín chỉ: " FontSize="20" TextColor="Black" Margin="0,20,0,0"/>
+                        <Entry x:Name="AddTC" Grid.Row="3" Grid.Column="1" Placeholder="Nhập số tín chỉ" FontSize="20" TextColor="Black" Text="{Binding SoTC}"/>
+                    </Grid>
+                </Frame>
+                <Button Margin="20" x:Name="Save" Text="LƯU" Clicked="Save_Clicked" BackgroundColor="#cd572c" TextColor="White"
+                    HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="20"/>
                 
-                <Label Grid.Row="0" Grid.Column="0" Text="Mã môn: " 
-                       FontSize="20" />
-                <Entry x:Name="AddMaMon" Grid.Row="0" Grid.Column="1" Placeholder="Nhập mã môn học" Text="{Binding MaMon}"
-                       FontSize="20" />
-                <Label Grid.Row="1" Grid.Column="0" Text="Tên môn học:  " 
-                       FontSize="20" />
-                <Entry x:Name="AddTenMon" Grid.Row="1" Grid.Column="1" Placeholder="Nhập tên môn học" Text="{Binding TenMon}"
-                       FontSize="20" />
-                <Label Grid.Row="2" Grid.Column="0" Text="Tín chỉ: " FontSize="20"/>
-                <Entry x:Name="AddTC" Grid.Row="2" Grid.Column="1" Placeholder="Nhập số tín chỉ của môn" FontSize="20" Text="{Binding SoTC}"/>
-            </Grid>
-            <Button x:Name="Save" Text="LƯU" Clicked="Save_Clicked"
-                    HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
         </StackLayout>
+         </Frame>
     </ContentPage.Content>
 </ContentPage>

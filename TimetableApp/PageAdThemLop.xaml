@@ -3,47 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimetableApp.PageAdThemLop">
     <ContentPage.Content>
-        <StackLayout>
-            <Grid Padding="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-<!--API thêm tiết BD , và tiết KT-->
-                
-                <Label Grid.Row="0" Grid.Column="0" Text="Giảng viên " FontSize="20"/>
-                <Entry x:Name="AddGV" Grid.Row="0" Grid.Column="1" Placeholder="Nhập tên giảng viên" FontSize="20" Text="{Binding Tiet}"/>
-                <Label Grid.Row="1" Grid.Column="0" Text="Thứ:  " 
-                       FontSize="20" />
-                <Entry x:Name="AddThu" Grid.Row="1" Grid.Column="1" Placeholder="Nhập thứ" Text="{Binding Thu}"
-                       FontSize="20" />
-                <Label Grid.Row="2" Grid.Column="0" Text="Tiết: " FontSize="20"/>
-                <Entry x:Name="AddTiet" Grid.Row="2" Grid.Column="1" Placeholder="Nhập số tiết của môn" FontSize="20" Text="{Binding Tiet}"/>
-                <Label Grid.Row="3" Grid.Column="0" Text="Phòng: " FontSize="20"/>
-                
-                <!--<Entry x:Name="AddPhong" Grid.Row="3" Grid.Column="1" Placeholder="Nhập phòng học" FontSize="20" Text="{Binding Phong}"-->
+        <Frame BackgroundColor="#08457E">
+            <StackLayout Margin="10,20,10,10">
+                <Frame HasShadow="True" BackgroundColor="White" CornerRadius="15" >
+                    <Grid  Margin="0,0,0,20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.1*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
 
-                <Picker x:Name="AddPhong" Grid.Row="3" Grid.Column="1" Title="Chọn phòng"  ItemsSource="{Binding Ten}" ItemDisplayBinding="{Binding Ten}" TitleColor="Black" SelectedIndexChanged="AddPhong_SelectedIndexChanged"/>
-                <Label  x:Name ="NameLabel" Text="{Binding Ten}" IsVisible="false" HorizontalOptions="Center" />
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="LỚP HỌC MỚI" FontSize="30" FontAttributes="Bold" TextColor="#08457E" HorizontalTextAlignment="Center"
+                               Margin="10"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Text="Ngày bắt đầu: " FontSize="20"/>
-                <DatePicker x:Name="Date1" Grid.Row="4" Grid.Column="1" DateSelected="Date1_DateSelected" Date="{Binding NgayBD}" />
-                <Label x:Name="DateBD" x:DataType="DatePicker" IsVisible="false" Text="{Binding Date}"/>
-                
-                <Label Grid.Row="5" Grid.Column="0" Text="Ngày kết thúc: " FontSize="20" />
-                <DatePicker x:Name="Date2" Grid.Row="5" Grid.Column="1" DateSelected="Date2_DateSelected" Date="{Binding NgayKT}" />
-                <Label x:Name="DateKT" x:DataType="DatePicker" IsVisible="false"  Text="{Binding Date }"/>
-            </Grid>
-            <Button x:Name="Save" Text="LƯU" Clicked="Save_Clicked"
-                    HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
-        </StackLayout>
+                        <Label Grid.Row="1" Grid.Column="0" Text="Giảng viên: " FontSize="20"  TextColor="Black"/>
+                        <Entry x:Name="AddGV" Grid.Row="1" Grid.Column="1" Placeholder="Nhập tên giảng viên" FontSize="20" Text="{Binding Tiet}"/>
+                        
+                        <Label Grid.Row="2" Grid.Column="0" Text="Thứ:  " 
+                       FontSize="20"  TextColor="Black"/>
+                        <Entry x:Name="AddThu" Grid.Row="2" Grid.Column="1" Placeholder="Nhập thứ" Text="{Binding Thu}"
+                       FontSize="20" />
+                        
+                        <Label Grid.Row="3" Grid.Column="0" Text="Tiết: " FontSize="20"  TextColor="Black"/>
+                        <Entry x:Name="AddTiet" Grid.Row="3" Grid.Column="1" Placeholder="Nhập số tiết học" FontSize="20" Text="{Binding Tiet}"/>
+
+                        <Label Grid.Row="4" Grid.Column="0" Text="Phòng: " FontSize="20" TextColor="Black"/>
+                        <Picker x:Name="AddPhong" Grid.Row="4" Grid.Column="1" Title="Chọn phòng"  ItemsSource="{Binding Ten}" ItemDisplayBinding="{Binding Ten}" TitleColor="Black" SelectedIndexChanged="AddPhong_SelectedIndexChanged"/>
+                        <Label  x:Name ="NameLabel" Text="{Binding Ten}" IsVisible="false" HorizontalOptions="Center" />
+
+                        <Label Grid.Row="5" Grid.Column="0" Text="Ngày bắt đầu: " FontSize="20"  TextColor="Black"/>
+                        <DatePicker x:Name="Date1" Grid.Row="5" Grid.Column="1" DateSelected="Date1_DateSelected" Date="{Binding NgayBD}" />
+
+
+                        <Label Grid.Row="6" Grid.Column="0" Text="Ngày kết thúc: " FontSize="20"  TextColor="Black"/>
+                        <DatePicker x:Name="Date2" Grid.Row="6" Grid.Column="1" DateSelected="Date2_DateSelected" Date="{Binding NgayKT}" />
+
+                    </Grid>
+                </Frame>
+                <Button x:Name="Save" Text="LƯU" Clicked="Save_Clicked" BackgroundColor="#cd572c" TextColor="White"
+                    HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </ContentPage>
