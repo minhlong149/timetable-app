@@ -173,7 +173,7 @@ namespace TimetableApp.QLSV
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             LopHoc selectedClass = (LopHoc)pckClasses.SelectedItem;
-            Navigation.PushAsync(selectedClass is null ? new PageThemSV() : new PageThemSV(selectedClass.MaLop));
+            Navigation.PushAsync(selectedClass is null ? new PageThemSV() : new PageThemSV(selectedClass));
         }
     }
 }

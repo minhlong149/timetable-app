@@ -15,33 +15,59 @@ namespace TimetableApp.QLSV
     public partial class PageThemSV : ContentPage
     {
         HttpClient client;
+        List<MonHoc> subjectList;
         List<LopHoc> classList;
- 
-        public PageThemSV(string MaLop = null)
+
+        public PageThemSV(LopHoc _lopHoc = null)
         {
             InitializeComponent();
             client = new HttpClient();
 
-            updatClassPicker();
-            if (MaLop != null)
+            updateSubjectPicker();
+            if (_lopHoc != null)
             {
-                pckClasses.SelectedIndex = classList.FindIndex(lopHoc => lopHoc.MaLop == MaLop);
+                pckSubjects.SelectedIndex = subjectList.FindIndex(monHoc => monHoc.TenMon == _lopHoc.TenMon);
+
+                updatClassPicker();
+                pckClasses.SelectedIndex = classList.FindIndex(lopHoc => lopHoc.MaLop == _lopHoc.MaLop);
             }
+        }
+
+        private void updateSubjectPicker()
+        {
+            subjectList = MonHoc.DanhSach.OrderBy(monHoc => monHoc.TenMon).ToList();
+            pckSubjects.ItemsSource = null;
+            pckSubjects.ItemsSource = subjectList;
         }
 
         private void updatClassPicker()
         {
-            classList = LopHoc.DanhSach.OrderBy(lopHoc => lopHoc.MaLop).ToList();
-            pckClasses.ItemsSource = null;
-            pckClasses.ItemsSource = classList;
+            filterClassListBySubject(pckSubjects);
+        }
+
+        private void filterClassListBySubject(Picker picker)
+        {
+            int selectedIndex = picker.SelectedIndex;
+            if (selectedIndex != -1)
+            {
+                MonHoc selectedSubject = (MonHoc)picker.SelectedItem;
+                classList = LopHoc.DanhSach.FindAll(lopHoc => lopHoc.TenMon == selectedSubject.TenMon).OrderBy(lopHoc => lopHoc.MaLop).ToList();
+
+                pckClasses.ItemsSource = null;
+                pckClasses.ItemsSource = classList;
+            }
+        }
+
+        private void pckSubjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Picker picker = (Picker)sender;
+            filterClassListBySubject(picker);
         }
 
         private async void pckClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
             Picker picker = (Picker)sender;
             int selectedIndex = picker.SelectedIndex;
-
-            // Update listview if class has already been selected
             if (selectedIndex != -1)
             {
                 LopHoc selectedClass = (LopHoc)picker.SelectedItem;
@@ -71,6 +97,5 @@ namespace TimetableApp.QLSV
                 return new List<SinhVien>();
             }
         }
-
     }
 }

@@ -4,6 +4,11 @@
              x:Class="TimetableApp.QLSV.PageThemSV">
     <ContentPage.Content>
         <StackLayout>
+            <Picker x:Name="pckSubjects" Title="Chọn môn học" Grid.Row="0" Grid.Column="0"
+                        ItemsSource="{Binding TenMon}" ItemDisplayBinding="{Binding TenMon}"
+                        SelectedIndexChanged="pckSubjects_SelectedIndexChanged"
+                        FontSize="20" TextColor="Black" />
+            
             <Picker x:Name="pckClasses" Title="Chọn lớp học" Grid.Row="0" Grid.Column="1"
                         ItemsSource="{Binding MaLop}" ItemDisplayBinding="{Binding MaLop}"
                         SelectedIndexChanged="pckClasses_SelectedIndexChanged"
