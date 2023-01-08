@@ -4,9 +4,24 @@
              x:Class="TimetableApp.QLSV.PageThemSV">
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="txtClass" Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Picker x:Name="pckClasses" Title="Chọn lớp học" Grid.Row="0" Grid.Column="1"
+                        ItemsSource="{Binding MaLop}" ItemDisplayBinding="{Binding MaLop}"
+                        SelectedIndexChanged="pckClasses_SelectedIndexChanged"
+                        FontSize="20" TextColor="Black" />
+
+            <ListView x:Name="lstStudents" SelectionMode="None"
+                      IsPullToRefreshEnabled="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid RowDefinitions="auto" ColumnDefinitions="*, Auto" Padding="5,10">
+                                <Label Grid.Column="0" Text="{Binding TenSV}"
+                                       VerticalOptions="CenterAndExpand" TextColor="Black" FontSize="18"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
