@@ -17,15 +17,11 @@ namespace TimetableApp.QLSV
     public partial class PageQLLopHoc : ContentPage
     {
         HttpClient client;
-        List<MonHoc> subjectList;
-        List<LopHoc> classList;
 
         public PageQLLopHoc()
         {
             InitializeComponent();
             client = new HttpClient();
-            subjectList = new List<MonHoc>();
-            classList = new List<LopHoc>();
 
             PopulatingPicker();
             RefreshData();
@@ -46,24 +42,25 @@ namespace TimetableApp.QLSV
             int currentSubjectIndex = pckSubjects.SelectedIndex;
             int currentClassIndex = pckClasses.SelectedIndex;
 
-            await updateSubjectPicker(currentSubjectIndex);
-            await updatClassPicker(currentClassIndex);
+            await GetSubjectList();
+            await GetClassList();
+
+            updateSubjectPicker(currentSubjectIndex);
+            updatClassPicker(currentClassIndex);
             await updateStudentList(pckClasses);
         }
 
-        private async Task updateSubjectPicker(int currentSubjectIndex = -1)
+        private void updateSubjectPicker(int currentSubjectIndex = -1)
         {
             // Update subject picker's item source
-            subjectList = await GetSubjectList();
             pckSubjects.ItemsSource = null;
-            pckSubjects.ItemsSource = subjectList;
+            pckSubjects.ItemsSource = MonHoc.DanhSach;
             pckSubjects.SelectedIndex = currentSubjectIndex;
         }
 
-        private async Task updatClassPicker(int currentClassIndex = -1)
+        private void updatClassPicker(int currentClassIndex = -1)
         {
             // Update class pickersubject picker
-            classList = await GetClassList();
             pckClasses.ItemsSource = null;
 
             // Only update class picker if a subject has been selected
@@ -85,7 +82,7 @@ namespace TimetableApp.QLSV
             {
                 MonHoc selectedSubject = (MonHoc)picker.SelectedItem;
                 pckClasses.ItemsSource = null;
-                pckClasses.ItemsSource = classList.FindAll(lopHoc => lopHoc.TenMon == selectedSubject.TenMon);
+                pckClasses.ItemsSource = LopHoc.DanhSach.FindAll(lopHoc => lopHoc.TenMon == selectedSubject.TenMon);
             }
         }
 
@@ -137,7 +134,7 @@ namespace TimetableApp.QLSV
             Console.WriteLine(imgBtn.CommandParameter);
         }
 
-        private async Task<List<LopHoc>> GetClassList()
+        private async Task GetClassList()
         {
             try
             {
@@ -146,18 +143,16 @@ namespace TimetableApp.QLSV
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<List<LopHoc>>(content);
+                    LopHoc.DanhSach = JsonConvert.DeserializeObject<List<LopHoc>>(content);
                 }
-                return new List<LopHoc>();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(@"\tERROR {0}", ex.Message);
-                return new List<LopHoc>();
             }
         }
 
-        private async Task<List<MonHoc>> GetSubjectList()
+        private async Task GetSubjectList()
         {
             try
             {
@@ -166,14 +161,12 @@ namespace TimetableApp.QLSV
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<List<MonHoc>>(content);
+                    MonHoc.DanhSach = JsonConvert.DeserializeObject<List<MonHoc>>(content);
                 }
-                return new List<MonHoc>();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(@"\tERROR {0}", ex.Message);
-                return new List<MonHoc>();
             }
         }
 

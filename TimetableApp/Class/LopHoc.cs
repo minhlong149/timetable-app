@@ -16,5 +16,7 @@ namespace TimetableApp.Class
         public string TietKT { get; set; }
         public string GiaoVien { get; set; }
         public string PhongHoc { get; set; }
+
+        public static List<LopHoc> DanhSach;
     }
 }
