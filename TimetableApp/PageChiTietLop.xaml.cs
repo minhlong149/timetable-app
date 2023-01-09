@@ -24,7 +24,7 @@ namespace TimetableApp
             Title = monHoc.TenMon;
             SelectStudentClass(monHoc.MaMon);
             mon = monHoc;
-            
+
         }
         async void SelectStudentClass(string mamon)
         {

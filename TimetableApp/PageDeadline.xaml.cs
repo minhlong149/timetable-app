@@ -18,21 +18,15 @@ namespace TimetableApp
         public PageDeadline()
         {
             InitializeComponent();
-            GetDeadlineByMaSVAndMaLop();
+            GetDeadlines();
         }
 
-        async void GetDeadlineByMaSVAndMaLop()
+        async void GetDeadlines()
         {
             HttpClient httpClient = new HttpClient();
             var lstDeadline = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/Homework?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
             var lstDeadlineConverted = JsonConvert.DeserializeObject<List<Deadline>>(lstDeadline);
             LstDeadline.ItemsSource = lstDeadlineConverted;
-        }
-
-        private void LstDeadline_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            Deadline deadline = (Deadline)e.SelectedItem;
-            Navigation.PushModalAsync(new PageChiTietDeadline(deadline));
         }
 
         private void TIAddDeadline_Clicked(object sender, EventArgs e)
@@ -65,7 +59,7 @@ namespace TimetableApp
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            GetDeadlineByMaSVAndMaLop();
+            GetDeadlines();
         }
     }
 }
