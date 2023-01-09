@@ -36,14 +36,14 @@ namespace TimetableApp.Account
                     if (DSSVDangNhap.Count() == 1)
                     {
                         SinhVien.DangNhap = DSSVDangNhap[0];
-                        await DisplayAlert("Success", "Hello, " + SinhVien.DangNhap.TenSV, "OK");
+                        await DisplayAlert("Đăng nhập thành công", "Xin chào, " + SinhVien.DangNhap.TenSV + "!", "OK");
 
                         string shellRoute = SinhVien.DangNhap.QuyenAdmin ? "//adminDefault" : "//studentDefault";
                         await Shell.Current.GoToAsync(shellRoute);
                     }
                     else
                     {
-                        await DisplayAlert("Failed", "The username or password is incorrect", "Try again");
+                        await DisplayAlert("Đăng nhập thất bại", "Tên đăng nhập hoặc mật khẩu không đúng", "Thử lại");
                     }
                 }
             }

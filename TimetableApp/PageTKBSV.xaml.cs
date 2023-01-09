@@ -3,24 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace TimetableApp.Views
+namespace TimetableApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PageCN : ContentPage
+    public partial class PageTKBSV : ContentPage
     {
-        public PageCN()
+        public PageTKBSV()
         {
             InitializeComponent();
-            Title = "Thời khóa biểu";
-        }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
+            timeTable.ShownDate = DateTime.Today;
+            timeTable.SelectedDate = DateTime.Today;
+            BindingContext = new PageTKBSV_VM();
         }
     }
 }

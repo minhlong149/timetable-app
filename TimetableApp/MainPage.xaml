@@ -10,18 +10,11 @@
     <ShellItem Route="login">
         <ShellContent ContentTemplate="{DataTemplate local:PageDangNhap}"/>
     </ShellItem>
-    
+
     <TabBar Route="student" FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="TKB" Icon="tnb.png" >
-            <ShellContent Title="CN" ContentTemplate="{DataTemplate views:PageCN}" />
-            <ShellContent Title="Hai" ContentTemplate="{DataTemplate views:PageThuHai}"/>
-            <ShellContent Title="Ba" ContentTemplate="{DataTemplate views:PageThuBa}"/>
-            <ShellContent Title="Tư" ContentTemplate="{DataTemplate views:PageThuTu}"/>
-            <ShellContent Title="Năm" ContentTemplate="{DataTemplate views:PageThuNam}"/>
-            <ShellContent Title="Sáu" ContentTemplate="{DataTemplate views:PageThuSau}"/>
-            <ShellContent Title="Bảy" ContentTemplate="{DataTemplate views:PageThuBay}"/>
-        </Tab>
-        <Tab Title="Deadline" Icon="dl.png">
+        <ShellContent Route="studentDefault" Title="TKB" Icon="today.png"
+                      ContentTemplate="{DataTemplate local:PageTKBSV}" />
+        <Tab Title="Deadline" Icon="checklist.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageDeadline }"/>
         </Tab>
         <Tab Title="Môn" Icon="mon.png">
