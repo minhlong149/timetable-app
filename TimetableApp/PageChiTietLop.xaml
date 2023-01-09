@@ -2,87 +2,90 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimetableApp.PageChiTietLop">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="AddLop" Text="Thêm" Clicked="AddLop_Clicked"/>
-    </ContentPage.ToolbarItems>
-    <ContentPage.Content>
 
+    <ContentPage.Content>
+        <StackLayout>
             <CollectionView  x:Name="LstLop" SelectionMode="Single">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"></GridItemsLayout>
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <SwipeView>
-                        <SwipeView.RightItems>
-                            <SwipeItems>
-                                <SwipeItem x:Name="Add" Text="Đăng ký" 
-                                               BackgroundColor="Blue" Invoked="Add_Invoked"
-                                               CommandParameter="{Binding .}"/>
-                                <SwipeItem x:Name="Del" Text="Xóa"
-                                               BackgroundColor="Red" Invoked="Del_Invoked"
-                                               CommandParameter="{Binding .}"/>
-                                <SwipeItem x:Name="Up" Text="Sửa"
-                                            BackgroundColor="Blue" Invoked="Up_Invoked"
-                                            CommandParameter="{Binding .}"/>
-                                           
-                            </SwipeItems>
-                        </SwipeView.RightItems>
-                        <!--Thông tin về lớp học-->
-                            <Grid ColumnSpacing="0" RowSpacing="0" >
+                <DataTemplate>
+                    <!--Thông tin về lớp học-->
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,10,10,10">
+                        <Frame HasShadow="True" BackgroundColor="White" CornerRadius="20">
+                            <Grid ColumnSpacing="0" RowSpacing="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                          
-                                <Label Grid.Row="0" FontSize="15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Padding="15,10,10,15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="-20,-20,-20,0" BackgroundColor="#08457E">
+                                    <Label>
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{Binding MaLop}"></Span>
-                                                <Span Text="_" />
-                                                <Span x:Name="Mon" Text="{Binding TenMon}"/>
+                                                <Span Text="{Binding MaLop}" TextColor="White" FontAttributes="Bold" FontSize="15"></Span>
+                                                <Span Text="_" TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                                <Span x:Name="Mon" Text="{Binding TenMon}" TextColor="White" FontAttributes="Bold" FontSize="15"/>
                                             </FormattedString>
                                         </Label.FormattedText>
-                                </Label>
+                                    </Label>
+                                </Frame>
 
-                                <Label Grid.Row="1"  FontSize="15">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                            <Span Text="GV: "></Span>
-                                            <Span Text="{Binding GiaoVien}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                 </Label>
-
-                                <Label Grid.Row="2" FontSize="15">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                            <Span Text="P."></Span>
-                                            <Span Text="{Binding PhongHoc}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                </Label>
-
-                                <Label Grid.Row="3" FontSize="15">
+                                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" >
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="Tiết: "/>
-                                            <Span Text="{Binding Tiet}"/>
-                                            <Span Text="       "/>
-                                            <Span Text="Thứ "/>
-                                            <Span Text="{Binding Thu}"/>
+                                            <Span Text="Giảng viên: " FontSize="15" TextColor="#08457E" FontAttributes="Bold"></Span>
+                                            <Span Text="{Binding GiaoVien}" FontSize="15" TextColor="#cd572c"/>
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
+
+                                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"  >
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Phòng: " TextColor="#08457E" FontSize="15" FontAttributes="Bold"></Span>
+                                            <Span Text="{Binding PhongHoc}" FontSize="15" TextColor="#cd572c"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" >
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Tiết: " TextColor="#08457E" FontSize="15" FontAttributes="Bold"/>
+                                            <Span Text="{Binding Tiet}" FontSize="15" TextColor="#cd572c"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label Grid.Row="3" Grid.Column="2" >
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Thứ: " TextColor="#08457E" FontSize="15" FontAttributes="Bold"/>
+                                            <Span Text="{Binding Thu}" FontSize="15" TextColor="#cd572c"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Button x:Name="AddClass" BackgroundColor="#cd572c" TextColor="White" 
+                                            Grid.Row="3" Grid.Column="3" Margin="-10,-10,-35,0" Padding="-10,-10,-10,-10"  
+                                            HeightRequest="25" WidthRequest="55" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
+                                            FontSize="13" Text="Đăng ký" TextTransform="None" Clicked="AddClass_Clicked" />
                             </Grid>
-                        </SwipeView>
-                        
-                    </DataTemplate>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
