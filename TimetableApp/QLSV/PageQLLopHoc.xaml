@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimetableApp.QLSV.PageQLLopHoc">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Example Item" Clicked="ToolbarItem_Clicked"
+        <ToolbarItem Text="Thêm SV" Clicked="ToolbarItem_Clicked"
                  Order="Primary" Priority="0" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -29,7 +29,7 @@
                                 <Label Grid.Column="0" Text="{Binding TenSV}"
                                        VerticalOptions="CenterAndExpand" TextColor="Black" FontSize="18"/>
                                 <ImageButton Source="close.png" Grid.Column="1" BorderColor="Transparent" BackgroundColor="Transparent"
-                                             Clicked="DeleteStudent" CommandParameter="{Binding MaSV}" />
+                                             Clicked="DeleteStudent" CommandParameter="{Binding .}" />
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

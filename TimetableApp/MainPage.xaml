@@ -12,11 +12,15 @@
     <ShellItem Route="login">
         <ShellContent ContentTemplate="{DataTemplate account:PageDangNhap}"/>
     </ShellItem>
-    
+
     <TabBar Route="student" FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Route="studentDefault" Title="TKB" Icon="today.png" >
+        <ShellContent Route="studentDefault" Title="TKB-L" Icon="today.png"
+                      ContentTemplate="{DataTemplate local:PageTKBSV}" />
+        
+        <Tab Title="TKB-O" Icon="today.png" >
             <ShellContent ContentTemplate="{DataTemplate views:PageSchedule}" />
         </Tab>
+        
         <Tab Title="Deadline" Icon="checklist.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageDeadline }"/>
         </Tab>

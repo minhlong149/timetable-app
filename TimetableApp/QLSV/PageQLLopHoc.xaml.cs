@@ -17,15 +17,11 @@ namespace TimetableApp.QLSV
     public partial class PageQLLopHoc : ContentPage
     {
         HttpClient client;
-        List<MonHoc> subjectList;
-        List<LopHoc> classList;
 
         public PageQLLopHoc()
         {
             InitializeComponent();
             client = new HttpClient();
-            subjectList = new List<MonHoc>();
-            classList = new List<LopHoc>();
 
             PopulatingPicker();
             RefreshData();
@@ -46,63 +42,62 @@ namespace TimetableApp.QLSV
             int currentSubjectIndex = pckSubjects.SelectedIndex;
             int currentClassIndex = pckClasses.SelectedIndex;
 
-            await updateSubjectPicker(currentSubjectIndex);
-            await updatClassPicker(currentClassIndex);
-            await updateStudentList(pckClasses);
+            await GetSubjectList();
+            await GetClassList();
+
+            updateSubjectPicker(currentSubjectIndex);
+            updatClassPicker(currentClassIndex);
+            await updateStudentList();
         }
 
-        private async Task updateSubjectPicker(int currentSubjectIndex = -1)
+        private void updateSubjectPicker(int currentSubjectIndex = -1)
         {
             // Update subject picker's item source
-            subjectList = await GetSubjectList();
             pckSubjects.ItemsSource = null;
-            pckSubjects.ItemsSource = subjectList;
+            pckSubjects.ItemsSource = MonHoc.DanhSach;
             pckSubjects.SelectedIndex = currentSubjectIndex;
         }
 
-        private async Task updatClassPicker(int currentClassIndex = -1)
+        private void updatClassPicker(int currentClassIndex = -1)
         {
             // Update class pickersubject picker
-            classList = await GetClassList();
             pckClasses.ItemsSource = null;
 
             // Only update class picker if a subject has been selected
-            filterClassListBySubject(pckSubjects);
+            filterClassListBySubject();
 
             pckClasses.SelectedIndex = currentClassIndex;
         }
 
         private void pckSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Picker picker = (Picker)sender;
-            filterClassListBySubject(picker);
+            filterClassListBySubject();
         }
 
-        private void filterClassListBySubject(Picker picker)
+        private void filterClassListBySubject()
         {
-            int selectedIndex = picker.SelectedIndex;
+            int selectedIndex = pckSubjects.SelectedIndex;
             if (selectedIndex != -1)
             {
-                MonHoc selectedSubject = (MonHoc)picker.SelectedItem;
+                MonHoc selectedSubject = (MonHoc)pckSubjects.SelectedItem;
                 pckClasses.ItemsSource = null;
-                pckClasses.ItemsSource = classList.FindAll(lopHoc => lopHoc.TenMon == selectedSubject.TenMon);
+                pckClasses.ItemsSource = LopHoc.DanhSach.FindAll(lopHoc => lopHoc.TenMon == selectedSubject.TenMon);
             }
         }
 
         private async void pckClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Picker picker = (Picker)sender;
-            await updateStudentList(picker);
+            await updateStudentList();
         }
 
-        private async Task updateStudentList(Picker picker)
+        private async Task updateStudentList()
         {
-            int selectedIndex = picker.SelectedIndex;
+            int selectedIndex = pckClasses.SelectedIndex;
 
             // Update listview if class has already been selected
             if (selectedIndex != -1)
             {
-                LopHoc selectedClass = (LopHoc)picker.SelectedItem;
+                LopHoc selectedClass = (LopHoc)pckClasses.SelectedItem;
                 lstStudents.ItemsSource = null;
                 lstStudents.ItemsSource = await GetStudentByClass(selectedClass.MaLop);
             }
@@ -131,13 +126,61 @@ namespace TimetableApp.QLSV
             }
         }
 
-        private void DeleteStudent(object sender, EventArgs e)
+        private async void DeleteStudent(object sender, EventArgs e)
         {
             ImageButton imgBtn = (ImageButton)sender;
-            Console.WriteLine(imgBtn.CommandParameter);
+            SinhVien sinhVien = (SinhVien)imgBtn.CommandParameter;
+            LopHoc lopHoc = (LopHoc)pckClasses.SelectedItem;
+
+            bool isDeleted = await DisplayAlert("Cảnh báo", $"Xoá sinh viên {sinhVien.MaSV} khỏi lớp {lopHoc.MaLop}?", "Xoá", "Huỷ");
+            if (isDeleted)
+            {
+                await InsertStudentClass(sinhVien.MaSV, lopHoc.MaLop);
+            }
         }
 
-        private async Task<List<LopHoc>> GetClassList()
+        private async Task InsertStudentClass(string MaSV, string MaLop)
+        {
+            try
+            {
+                string uri = $"http://lno-ie307.somee.com/api/SinhVien?MaSV={MaSV}&MaLop={MaLop}";
+                HttpResponseMessage response = await client.DeleteAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+
+                    if (content == "1")
+                    {
+                        await updateStudentList();
+                    }
+
+                    string alertTitle = content == "1" ? "Thành công" : "Thất bại";
+                    string alertDesc = content == "1" ? $"Đã xoá {content} sinh viên khỏi lớp {MaLop}" : $"Không thể xoá sinh viên {MaSV} khỏi lớp {MaLop}";
+                    string alertApcept = content == "1" ? "Thoát" : "Thử lại";
+
+                    await DisplayAlert(alertTitle, alertDesc, alertApcept);
+                }
+                else
+                {
+                    await resolveError(MaSV, MaLop);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(@"\tERROR {0}", ex.Message);
+                await resolveError(MaSV, MaLop);
+            }
+        }
+
+        private async Task resolveError(string MaSV, string MaLop)
+        {
+            string alertTitle = "Lỗi";
+            string alertDesc = $"Đã có lỗi xảy ra khi xoá sinh viên {MaSV} khỏi lớp {MaLop}";
+            string alertApcept = "Thử lại";
+            await DisplayAlert(alertTitle, alertDesc, alertApcept);
+        }
+
+        private async Task GetClassList()
         {
             try
             {
@@ -146,18 +189,16 @@ namespace TimetableApp.QLSV
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<List<LopHoc>>(content);
+                    LopHoc.DanhSach = JsonConvert.DeserializeObject<List<LopHoc>>(content);
                 }
-                return new List<LopHoc>();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(@"\tERROR {0}", ex.Message);
-                return new List<LopHoc>();
             }
         }
 
-        private async Task<List<MonHoc>> GetSubjectList()
+        private async Task GetSubjectList()
         {
             try
             {
@@ -166,21 +207,19 @@ namespace TimetableApp.QLSV
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<List<MonHoc>>(content);
+                    MonHoc.DanhSach = JsonConvert.DeserializeObject<List<MonHoc>>(content);
                 }
-                return new List<MonHoc>();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(@"\tERROR {0}", ex.Message);
-                return new List<MonHoc>();
             }
         }
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             LopHoc selectedClass = (LopHoc)pckClasses.SelectedItem;
-            Navigation.PushAsync(selectedClass is null ? new PageThemSV() : new PageThemSV(selectedClass.MaLop));
+            Navigation.PushAsync(selectedClass is null ? new PageThemSV() : new PageThemSV(selectedClass));
         }
     }
 }
