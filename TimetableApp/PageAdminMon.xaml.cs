@@ -14,17 +14,20 @@ namespace TimetableApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageAdminMon : ContentPage
     {
-        public PageAdminMon()
+		List<MonHoc> mons;
+		public PageAdminMon()
         {
             InitializeComponent();
             ListViewInit();
         }
         async void ListViewInit()
         {
-            HttpClient httpClient = new HttpClient();
+			mons = new List<MonHoc>();
+			HttpClient httpClient = new HttpClient();
             var lstMon = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/MonHoc");
             var lstMonConverted = JsonConvert.DeserializeObject<List<MonHoc>>(lstMon);
-            LstMonHoc.ItemsSource = lstMonConverted;
+			mons = lstMonConverted;
+			LstMonHoc.ItemsSource = lstMonConverted;
         }
         
         private void ToolbarItem_Clicked(object sender, EventArgs e)
@@ -35,10 +38,10 @@ namespace TimetableApp
         private void LstMonHoc_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             MonHoc monHoc = (MonHoc)e.Item;
-            Navigation.PushAsync(new PageChiTietLop(monHoc));
+            Navigation.PushAsync(new PageAdminLop(monHoc));
         }
 
-        private async void DelMon_Invoked(object sender, EventArgs e)
+      /*  private async void DelMon_Invoked(object sender, EventArgs e)
         {
                SwipeItem swipeItem = (SwipeItem)sender;
                 MonHoc mon = swipeItem.CommandParameter as MonHoc;
@@ -58,13 +61,17 @@ namespace TimetableApp
             SwipeItem swipeItem = (SwipeItem)sender;
             MonHoc mon = swipeItem.CommandParameter as MonHoc;
             Navigation.PushAsync(new PageAdThemMon(mon));
-        }
+        }*/
         protected override void OnAppearing()
         {
             base.OnAppearing();
             ListViewInit();
         }
 
-      
-    }
+		private void searchAd_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			var texto = searchAd.Text;
+			LstMonHoc.ItemsSource = mons.Where(x => x.TenMon.ToLower().Contains(texto));
+		}
+	}
 }
