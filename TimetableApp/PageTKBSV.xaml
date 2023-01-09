@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimetableApp.PageTKBSV"
+             xmlns:controls="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar"
+             Title="Thời khoá biểu">
+    <ContentPage.Content>
+        <StackLayout Padding="20,10">
+            <controls:Calendar
+                x:Name="timeTable"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                CalendarLayout="Week"
+                WeekViewUnit="MonthName"
+                EventIndicatorColor="#03A9F4"
+                TodayOutlineColor="#03A9F4"
+                EventIndicatorSelectedColor="White"
+                EventIndicatorSelectedTextColor="White"
+                Events="{Binding Events}">
+
+                <controls:Calendar.EventTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" CornerRadius="8" Padding="15" HasShadow="True">
+                            <StackLayout>
+                                <Label FontAttributes="Bold" FontSize="Medium">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding MaLop}" />
+                                            <Span Text=" - " />
+                                            <Span Text="{Binding TenMon}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <BoxView BackgroundColor="Gray" HeightRequest="1" HorizontalOptions="Fill" Margin="0,5" />
+
+                                <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceBetween">
+                                    <Grid RowDefinitions="25" ColumnDefinitions="Auto, *">
+                                        <Image Source="schedule.png" Grid.Column="0" Opacity=".6" />
+                                        <Label Text="{Binding Tiet}" Grid.Column="1"
+                                               FontSize="Body"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Grid>
+
+                                    <Grid RowDefinitions="25" ColumnDefinitions="Auto, *">
+                                        <Image Source="apartment.png" Grid.Column="0" Opacity=".6"/>
+                                        <Label Text="{Binding PhongHoc}" Grid.Column="1"
+                                               FontSize="Body"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Grid>
+
+                                    <Grid RowDefinitions="25" ColumnDefinitions="Auto, *">
+                                        <Image Source="person.png" Grid.Column="0" Opacity=".6"/>
+                                        <Label Text="{Binding GiaoVien}" Grid.Column="1"
+                                               FontSize="Body"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    </Grid>
+                                </FlexLayout>
+
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </controls:Calendar.EventTemplate>
+
+                <controls:Calendar.HeaderSectionTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Padding="0,0,0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Frame Grid.Column="0" Padding="0"
+                                   BackgroundColor="{Binding BackgroundColor}" HasShadow="True"
+                                   HeightRequest="36" WidthRequest="36" CornerRadius="18"
+                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+
+                                <Image Source="navigate_before.png" BackgroundColor="Transparent" 
+                                             HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PrevLayoutUnitCommand}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+
+                            <Label Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"
+                                   FontAttributes="Bold" FontSize="Medium" TextColor="{Binding MonthLabelColor}">
+                                
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding LayoutUnitText, Mode=TwoWay}" />
+                                        <Span Text=", " />
+                                        <Span Text="{Binding Year, Mode=TwoWay}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Frame Grid.Column="2" Padding="0"
+                                   BackgroundColor="{Binding BackgroundColor}" HasShadow="True"
+                                   HeightRequest="36" WidthRequest="36" CornerRadius="18"
+                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+
+                                <Image Source="navigate_next.png" BackgroundColor="Transparent" 
+                                             HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NextLayoutUnitCommand}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </Grid>
+
+                    </DataTemplate>
+                </controls:Calendar.HeaderSectionTemplate>
+
+                <controls:Calendar.EmptyTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="NO EVENTS FOR THE SELECTED DATE" HorizontalTextAlignment="Center" Margin="0,5,0,5" />
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:Calendar.EmptyTemplate>
+            </controls:Calendar>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
