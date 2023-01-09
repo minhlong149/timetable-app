@@ -47,7 +47,7 @@ namespace TimetableApp.QLSV
 
             updateSubjectPicker(currentSubjectIndex);
             updatClassPicker(currentClassIndex);
-            await updateStudentList(pckClasses);
+            await updateStudentList();
         }
 
         private void updateSubjectPicker(int currentSubjectIndex = -1)
@@ -64,23 +64,22 @@ namespace TimetableApp.QLSV
             pckClasses.ItemsSource = null;
 
             // Only update class picker if a subject has been selected
-            filterClassListBySubject(pckSubjects);
+            filterClassListBySubject();
 
             pckClasses.SelectedIndex = currentClassIndex;
         }
 
         private void pckSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Picker picker = (Picker)sender;
-            filterClassListBySubject(picker);
+            filterClassListBySubject();
         }
 
-        private void filterClassListBySubject(Picker picker)
+        private void filterClassListBySubject()
         {
-            int selectedIndex = picker.SelectedIndex;
+            int selectedIndex = pckSubjects.SelectedIndex;
             if (selectedIndex != -1)
             {
-                MonHoc selectedSubject = (MonHoc)picker.SelectedItem;
+                MonHoc selectedSubject = (MonHoc)pckSubjects.SelectedItem;
                 pckClasses.ItemsSource = null;
                 pckClasses.ItemsSource = LopHoc.DanhSach.FindAll(lopHoc => lopHoc.TenMon == selectedSubject.TenMon);
             }
@@ -88,18 +87,17 @@ namespace TimetableApp.QLSV
 
         private async void pckClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Picker picker = (Picker)sender;
-            await updateStudentList(picker);
+            await updateStudentList();
         }
 
-        private async Task updateStudentList(Picker picker)
+        private async Task updateStudentList()
         {
-            int selectedIndex = picker.SelectedIndex;
+            int selectedIndex = pckClasses.SelectedIndex;
 
             // Update listview if class has already been selected
             if (selectedIndex != -1)
             {
-                LopHoc selectedClass = (LopHoc)picker.SelectedItem;
+                LopHoc selectedClass = (LopHoc)pckClasses.SelectedItem;
                 lstStudents.ItemsSource = null;
                 lstStudents.ItemsSource = await GetStudentByClass(selectedClass.MaLop);
             }
@@ -128,10 +126,58 @@ namespace TimetableApp.QLSV
             }
         }
 
-        private void DeleteStudent(object sender, EventArgs e)
+        private async void DeleteStudent(object sender, EventArgs e)
         {
             ImageButton imgBtn = (ImageButton)sender;
-            Console.WriteLine(imgBtn.CommandParameter);
+            SinhVien sinhVien = (SinhVien)imgBtn.CommandParameter;
+            LopHoc lopHoc = (LopHoc)pckClasses.SelectedItem;
+
+            bool isDeleted = await DisplayAlert("Cảnh báo", $"Xoá sinh viên {sinhVien.MaSV} khỏi lớp {lopHoc.MaLop}?", "Xoá", "Huỷ");
+            if (isDeleted)
+            {
+                await InsertStudentClass(sinhVien.MaSV, lopHoc.MaLop);
+            }
+        }
+
+        private async Task InsertStudentClass(string MaSV, string MaLop)
+        {
+            try
+            {
+                string uri = $"http://lno-ie307.somee.com/api/SinhVien?MaSV={MaSV}&MaLop={MaLop}";
+                HttpResponseMessage response = await client.DeleteAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+
+                    if (content == "1")
+                    {
+                        await updateStudentList();
+                    }
+
+                    string alertTitle = content == "1" ? "Thành công" : "Thất bại";
+                    string alertDesc = content == "1" ? $"Đã xoá {content} sinh viên khỏi lớp {MaLop}" : $"Không thể xoá sinh viên {MaSV} khỏi lớp {MaLop}";
+                    string alertApcept = content == "1" ? "Thoát" : "Thử lại";
+
+                    await DisplayAlert(alertTitle, alertDesc, alertApcept);
+                }
+                else
+                {
+                    await resolveError(MaSV, MaLop);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(@"\tERROR {0}", ex.Message);
+                await resolveError(MaSV, MaLop);
+            }
+        }
+
+        private async Task resolveError(string MaSV, string MaLop)
+        {
+            string alertTitle = "Lỗi";
+            string alertDesc = $"Đã có lỗi xảy ra khi xoá sinh viên {MaSV} khỏi lớp {MaLop}";
+            string alertApcept = "Thử lại";
+            await DisplayAlert(alertTitle, alertDesc, alertApcept);
         }
 
         private async Task GetClassList()

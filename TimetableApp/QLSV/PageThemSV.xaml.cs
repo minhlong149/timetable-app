@@ -118,7 +118,7 @@ namespace TimetableApp.QLSV
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    
+
                     string alertTitle = content == "1" ? "Thành công" : "Thất bại";
                     string alertDesc = content == "1" ? $"Đã thêm {content} sinh viên vào lớp {MaLop}" : $"Không thể thêm sinh viên {MaSV} vào lớp {MaLop}";
                     string alertApcept = content == "1" ? "Tiếp tục" : "Thử lại";
