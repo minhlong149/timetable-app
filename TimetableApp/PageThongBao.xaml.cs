@@ -22,7 +22,6 @@ namespace TimetableApp
         }
         async void SelectAllNotification()
         {
-
             HttpClient httpClient = new HttpClient();
             var lstTB = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/Notification?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
             var lstTBConverted = JsonConvert.DeserializeObject<List<ThongBao>>(lstTB);
