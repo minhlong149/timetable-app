@@ -97,5 +97,63 @@ namespace TimetableApp.QLSV
                 return new List<SinhVien>();
             }
         }
+
+        private async void lstStudents_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            SinhVien sinhVien = (SinhVien)e.SelectedItem;
+            LopHoc lopHoc = (LopHoc)pckClasses.SelectedItem;
+            bool isAdded = await DisplayAlert("Xác nhận", $"Thêm {sinhVien.TenSV} vào lớp {lopHoc.MaLop}?", "Thêm", "Huỷ");
+            if (isAdded)
+            {
+                await InsertStudentClass(sinhVien.MaSV, lopHoc.MaLop);
+            }
+        }
+
+        private async Task InsertStudentClass(string MaSV, string MaLop)
+        {
+            try
+            {
+                string uri = $"http://lno-ie307.somee.com/api/SinhVien?MaSV={MaSV}&MaLop={MaLop}";
+                HttpResponseMessage response = await client.PostAsync(uri, null);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    
+                    string alertTitle = content == "1" ? "Thành công" : "Thất bại";
+                    string alertDesc = content == "1" ? $"Đã thêm {content} sinh viên vào lớp {MaLop}" : $"Không thể thêm sinh viên {MaSV} vào lớp {MaLop}";
+                    string alertApcept = content == "1" ? "Tiếp tục" : "Thử lại";
+                    string alertCancel = "Thoát";
+
+                    bool continueToAdd = await DisplayAlert(alertTitle, alertDesc, alertApcept, alertCancel);
+                    if (!continueToAdd)
+                    {
+                        await Navigation.PopAsync();
+                    }
+                }
+                else
+                {
+                    await resolveError(MaSV, MaLop);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(@"\tERROR {0}", ex.Message);
+                await resolveError(MaSV, MaLop);
+            }
+        }
+
+        private async Task resolveError(string MaSV, string MaLop)
+        {
+            string alertTitle = "Lỗi";
+            string alertDesc = $"Đã có lỗi xảy ra khi thêm sinh viên {MaSV} vào lớp {MaLop}";
+            string alertApcept = "Thử lại";
+            string alertCancel = "Thoát";
+
+            bool continueToAdd = await DisplayAlert(alertTitle, alertDesc, alertApcept, alertCancel);
+            if (!continueToAdd)
+            {
+                await Navigation.PopAsync();
+            }
+        }
     }
 }

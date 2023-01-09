@@ -14,8 +14,7 @@
                         SelectedIndexChanged="pckClasses_SelectedIndexChanged"
                         FontSize="20" TextColor="Black" />
 
-            <ListView x:Name="lstStudents" SelectionMode="None"
-                      IsPullToRefreshEnabled="True">
+            <ListView x:Name="lstStudents" ItemSelected="lstStudents_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
