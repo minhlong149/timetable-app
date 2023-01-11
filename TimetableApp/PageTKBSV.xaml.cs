@@ -17,6 +17,11 @@ namespace TimetableApp
             InitializeComponent();
             timeTable.ShownDate = DateTime.Today;
             timeTable.SelectedDate = DateTime.Today;
+        }
+
+        protected override void OnAppearing()
+        {
+            // TODO: Need to improve this to refresh student timetable
             BindingContext = new PageTKBSV_VM();
         }
     }
