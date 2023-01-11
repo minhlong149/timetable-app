@@ -63,7 +63,6 @@ namespace TimetableApp
 						daki = daki + 1;
 					}
 				}
-
 				/*Kiểm tra đã đăng ký hay chưa*/
 				if (daki > 0)
 					await DisplayAlert("Thông báo", "Bạn đã đăng ký lớp " + lopHoc.MaLop, "OK");
@@ -71,7 +70,7 @@ namespace TimetableApp
 				{
 					kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/SinhVien?MaSV=" + SinhVien.DangNhap.MaSV.ToString() + "&MaLop=" + lopHoc.MaLop.ToString(), stringContent);
 					string kqdk = await kq.Content.ReadAsStringAsync();
-					if (kqdk == "1")
+					if (int.Parse(kqdk.ToString()) > 0)
 					{
 						await DisplayAlert("Thông báo", "Bạn đã đăng ký lớp " + lopHoc.MaLop + " thành công!", "OK");
 					}
