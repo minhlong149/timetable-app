@@ -14,7 +14,6 @@ namespace TimetableApp.AdminViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageTaoThongBao : ContentPage
     {
-        ThongBao _ThongBao;
         public PageTaoThongBao()
         {
             InitializeComponent();
@@ -34,7 +33,7 @@ namespace TimetableApp.AdminViews
         private async void Save_Clicked(object sender, EventArgs e)
         {
             ThongBao _ThongBao = new ThongBao();
-            _ThongBao.MaSV = picker.ItemDisplayBinding.StringFormat;
+            _ThongBao.MaSV = picker.ItemDisplayBinding.StringFormat.ToString();
             _ThongBao.TieuDe = AddTieuDe.Text;
             _ThongBao.NoiDung = AddNoiDung.Text;
             _ThongBao.ThoiGian = DateTime.Now;
@@ -53,7 +52,7 @@ namespace TimetableApp.AdminViews
             else
                 await DisplayAlert("Thông báo", "Thêm thông báo không thành công", "Thử lại");
 
-            await Navigation.PushAsync(new PageTaoThongBao());
+            await Navigation.PopAsync();
         }
     }
 }

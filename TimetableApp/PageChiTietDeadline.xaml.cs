@@ -14,7 +14,7 @@ namespace TimetableApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageChiTietDeadline : ContentPage
     {
-        Deadline _dl;
+        Deadline _dl = new Deadline();
         public PageChiTietDeadline(Deadline deadline)
         {
 
@@ -24,6 +24,8 @@ namespace TimetableApp
             AddTieuDe.Text = deadline.TieuDe;
             AddNoiDung.Text = deadline.NoiDung;
             datePicker.Date = deadline.ThoiGian;
+            CotMaLop.Text = deadline.MaLop;
+            CotHoanThanh.Text = deadline.HoanThanh == "false" ? "Chưa hoàn thành" : "Hoàn thành";
             AddNoiDung.Focus();
         }
 
@@ -32,19 +34,19 @@ namespace TimetableApp
             Button bt = (Button)sender;
             Deadline deadline = (Deadline)bt.BindingContext;
             HttpClient httpClient = new HttpClient();
-            bool ans = await DisplayAlert("Cảnh báo", "Bạn có chắc chắn muốn xóa deadline " + deadline.TieuDe + " ?", "Có", "Không");
+            bool ans = await DisplayAlert("Cảnh báo", "Bạn có chắc chắn muốn xóa deadline này không?", "Có", "Không");
             if (ans)
             {
                 HttpResponseMessage kq;
-                kq = await httpClient.DeleteAsync("http://www.lno-ie307.somee.com/api/api/Homework?ID=" + deadline.ID.ToString());
-                var kqdk = await kq.Content.ReadAsStringAsync();
-                if (int.Parse(kqdk.ToString()) > 0)
+                kq = await httpClient.DeleteAsync("http://www.lno-ie307.somee.com/api/Homework?ID=" + deadline.ID.ToString());
+                var kqdl = await kq.Content.ReadAsStringAsync();
+                if (int.Parse(kqdl.ToString()) > 0)
                 {
-                    await DisplayAlert("Thông báo", "Đã xóa lớp " + deadline.TieuDe + " thành công!", "OK");
+                    await DisplayAlert("Thông báo", "Đã xóa deadline thành công!", "OK");
 
                 }
                 else
-                    await DisplayAlert("Thông báo", "Đã có lỗi xảy ra!\tVui lòng thử lại", "OK");
+                    await DisplayAlert("Thông báo", "Không thể xóa!\tVui lòng thử lại", "OK");
             }
             await Navigation.PushAsync(new PageDeadline());
         }
@@ -53,7 +55,7 @@ namespace TimetableApp
         {
             Button bt = (Button)sender;
             Deadline deadline = (Deadline)bt.BindingContext;
-            Navigation.PushAsync(new PageAdDeadline(deadline));
+            Navigation.PopAsync();
         }
     }
 }

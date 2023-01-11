@@ -19,27 +19,27 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Text="Lớp: " FontSize="20" VerticalOptions="Center" FontAttributes="Italic" TextColor="#08457E"/>
-                <Label Grid.Row="0" Grid.Column="1" Text="{Binding MaLop}" FontSize="20" VerticalOptions="Center" FontAttributes="Italic" TextColor="#08457E"/>
+                <Label Grid.Row="0" Grid.Column="0" Text="Lớp: " FontSize="20" VerticalOptions="Center" FontAttributes="Bold" TextColor="#08457E"/>
+                <Label x:Name="CotMaLop" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding MaLop}" FontSize="20" VerticalOptions="Center" FontAttributes="Italic" TextColor="#08457E"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Text="Tiêu đề: " FontSize="20" VerticalOptions="Center" FontAttributes="Italic" TextColor="#08457E"/>
-                <Entry x:Name="AddTieuDe" Grid.Row="1" Grid.Column="1" Placeholder="{Binding TieuDe}" FontSize="20" Text="{Binding TieuDe}"/>
+                <Label Grid.Row="1" Grid.Column="0" Text="Tiêu đề: " FontSize="20" VerticalOptions="Center" FontAttributes="Bold" TextColor="#08457E"/>
+                <Entry x:Name="AddTieuDe" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="1" Placeholder="{Binding TieuDe}" FontSize="20" Text="{Binding TieuDe}"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Text="Nội dung: " FontSize="20" VerticalOptions="Center" FontAttributes="Italic" TextColor="#08457E"/>
-                <Entry x:Name="AddNoiDung" Grid.Row="2" Grid.Column="1" Placeholder="{Binding NoiDung}" FontSize="20" Text="{Binding NoiDung}"/>
+                <Label Grid.Row="2" Grid.Column="0" Text="Nội dung: " FontSize="20" VerticalOptions="Center" FontAttributes="Bold" TextColor="#08457E"/>
+                <Entry x:Name="AddNoiDung" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Placeholder="{Binding NoiDung}" FontSize="20" Text="{Binding NoiDung}"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Text="Hạn hoàn thành: " FontSize="20" VerticalOptions="Center" FontAttributes="Italic" TextColor="#08457E"/>
-                <DatePicker x:Name="datePicker" Grid.Row="3" Grid.Column="1" Format="D"/>
+                <Label Grid.Row="3" Grid.Column="0" Text="Hạn: " FontSize="20" VerticalOptions="Center" FontAttributes="Bold" TextColor="#08457E"/>
+                <DatePicker x:Name="datePicker" Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="1" Format="D"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Text="Tình trạng: " FontSize="20" VerticalOptions="Center" FontAttributes="Italic" TextColor="#08457E"/>
-                <Label Grid.Row="4" Grid.Column="1" Text="{Binding HoanThanh}" FontSize="20" VerticalOptions="Center" FontAttributes="Italic" TextColor="#08457E"/>
+                <Label Grid.Row="4" Grid.Column="0" Text="Tình trạng: " FontSize="20" VerticalOptions="Center" FontAttributes="Bold" TextColor="#08457E"/>
+                <Label x:Name="CotHoanThanh" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding HoanThanh}" FontSize="20" VerticalOptions="Center" FontAttributes="Italic" TextColor="#08457E"/>
 
-                <Button x:Name="Del" Grid.Row="5" Grid.Column="2" Text="Xóa" Clicked="Del_Clicked" 
-                                        HeightRequest="30" WidthRequest="55" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
-                                            FontSize="13" TextTransform="None" Margin="-10, 0,-80,0" Padding="-10,-10,-10,-10"/>
-                <Button x:Name="Update" Grid.Row="5" Grid.Column="3" Text="Sửa" Clicked="Update_Clicked"
-                                         HeightRequest="30" WidthRequest="55" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
-                                            FontSize="13" TextTransform="None" Margin="-10, 0,-35,0" Padding="-10,-10,-10,-10"/>
+                <Button x:Name="Del" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Xóa" Clicked="Del_Clicked" 
+                                        HeightRequest="50" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
+                                            FontSize="20" TextTransform="None" Margin="-10, 0,-80,0" Padding="-10,-10,-10,-10"/>
+                <Button x:Name="Update" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Text="Sửa" Clicked="Update_Clicked"
+                                         HeightRequest="50" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
+                                            FontSize="20" TextTransform="None" Margin="-10, 0,-35,0" Padding="-10,-10,-10,-10"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>
