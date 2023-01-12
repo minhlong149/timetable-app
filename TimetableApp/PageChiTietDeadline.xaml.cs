@@ -32,7 +32,7 @@ namespace TimetableApp
         private async void Del_Clicked(object sender, EventArgs e)
         {
             Button bt = (Button)sender;
-            Deadline deadline = (Deadline)bt.CommandParameter;
+            Deadline deadline = (Deadline)bt.BindingContext;
             try
             {
                 HttpClient httpClient = new HttpClient();
@@ -49,7 +49,7 @@ namespace TimetableApp
                     else
                         await DisplayAlert("Thông báo", "Không thể xóa!\tVui lòng thử lại", "OK");
                 }
-                await Navigation.PushAsync(new PageDeadline());
+                await Navigation.PopAsync();
             }
             catch (Exception ex)
             {
