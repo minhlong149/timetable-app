@@ -158,14 +158,17 @@ namespace TimetableApp.QLSV
 
                     if (content == "1")
                     {
+                        string alertTitle = content == "1" ? "Thành công" : "Thất bại";
+                        string alertDesc = content == "1" ? $"Đã xoá {content} sinh viên khỏi lớp {MaLop}" : $"Không thể xoá sinh viên {MaSV} khỏi lớp {MaLop}";
+                        string alertApcept = content == "1" ? "Thoát" : "Thử lại";
+
+                        await DisplayAlert(alertTitle, alertDesc, alertApcept);
                         await updateStudentList();
                     }
-
-                    string alertTitle = content == "1" ? "Thành công" : "Thất bại";
-                    string alertDesc = content == "1" ? $"Đã xoá {content} sinh viên khỏi lớp {MaLop}" : $"Không thể xoá sinh viên {MaSV} khỏi lớp {MaLop}";
-                    string alertApcept = content == "1" ? "Thoát" : "Thử lại";
-
-                    await DisplayAlert(alertTitle, alertDesc, alertApcept);
+                    else
+                    {
+                        await resolveError(MaSV, MaLop);
+                    }
                 }
                 else
                 {

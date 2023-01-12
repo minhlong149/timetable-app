@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -15,8 +16,8 @@ namespace TimetableApp.QLSV
     public partial class PageThemSV : ContentPage
     {
         HttpClient client;
-        List<MonHoc> subjectList;
         List<LopHoc> classList;
+        ObservableCollection<SinhVien> studentList;
 
         public PageThemSV(LopHoc _lopHoc = null)
         {
@@ -26,32 +27,25 @@ namespace TimetableApp.QLSV
             updateSubjectPicker();
             if (_lopHoc != null)
             {
-                pckSubjects.SelectedIndex = subjectList.FindIndex(monHoc => monHoc.TenMon == _lopHoc.TenMon);
-
-                updatClassPicker();
+                pckSubjects.SelectedIndex = MonHoc.DanhSach.FindIndex(monHoc => monHoc.TenMon == _lopHoc.TenMon);
+                filterClassListBySubject();
                 pckClasses.SelectedIndex = classList.FindIndex(lopHoc => lopHoc.MaLop == _lopHoc.MaLop);
             }
         }
 
         private void updateSubjectPicker()
         {
-            subjectList = MonHoc.DanhSach.OrderBy(monHoc => monHoc.TenMon).ToList();
             pckSubjects.ItemsSource = null;
-            pckSubjects.ItemsSource = subjectList;
+            pckSubjects.ItemsSource = MonHoc.DanhSach;
         }
 
-        private void updatClassPicker()
+        private void filterClassListBySubject()
         {
-            filterClassListBySubject(pckSubjects);
-        }
-
-        private void filterClassListBySubject(Picker picker)
-        {
-            int selectedIndex = picker.SelectedIndex;
+            int selectedIndex = pckSubjects.SelectedIndex;
             if (selectedIndex != -1)
             {
-                MonHoc selectedSubject = (MonHoc)picker.SelectedItem;
-                classList = LopHoc.DanhSach.FindAll(lopHoc => lopHoc.TenMon == selectedSubject.TenMon).OrderBy(lopHoc => lopHoc.MaLop).ToList();
+                MonHoc selectedSubject = (MonHoc)pckSubjects.SelectedItem;
+                classList = LopHoc.DanhSach.FindAll(lopHoc => lopHoc.TenMon == selectedSubject.TenMon);
 
                 pckClasses.ItemsSource = null;
                 pckClasses.ItemsSource = classList;
@@ -60,41 +54,54 @@ namespace TimetableApp.QLSV
 
         private void pckSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Picker picker = (Picker)sender;
-            filterClassListBySubject(picker);
+            filterClassListBySubject();
+            lstStudents.ItemsSource = null;
+            txtClassName.IsVisible = false;
+            sbSinhVien.IsVisible = false;
         }
 
         private async void pckClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Picker picker = (Picker)sender;
-            int selectedIndex = picker.SelectedIndex;
+            await updateStudentList();
+        }
+
+        private async Task updateStudentList()
+        {
+            int selectedIndex = pckClasses.SelectedIndex;
             if (selectedIndex != -1)
             {
-                LopHoc selectedClass = (LopHoc)picker.SelectedItem;
-                lstStudents.ItemsSource = null;
-                lstStudents.ItemsSource = await SelectStudentCanRegisterClass(selectedClass.MaLop);
+                LopHoc selectedClass = (LopHoc)pckClasses.SelectedItem;
+                studentList = await SelectStudentCanRegisterClass(selectedClass.MaLop);
+                updateListView(studentList);
+                sbSinhVien.IsVisible = studentList.Any();
             }
         }
 
-        private async Task<List<SinhVien>> SelectStudentCanRegisterClass(string MaLop)
+        private void updateListView(IEnumerable<SinhVien> studentList)
+        {
+            lstStudents.ItemsSource = studentList;
+            txtClassName.IsVisible = !studentList.Any();
+        }
+
+        private async Task<ObservableCollection<SinhVien>> SelectStudentCanRegisterClass(string MaLop)
         {
             try
             {
                 string uri = $"http://lno-ie307.somee.com/api/SinhVien?MaLop={MaLop}&ChuaDangKy=true";
-                List<SinhVien> students = new List<SinhVien>();
+                ObservableCollection<SinhVien> students = new ObservableCollection<SinhVien>();
 
                 HttpResponseMessage response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    students = JsonConvert.DeserializeObject<List<SinhVien>>(content);
+                    students = JsonConvert.DeserializeObject<ObservableCollection<SinhVien>>(content);
                 }
                 return students;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(@"\tERROR {0}", ex.Message);
-                return new List<SinhVien>();
+                return new ObservableCollection<SinhVien>();
             }
         }
 
@@ -119,15 +126,26 @@ namespace TimetableApp.QLSV
                 {
                     string content = await response.Content.ReadAsStringAsync();
 
-                    string alertTitle = content == "1" ? "Thành công" : "Thất bại";
-                    string alertDesc = content == "1" ? $"Đã thêm {content} sinh viên vào lớp {MaLop}" : $"Không thể thêm sinh viên {MaSV} vào lớp {MaLop}";
-                    string alertApcept = content == "1" ? "Tiếp tục" : "Thử lại";
-                    string alertCancel = "Thoát";
-
-                    bool continueToAdd = await DisplayAlert(alertTitle, alertDesc, alertApcept, alertCancel);
-                    if (!continueToAdd)
+                    if (content == "1")
                     {
-                        await Navigation.PopAsync();
+                        string alertTitle = content == "1" ? "Thành công" : "Thất bại";
+                        string alertDesc = content == "1" ? $"Đã thêm {content} sinh viên vào lớp {MaLop}" : $"Không thể thêm sinh viên {MaSV} vào lớp {MaLop}";
+                        string alertApcept = content == "1" ? "Tiếp tục" : "Thử lại";
+                        string alertCancel = "Thoát";
+
+                        bool continueToAdd = await DisplayAlert(alertTitle, alertDesc, alertApcept, alertCancel);
+                        if (!continueToAdd)
+                        {
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            await updateStudentList();
+                        }
+                    }
+                    else
+                    {
+                        await resolveError(MaSV, MaLop);
                     }
                 }
                 else
@@ -154,6 +172,14 @@ namespace TimetableApp.QLSV
             {
                 await Navigation.PopAsync();
             }
+        }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchBar searchBar = (SearchBar)sender;
+            string keyword = searchBar.Text.ToLower();
+            IEnumerable<SinhVien> newList = studentList.Where(sinhVien => sinhVien.TenSV.ToLower().Contains(keyword));
+            updateListView(newList);
         }
     }
 }
