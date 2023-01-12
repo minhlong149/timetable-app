@@ -62,10 +62,11 @@ namespace TimetableApp
 				HttpResponseMessage kq;
 
 				kq = await httpClient.PutAsync("http://www.lno-ie307.somee.com/api/LopHoc", stringContent);
-
-				if (kq.ToString() =="1")
+				var kqthem = await kq.Content.ReadAsStringAsync();
+				if (int.Parse(kqthem.ToString()) > 0)
 				{
 					await DisplayAlert("Thông báo", "Sửa lớp học " + _lop.MaLop.ToString() + " thành công", "OK");
+					await Navigation.PopAsync();
 				}
 				else
 					await DisplayAlert("Thông báo", "Sửa lớp học không thành công", "Thử lại");
@@ -90,7 +91,6 @@ namespace TimetableApp
 
 				kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/LopHoc", stringContent);
 				var kqthem = await kq.Content.ReadAsStringAsync();
-				Console.WriteLine(kq.ToString());
 				if (int.Parse(kqthem.ToString()) > 0)
 				{
 					await DisplayAlert("Thông báo", "Thêm lớp thành công", "OK");
