@@ -32,30 +32,37 @@ namespace TimetableApp
         private async void Del_Clicked(object sender, EventArgs e)
         {
             Button bt = (Button)sender;
-            Deadline deadline = (Deadline)bt.BindingContext;
-            HttpClient httpClient = new HttpClient();
-            bool ans = await DisplayAlert("Cảnh báo", "Bạn có chắc chắn muốn xóa deadline này không?", "Có", "Không");
-            if (ans)
+            Deadline deadline = (Deadline)bt.CommandParameter;
+            try
             {
-                HttpResponseMessage kq;
-                kq = await httpClient.DeleteAsync("http://www.lno-ie307.somee.com/api/Homework?ID=" + deadline.ID.ToString());
-                var kqdl = await kq.Content.ReadAsStringAsync();
-                if (int.Parse(kqdl.ToString()) > 0)
+                HttpClient httpClient = new HttpClient();
+                bool ans = await DisplayAlert("Cảnh báo", "Bạn có chắc chắn muốn xóa deadline này không?", "Có", "Không");
+                if (ans)
                 {
-                    await DisplayAlert("Thông báo", "Đã xóa deadline thành công!", "OK");
-
+                    HttpResponseMessage kq;
+                    kq = await httpClient.DeleteAsync("http://www.lno-ie307.somee.com/api/Homework?ID=" + deadline.ID.ToString());
+                    var kqdl = await kq.Content.ReadAsStringAsync();
+                    if (int.Parse(kqdl.ToString()) > 0)
+                    {
+                        await DisplayAlert("Thông báo", "Đã xóa deadline thành công!", "OK");
+                    }
+                    else
+                        await DisplayAlert("Thông báo", "Không thể xóa!\tVui lòng thử lại", "OK");
                 }
-                else
-                    await DisplayAlert("Thông báo", "Không thể xóa!\tVui lòng thử lại", "OK");
+                await Navigation.PushAsync(new PageDeadline());
             }
-            await Navigation.PushAsync(new PageDeadline());
+            catch (Exception ex)
+            {
+                Console.WriteLine(@"\tERROR {0}", ex.Message);
+            }
+           
         }
 
         private void Update_Clicked(object sender, EventArgs e)
         {
             Button bt = (Button)sender;
             Deadline deadline = (Deadline)bt.BindingContext;
-            Navigation.PopAsync();
+            Navigation.PushAsync(new PageAdDeadline(deadline));
         }
     }
 }

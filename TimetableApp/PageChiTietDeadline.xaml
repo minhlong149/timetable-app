@@ -36,7 +36,7 @@
 
                 <Button x:Name="Del" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Xóa" Clicked="Del_Clicked" 
                                         HeightRequest="50" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
-                                            FontSize="20" TextTransform="None" Margin="-10, 0,-80,0" Padding="-10,-10,-10,-10"/>
+                                            FontSize="20" TextTransform="None" Margin="-10, 0,-80,0" Padding="-10,-10,-10,-10" CommandParameter="{Binding .}"/>
                 <Button x:Name="Update" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Text="Sửa" Clicked="Update_Clicked"
                                          HeightRequest="50" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
                                             FontSize="20" TextTransform="None" Margin="-10, 0,-35,0" Padding="-10,-10,-10,-10"/>
