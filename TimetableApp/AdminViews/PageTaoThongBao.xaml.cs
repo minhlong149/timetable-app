@@ -52,7 +52,7 @@ namespace TimetableApp.AdminViews
             else
                 await DisplayAlert("Thông báo", "Thêm thông báo không thành công", "Thử lại");
 
-            await Navigation.PopAsync();
+            await Navigation.PushAsync(new PageTaoThongBao());
         }
     }
 }

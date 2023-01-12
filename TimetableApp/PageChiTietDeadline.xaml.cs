@@ -15,6 +15,7 @@ namespace TimetableApp
     public partial class PageChiTietDeadline : ContentPage
     {
         Deadline _dl = new Deadline();
+
         public PageChiTietDeadline(Deadline deadline)
         {
 
@@ -26,6 +27,7 @@ namespace TimetableApp
             datePicker.Date = deadline.ThoiGian;
             CotMaLop.Text = deadline.MaLop;
             CotHoanThanh.Text = deadline.HoanThanh == "false" ? "Chưa hoàn thành" : "Hoàn thành";
+
             AddNoiDung.Focus();
         }
 
@@ -57,6 +59,7 @@ namespace TimetableApp
             }
            
         }
+
 
         private void Update_Clicked(object sender, EventArgs e)
         {

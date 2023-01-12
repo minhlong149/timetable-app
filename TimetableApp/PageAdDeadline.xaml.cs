@@ -37,6 +37,7 @@ namespace TimetableApp
             picker.SelectedItem = deadline.MaLop;//Cần chỉnh sửa
             AddTieuDe.Text = deadline.TieuDe.ToString();
             AddNoiDung.Text = deadline.NoiDung.ToString();
+
             datePicker.Date = deadline.ThoiGian;
             AddNoiDung.Focus();
         }
