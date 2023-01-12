@@ -31,7 +31,7 @@
 
             </Grid>
             <Button x:Name="Save" Text="LƯU" Clicked="Save_Clicked"
-                    HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
+                    HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" CommandParameter="{Binding .}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
