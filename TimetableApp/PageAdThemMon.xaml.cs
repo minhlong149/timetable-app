@@ -27,7 +27,7 @@ namespace TimetableApp
             Title = "Sửa môn học";
             _mon = monHoc;
             AddMaMon.Text = monHoc.MaMon;
-            AddTenMon.Text= monHoc.TenMon;
+            AddTenMon.Text = monHoc.TenMon;
             AddTC.Text = monHoc.SoTC.ToString();
             AddMaMon.Focus();
 
