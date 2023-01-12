@@ -25,7 +25,7 @@ namespace TimetableApp
         {
             HttpClient httpClient = new HttpClient();
             var lstMaLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/LopHoc?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
-            var lstMaLopConverted = JsonConvert.DeserializeObject<List<Deadline>>(lstMaLop);
+            var lstMaLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstMaLop);
             picker.ItemsSource = lstMaLopConverted;
         }
 
@@ -69,9 +69,12 @@ namespace TimetableApp
             }
             else
             {
+                // CAN KIEM TRA XEM PICKER DA DUOC CHON HAY CHƯA
+                LopHoc selectedClass = (LopHoc)picker.SelectedItem;
+
                 Deadline _deadline = new Deadline();
                 _deadline.MaSV = SinhVien.DangNhap.MaSV.ToString();
-                _deadline.MaLop = picker.SelectedItem.ToString();
+                _deadline.MaLop = selectedClass.MaLop;
                 _deadline.NoiDung = AddNoiDung.Text;
                 _deadline.ThoiGian = datePicker.Date;
                 _deadline.TieuDe = AddTieuDe.Text;
@@ -82,16 +85,18 @@ namespace TimetableApp
                     string json = JsonConvert.SerializeObject(_deadline);
                     StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                     HttpResponseMessage kq;
+                    // DAM BAO LAY VE DUOC MA LOP TRUOC KHI GOI API
+                    Console.WriteLine(json);
 
-                    kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/Homework?MaSV=" + SinhVien.DangNhap.MaSV.ToString(), stringContent);
-                    var kqthem = await kq.Content.ReadAsStringAsync();
-                    if (int.Parse(kqthem.ToString()) > 0)
-                    {
-                        await DisplayAlert("Thông báo", "Thêm deadline thành công", "OK");
-                    }
-                    else
-                        await DisplayAlert("Thông báo", "Thêm deadline thất bại", "Thử lại");
-                    await Navigation.PopAsync();
+                    //kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/Homework?MaSV=" + SinhVien.DangNhap.MaSV.ToString(), stringContent);
+                    //var kqthem = await kq.Content.ReadAsStringAsync();
+                    //if (int.Parse(kqthem.ToString()) > 0)
+                    //{
+                    //    await DisplayAlert("Thông báo", "Thêm deadline thành công", "OK");
+                    //}
+                    //else
+                    //    await DisplayAlert("Thông báo", "Thêm deadline thất bại", "Thử lại");
+                    //await Navigation.PopAsync();
                 }
                 catch(Exception ex)
                 {
