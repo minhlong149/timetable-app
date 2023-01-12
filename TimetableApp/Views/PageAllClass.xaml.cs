@@ -1,47 +1,39 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using System.Transactions;
 using TimetableApp.Class;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
 
-namespace TimetableApp
+namespace TimetableApp.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PageChiTietLop : ContentPage
-    {
-        MonHoc mon = new MonHoc();
-        public PageChiTietLop(MonHoc monHoc)
-        {
-            InitializeComponent();
-            Title = monHoc.TenMon;
-            SelectStudentClass(monHoc.MaMon);
-            mon = monHoc;
-        }
-        async void SelectStudentClass(string mamon)
-        {
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class PageAllClass : ContentPage
+	{
+		List<LopHoc> lops;
+		public PageAllClass()
+		{
+			InitializeComponent();
+			Title = "Danh sách tất cả các lớp đang mở";
+			ListAllClass();
+		}
 
-            HttpClient httpClient = new HttpClient();
-            var lstLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/LopHoc?MaMon=" + mamon.ToString());
-            var lstLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstLop);
-            //So sánh danh sách tất cả các môn với danh sách các môn => chỉ chọn hiện thị những môn chưa chưa đăng ký
-            LstLop.ItemsSource = lstLopConverted;
-		
-        }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            SelectStudentClass(mon.MaMon);
-        }
+		public async void ListAllClass()
+		{
+			HttpClient httpClient = new HttpClient();
+			var lstAllClass = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/LopHoc");
+			var lstAllClassConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstAllClass);
+			lops = lstAllClassConverted;
+			LstLop.ItemsSource = lstAllClassConverted;
+		}
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+		}
 
 		private async void AddClass_Clicked(object sender, EventArgs e)
 		{
@@ -77,9 +69,13 @@ namespace TimetableApp
 				else
 					await DisplayAlert("Thông báo", "Đã có lỗi xảy ra!\tVui lòng thử lại", "OK");
 			}
-
 		}
 
+		private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			var texto = searchBar.Text;
+			LstLop.ItemsSource = lops.Where((x => x.TenMon.ToLower().Contains(texto) ||  x.MaLop.ToUpper().Contains(texto)));
 
+		}
 	}
 }

@@ -19,9 +19,14 @@
         <Tab Title="Deadline" Icon="checklist.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageDeadline }"/>
         </Tab>
-        <Tab Title="Môn" Icon="add_notes.png">
-            <ShellContent ContentTemplate="{DataTemplate local:PageMonHoc}"/>
+        
+        <Tab Title="Lớp" Icon="add_notes.png">
+            <ShellContent Title="Tất cả lớp" ContentTemplate="{DataTemplate views:PageAllClass}" />
+            <ShellContent Title="Đã đăng ký" ContentTemplate="{DataTemplate views:PageRegistered}"/>
+            <ShellContent Title="Chưa đăng ký" ContentTemplate="{DataTemplate views:PageUnregistered}"/>
+            
         </Tab>
+        
         <Tab Title="Thông báo" Icon="notifications.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageThongBao}"/>
         </Tab>

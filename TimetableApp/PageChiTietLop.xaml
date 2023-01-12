@@ -78,9 +78,9 @@
 
                                 <Button x:Name="AddClass" BackgroundColor="#cd572c" TextColor="White" 
                                             Grid.Row="3" Grid.Column="3" Margin="-10,-10,-35,0" Padding="-10,-10,-10,-10"  
-                                            HeightRequest="25" WidthRequest="55" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
+                                            HeightRequest="25" WidthRequest="55" HorizontalOptions="Center" VerticalOptions="EndAndExpand"  
                                             FontSize="13" Text="Đăng ký" TextTransform="None" Clicked="AddClass_Clicked" />
-                            </Grid>
+                                </Grid>
                         </Frame>
                     </StackLayout>
                 </DataTemplate>

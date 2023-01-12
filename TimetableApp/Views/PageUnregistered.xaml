@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimetableApp.Views.PageUnregistered">
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar x:Name="searchBar" TextChanged="searchBar_TextChanged"
+                       Placeholder="Nhập tên môn học hoặc mã lớp"
+                       CancelButtonColor="#08457E"></SearchBar>
+            <ListView  x:Name="LstLop" SelectionMode="Single"  HasUnevenRows="True" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <!--Thông tin về lớp học-->
+                                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,10,10,10">
+                                    <Frame HasShadow="True" BackgroundColor="White" CornerRadius="20">
+                                        <Grid ColumnSpacing="0" RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Padding="15,10,10,15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="-20,-20,-20,0" BackgroundColor="#08457E">
+                                                <Label>
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding MaLop}" TextColor="White" FontAttributes="Bold" FontSize="15"></Span>
+                                                            <Span Text="_" TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                                            <Span x:Name="Mon" Text="{Binding TenMon}" TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Frame>
+
+                                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" >
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Giảng viên: " FontSize="15" TextColor="#08457E" FontAttributes="Bold"></Span>
+                                                        <Span Text="{Binding GiaoVien}" FontSize="15" TextColor="#cd572c"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+                                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"  >
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Phòng: " TextColor="#08457E" FontSize="15" FontAttributes="Bold"></Span>
+                                                        <Span Text="{Binding PhongHoc}" FontSize="15" TextColor="#cd572c"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+                                            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" >
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Tiết: " TextColor="#08457E" FontSize="15" FontAttributes="Bold"/>
+                                                        <Span Text="{Binding Tiet}" FontSize="15" TextColor="#cd572c"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+                                            <Label Grid.Row="3" Grid.Column="2" >
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Thứ: " TextColor="#08457E" FontSize="15" FontAttributes="Bold"/>
+                                                        <Span Text="{Binding Thu}" FontSize="15" TextColor="#cd572c"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+                                            <Button x:Name="AddClass" BackgroundColor="#cd572c" TextColor="White" 
+                                            Grid.Row="3" Grid.Column="3" Margin="-10,-10,-35,0" Padding="-10,-10,-10,-10"  
+                                            HeightRequest="25" WidthRequest="55" HorizontalOptions="Center" VerticalOptions="EndAndExpand"  
+                                            FontSize="13" Text="Đăng ký" TextTransform="None" Clicked="AddClass_Clicked" />
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
