@@ -42,6 +42,7 @@ namespace TimetableApp
             picker.Title = deadline.MaLop;
             AddTieuDe.Text = deadline.TieuDe.ToString();
             AddNoiDung.Text = deadline.NoiDung.ToString();
+
             datePicker.Date = deadline.ThoiGian;
             AddNoiDung.Focus();
         }

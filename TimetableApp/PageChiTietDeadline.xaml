@@ -40,6 +40,7 @@
                 <Button x:Name="Update" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Text="Sửa" Clicked="Update_Clicked"
                                          HeightRequest="50" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="EndAndExpand" 
                                             FontSize="20" TextTransform="None" Margin="-10, 0,-35,0" Padding="-10,-10,-10,-10"/>
+
             </Grid>
         </StackLayout>
     </ContentPage.Content>
