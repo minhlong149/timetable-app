@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 using TimetableApp.Class;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace TimetableApp.QLSV
 {
@@ -17,6 +18,7 @@ namespace TimetableApp.QLSV
     public partial class PageQLLopHoc : ContentPage
     {
         HttpClient client;
+        ObservableCollection<SinhVien> studentList;
 
         public PageQLLopHoc()
         {
@@ -52,7 +54,6 @@ namespace TimetableApp.QLSV
 
         private void updateSubjectPicker(int currentSubjectIndex = -1)
         {
-            // Update subject picker's item source
             pckSubjects.ItemsSource = null;
             pckSubjects.ItemsSource = MonHoc.DanhSach;
             pckSubjects.SelectedIndex = currentSubjectIndex;
@@ -60,22 +61,21 @@ namespace TimetableApp.QLSV
 
         private void updatClassPicker(int currentClassIndex = -1)
         {
-            // Update class pickersubject picker
-            pckClasses.ItemsSource = null;
-
-            // Only update class picker if a subject has been selected
-            filterClassListBySubject();
-
+            filterClassPicker();
             pckClasses.SelectedIndex = currentClassIndex;
         }
 
         private void pckSubjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filterClassListBySubject();
+            filterClassPicker();
+            lstStudents.ItemsSource = null;
+            txtClassName.IsVisible = false;
+            sbSinhVien.IsVisible = false;
         }
 
-        private void filterClassListBySubject()
+        private void filterClassPicker()
         {
+            // Only update class picker if a subject has been selected
             int selectedIndex = pckSubjects.SelectedIndex;
             if (selectedIndex != -1)
             {
@@ -98,23 +98,30 @@ namespace TimetableApp.QLSV
             if (selectedIndex != -1)
             {
                 LopHoc selectedClass = (LopHoc)pckClasses.SelectedItem;
-                lstStudents.ItemsSource = null;
-                lstStudents.ItemsSource = await GetStudentByClass(selectedClass.MaLop);
+                studentList = await GetStudentByClass(selectedClass.MaLop);
+                updateListView(studentList);
+                sbSinhVien.IsVisible = studentList.Any();
             }
         }
 
-        private async Task<List<SinhVien>> GetStudentByClass(string MaLop)
+        private void updateListView(IEnumerable<SinhVien> studentList)
+        {
+            lstStudents.ItemsSource = studentList;
+            txtClassName.IsVisible = !studentList.Any();
+        }
+
+        private async Task<ObservableCollection<SinhVien>> GetStudentByClass(string MaLop)
         {
             try
             {
                 string uri = $"http://lno-ie307.somee.com/api/SinhVien?MaLop={MaLop}";
-                List<SinhVien> students = new List<SinhVien>();
+                ObservableCollection<SinhVien> students = new ObservableCollection<SinhVien>();
 
                 HttpResponseMessage response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    students = JsonConvert.DeserializeObject<List<SinhVien>>(content);
+                    students = JsonConvert.DeserializeObject<ObservableCollection<SinhVien>>(content);
                 }
 
                 return students;
@@ -122,7 +129,7 @@ namespace TimetableApp.QLSV
             catch (Exception ex)
             {
                 Console.WriteLine(@"\tERROR {0}", ex.Message);
-                return new List<SinhVien>();
+                return new ObservableCollection<SinhVien>();
             }
         }
 
@@ -132,7 +139,7 @@ namespace TimetableApp.QLSV
             SinhVien sinhVien = (SinhVien)imgBtn.CommandParameter;
             LopHoc lopHoc = (LopHoc)pckClasses.SelectedItem;
 
-            bool isDeleted = await DisplayAlert("Cảnh báo", $"Xoá sinh viên {sinhVien.MaSV} khỏi lớp {lopHoc.MaLop}?", "Xoá", "Huỷ");
+            bool isDeleted = await DisplayAlert("Cảnh báo", $"Xoá sinh viên {sinhVien.TenSV} khỏi lớp {lopHoc.MaLop}?", "Xoá", "Huỷ");
             if (isDeleted)
             {
                 await InsertStudentClass(sinhVien.MaSV, lopHoc.MaLop);
@@ -220,6 +227,14 @@ namespace TimetableApp.QLSV
         {
             LopHoc selectedClass = (LopHoc)pckClasses.SelectedItem;
             Navigation.PushAsync(selectedClass is null ? new PageThemSV() : new PageThemSV(selectedClass));
+        }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchBar searchBar = (SearchBar)sender;
+            string keyword = searchBar.Text.ToLower();
+            IEnumerable<SinhVien> newList = studentList.Where(sinhVien => sinhVien.TenSV.ToLower().Contains(keyword));
+            updateListView(newList);
         }
     }
 }
