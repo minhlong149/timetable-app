@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TimetableApp.Account.PageThongTin">
+             x:Class="TimetableApp.Account.PageThongTin"
+             Title="Thông tin tài khoản">
     <ContentPage.Content>
         <Grid Padding="20,50" RowSpacing="20">
             <Grid.RowDefinitions>
@@ -20,31 +21,39 @@
             </Frame>
 
             <StackLayout Grid.Row="1" Grid.ColumnSpan="3">
-                <Label x:Name="txtWelcome" FontSize="28"
+                <Label x:Name="txtWelcome" FontSize="28" Margin="0,0,0,10"
                    FontAttributes="Bold" TextColor="Black"  HorizontalOptions="CenterAndExpand"/>
 
-                <Label Text="Mã SV" 
+                <StackLayout Spacing="0">
+                    <Label Text="Mã tài khoản" 
                    FontSize="Medium" VerticalOptions="Center" />
 
-                <Entry x:Name="txtMaSV" IsReadOnly="True" VerticalOptions="Center"/>
+                    <Entry x:Name="txtMaSV" IsEnabled="False"  VerticalOptions="Center"/>
+                </StackLayout>
 
-                <Label Text="Tên SV" 
+                <StackLayout Spacing="0">
+                    <Label Text="Họ tên" 
                    FontSize="Medium" VerticalOptions="Center" />
 
-                <Entry x:Name="txtTenSV" 
+                    <Entry x:Name="txtTenSV" 
                    Placeholder="Enter your name" VerticalOptions="Center"/>
-
-                <Label Text="Tên đăng nhập" 
+                </StackLayout>
+                
+                <StackLayout Spacing="0">
+                    <Label Text="Tên đăng nhập" 
                    FontSize="Medium" VerticalOptions="Center" />
 
-                <Entry x:Name="txtTenDangNhap" 
+                    <Entry x:Name="txtTenDangNhap" 
                    Placeholder="Enter your name" VerticalOptions="Center"/>
+                </StackLayout>
 
-                <Label Text="Mật khẩu" 
+                <StackLayout Spacing="0">
+                    <Label Text="Mật khẩu" 
                    FontSize="Medium" VerticalOptions="Center" />
 
-                <Entry x:Name="txtMatKhau" IsPassword="True"
+                    <Entry x:Name="txtMatKhau" IsPassword="True"
                    Placeholder="Enter your name" VerticalOptions="Center"/>
+                </StackLayout>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                     <Button Text="Đăng xuất" 
