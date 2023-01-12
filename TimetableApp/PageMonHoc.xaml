@@ -7,6 +7,7 @@
             <SearchBar x:Name="searchBar" TextChanged="searchBar_TextChanged"
                        Placeholder="Nhập tên môn học"
                        CancelButtonColor="#08457E"></SearchBar>
+            <Picker x:Name="Picker" Title="Tất cả" ItemsSource="{Binding Name}" ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="Picker_SelectedIndexChanged" HorizontalTextAlignment="Center"/>
             <ListView x:Name="LstMonHoc" ItemTapped="LstMonHoc_ItemTapped" HasUnevenRows="True" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
