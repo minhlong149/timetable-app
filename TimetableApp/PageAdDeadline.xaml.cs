@@ -24,7 +24,7 @@ namespace TimetableApp
         public async void GetMaLop()
         {
             HttpClient httpClient = new HttpClient();
-            var lstMaLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/Homework?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
+            var lstMaLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/LopHoc?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
             var lstMaLopConverted = JsonConvert.DeserializeObject<List<Deadline>>(lstMaLop);
             picker.ItemsSource = lstMaLopConverted;
         }
@@ -37,6 +37,7 @@ namespace TimetableApp
             picker.ItemDisplayBinding.StringFormat = deadline.MaLop;//Cần chỉnh sửa
             AddTieuDe.Text = deadline.TieuDe;
             AddNoiDung.Text = deadline.NoiDung;
+            datePicker.Date = deadline.ThoiGian;
             AddNoiDung.Focus();
         }
 
@@ -49,7 +50,7 @@ namespace TimetableApp
                 _dl.TieuDe = AddTieuDe.Text;
                 _dl.NoiDung = AddNoiDung.Text;
                 _dl.ThoiGian = datePicker.Date;
-                _dl.HoanThanh = "0";
+                _dl.HoanThanh = "false";
 
                 HttpClient httpClient = new HttpClient();
                 string jsonup = JsonConvert.SerializeObject(_dl);
@@ -71,17 +72,17 @@ namespace TimetableApp
                 Deadline _deadline = new Deadline();
                 _deadline.MaSV = SinhVien.DangNhap.MaSV.ToString();
                 _deadline.MaLop = picker.ItemDisplayBinding.StringFormat;
-                _deadline.TieuDe = AddTieuDe.Text;
                 _deadline.NoiDung = AddNoiDung.Text;
                 _deadline.ThoiGian = datePicker.Date;
-                _deadline.HoanThanh = "0";
+                _deadline.TieuDe = AddTieuDe.Text;
+                _deadline.HoanThanh = "false";
 
                 HttpClient httpClient = new HttpClient();
                 string json = JsonConvert.SerializeObject(_deadline);
                 StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage kq;
 
-                kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/Homework?MaSV=" + SinhVien.DangNhap.MaSV.ToString() + "&MaLop=" + _deadline.MaLop + "&NoiDung=" + _deadline.NoiDung, stringContent);
+                kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/Homework", stringContent);
                 var kqthem = await kq.Content.ReadAsStringAsync();
                 if (int.Parse(kqthem.ToString()) > 0)
                 {

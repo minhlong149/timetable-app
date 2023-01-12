@@ -5,8 +5,9 @@
              Title="Tạo thông báo mới">
     <ContentPage.Content>
         <StackLayout>
-            <Grid Padding="10">
+            <Grid Padding="10" RowSpacing="10">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
@@ -16,10 +17,14 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Text="Mã sinh viên: " FontSize="20"/>
-                <Entry x:Name="AddMaSV" Grid.Row="0" Grid.Column="1" Placeholder="Nhập mã sinh viên" FontSize="20" Text="{Binding MaSV}"/>
+                <Picker Grid.Row="0" Grid.Column="1" x:Name="picker" Title="Chọn sinh viên muốn gửi" TitleColor="Blue"
+                ItemsSource="{Binding MaSV}" ItemDisplayBinding="{Binding MaSV}"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Text="Nội dung: " FontSize="20"/>
-                <Entry x:Name="AddNoiDung" Grid.Row="1" Grid.Column="1" Placeholder="Nhập nội dung" FontSize="20" Text="{Binding NoiDung}"/>
+                <Label Grid.Row="1" Grid.Column="0" Text="Nhập tiêu đề: " FontSize="20"/>
+                <Entry x:Name="AddTieuDe" Grid.Row="1" Grid.Column="1" Placeholder="Tiêu đề thông báo" FontSize="20" Text="{Binding TieuDe}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Text="Nội dung: " FontSize="20"/>
+                <Entry x:Name="AddNoiDung" Grid.Row="2" Grid.Column="1" Placeholder="Nội dung thông báo" FontSize="20" Text="{Binding NoiDung}"/>
 
             </Grid>
             <Button x:Name="Save" Text="TẠO" Clicked="Save_Clicked"

@@ -3,31 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimetableApp.PageThongBao">
     <ContentPage.Content>
-        <ListView x:Name="LstThongBao" RowHeight="100">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid RowSpacing="0" ColumnSpacing="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="2*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding TieuDe}" FontSize="20" VerticalOptions="CenterAndExpand"/>
+        <StackLayout>
+            <CollectionView  x:Name="LstThongBao">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10,10,10,10">
+                            <Frame HasShadow="True" BackgroundColor="White" CornerRadius="20">
+                                <Grid ColumnSpacing="0" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Padding="15,10,10,15"
+                                           HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Margin="-20,-20,-20,0" BackgroundColor="#08457E">
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding TieuDe}" TextColor="White" FontAttributes="Bold" FontSize="25"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Frame>
 
-                            <Label Grid.Row="1" Grid.Column="0" Text="Nội dung: " FontSize="15" VerticalOptions="Center"/>
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding NoiDung}" FontSize="15" VerticalOptions="CenterAndExpand"/>
+                                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Thời gian: " TextColor="#08457E" FontSize="23" FontAttributes="Bold"></Span>
+                                                <Span Text="{Binding ThoiGian}" FontSize="22" TextColor="#cd572c"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
 
-                            <Label Grid.Row="2" Grid.Column="0" Text="Thông báo đến: " FontSize="15" VerticalOptions="Center"/>
-                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding MaSV}" FontSize="15" VerticalOptions="CenterAndExpand"/>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                    <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Nội dung: " TextColor="#08457E" FontSize="23" FontAttributes="Bold"/>
+                                                <Span Text="{Binding NoiDung}" FontSize="22" TextColor="#cd572c"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

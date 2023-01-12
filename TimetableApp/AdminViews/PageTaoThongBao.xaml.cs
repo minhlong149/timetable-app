@@ -18,23 +18,33 @@ namespace TimetableApp.AdminViews
         public PageTaoThongBao()
         {
             InitializeComponent();
-            AddMaSV.Focus();
+            GetMaSinhVien();
+            AddTieuDe.Focus();
             AddNoiDung.Focus();
         }
+        public async void GetMaSinhVien()
+        {
+            HttpClient httpClient = new HttpClient();
+            var lstMaLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/SinhVien");
+            var lstMaLopConverted = JsonConvert.DeserializeObject<List<Deadline>>(lstMaLop);
+            picker.ItemsSource = lstMaLopConverted;
+        }
+
 
         private async void Save_Clicked(object sender, EventArgs e)
         {
             ThongBao _ThongBao = new ThongBao();
-            _ThongBao.ID = 1;
-            _ThongBao.MaSV = AddMaSV.Text;
-            _ThongBao.NoiDung= AddNoiDung.Text;
+            _ThongBao.MaSV = picker.ItemDisplayBinding.StringFormat;
+            _ThongBao.TieuDe = AddTieuDe.Text;
+            _ThongBao.NoiDung = AddNoiDung.Text;
+            _ThongBao.ThoiGian = DateTime.Now;
 
             HttpClient httpClient = new HttpClient();
             string json = JsonConvert.SerializeObject(_ThongBao);
             StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
             HttpResponseMessage kq;
 
-            kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/Notification?NoiDung=" + AddNoiDung.Text, stringContent);
+            kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/Notification", stringContent);
             var kqthem = await kq.Content.ReadAsStringAsync();
             if (int.Parse(kqthem.ToString()) > 0)
             {
@@ -43,7 +53,7 @@ namespace TimetableApp.AdminViews
             else
                 await DisplayAlert("Thông báo", "Thêm thông báo không thành công", "Thử lại");
 
-            await Navigation.PopAsync();
+            await Navigation.PushAsync(new PageTaoThongBao());
         }
     }
 }

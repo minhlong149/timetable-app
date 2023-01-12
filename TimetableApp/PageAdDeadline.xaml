@@ -4,12 +4,12 @@
              x:Class="TimetableApp.PageAdDeadline">
     <ContentPage.Content>
         <StackLayout>
-            <Grid Padding="10">
+            <Grid Padding="10" RowSpacing="20">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -21,10 +21,10 @@
                 ItemsSource="{Binding MaLop}" ItemDisplayBinding="{Binding MaLop}"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Text="Tiêu đề: " FontSize="20"/>
-                <Entry x:Name="AddTieuDe" Grid.Row="1" Grid.Column="1" Placeholder="Nhập tiêu đề deadline(tùy chọn)" FontSize="20" Text="{Binding TieuDe}"/>
+                <Entry x:Name="AddTieuDe" Grid.Row="1" Grid.Column="1" Placeholder="Tiêu đề deadline" FontSize="20" Text="{Binding TieuDe}"/>
 
                 <Label Grid.Row="2" Grid.Column="0" Text="Nội dung: " FontSize="20"/>
-                <Entry x:Name="AddNoiDung" Grid.Row="2" Grid.Column="1" Placeholder="Nhập nội dung" FontSize="20" Text="{Binding NoiDung}"/>
+                <Entry x:Name="AddNoiDung" Grid.Row="2" Grid.Column="1" Placeholder="Nội dung deadline" FontSize="20" Text="{Binding NoiDung}"/>
 
                 <Label Grid.Row="3" Grid.Column="0" Text="Hạn hoàn thành: " FontSize="20"/>
                 <DatePicker x:Name="datePicker" Grid.Row="3" Grid.Column="1" Format="D"/>
