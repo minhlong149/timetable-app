@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using TimetableApp.Class;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -19,6 +17,8 @@ namespace TimetableApp
         {
             InitializeComponent();
             GetMaLop();
+            AddTieuDe.Focus();
+            AddNoiDung.Focus();
         }
 
         public async void GetMaLop()
@@ -34,9 +34,10 @@ namespace TimetableApp
             InitializeComponent();
             Title = "Sửa Deadline";
             _dl = deadline;
-            picker.ItemDisplayBinding.StringFormat = deadline.MaLop;//Cần chỉnh sửa
-            AddTieuDe.Text = deadline.TieuDe;
-            AddNoiDung.Text = deadline.NoiDung;
+            picker.SelectedItem = deadline.MaLop;//Cần chỉnh sửa
+            AddTieuDe.Text = deadline.TieuDe.ToString();
+            AddNoiDung.Text = deadline.NoiDung.ToString();
+
             datePicker.Date = deadline.ThoiGian;
             AddNoiDung.Focus();
         }
@@ -46,15 +47,14 @@ namespace TimetableApp
             if (_dl != null)
             {
                 _dl.MaSV = SinhVien.DangNhap.MaSV.ToString();
-                _dl.MaLop = picker.ItemDisplayBinding.StringFormat;
+                _dl.MaLop = picker.SelectedItem.ToString();// Bug
                 _dl.TieuDe = AddTieuDe.Text;
                 _dl.NoiDung = AddNoiDung.Text;
                 _dl.ThoiGian = datePicker.Date;
-                _dl.HoanThanh = "false";
 
                 HttpClient httpClient = new HttpClient();
-                string jsonup = JsonConvert.SerializeObject(_dl);
-                StringContent stringContent = new StringContent(jsonup, Encoding.UTF8, "application/json");
+                string json = JsonConvert.SerializeObject(_dl);
+                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage kq;
 
                 kq = await httpClient.PutAsync("http://www.lno-ie307.somee.com/api/Homework?ID=" + _dl.ID, stringContent);
@@ -71,27 +71,33 @@ namespace TimetableApp
             {
                 Deadline _deadline = new Deadline();
                 _deadline.MaSV = SinhVien.DangNhap.MaSV.ToString();
-                _deadline.MaLop = picker.ItemDisplayBinding.StringFormat;
+                _deadline.MaLop = picker.SelectedItem.ToString();
                 _deadline.NoiDung = AddNoiDung.Text;
                 _deadline.ThoiGian = datePicker.Date;
                 _deadline.TieuDe = AddTieuDe.Text;
-                _deadline.HoanThanh = "false";
 
-                HttpClient httpClient = new HttpClient();
-                string json = JsonConvert.SerializeObject(_deadline);
-                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage kq;
-
-                kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/Homework", stringContent);
-                var kqthem = await kq.Content.ReadAsStringAsync();
-                if (int.Parse(kqthem.ToString()) > 0)
+                try
                 {
-                    await DisplayAlert("Thông báo", "Thêm deadline thành công", "OK");
+                    HttpClient httpClient = new HttpClient();
+                    string json = JsonConvert.SerializeObject(_deadline);
+                    StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                    HttpResponseMessage kq;
+
+                    kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/Homework?MaSV=" + SinhVien.DangNhap.MaSV.ToString(), stringContent);
+                    var kqthem = await kq.Content.ReadAsStringAsync();
+                    if (int.Parse(kqthem.ToString()) > 0)
+                    {
+                        await DisplayAlert("Thông báo", "Thêm deadline thành công", "OK");
+                    }
+                    else
+                        await DisplayAlert("Thông báo", "Thêm deadline thất bại", "Thử lại");
+                    await Navigation.PopAsync();
                 }
-                else
-                    await DisplayAlert("Thông báo", "Thêm deadline không thành công", "Thử lại");
+                catch(Exception ex)
+                {
+                    Console.WriteLine(@"\tERROR {0}", ex.Message);
+                }
             }
-            await Navigation.PopAsync();
         }
     }
 }
