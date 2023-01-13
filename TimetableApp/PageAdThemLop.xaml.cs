@@ -12,9 +12,9 @@ using Xamarin.Forms.Xaml;
 
 namespace TimetableApp
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PageAdThemLop : ContentPage
-    {
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class PageAdThemLop : ContentPage
+	{
 		private readonly LopHoc _lop;
 		MonHoc _mon = new MonHoc();
 		List<Phong> listphong;
@@ -43,11 +43,11 @@ namespace TimetableApp
 		}
 		private async void Save_Clicked(object sender, EventArgs e)
 		{
-			if(string.IsNullOrWhiteSpace(AddGV.Text) || (string.IsNullOrWhiteSpace(AddThu.Text) || (string.IsNullOrWhiteSpace(AddTiet.Text) || (string.IsNullOrWhiteSpace(AddPhong.Title)))))
-				{
+			if (string.IsNullOrWhiteSpace(AddGV.Text) || (string.IsNullOrWhiteSpace(AddThu.Text) || (string.IsNullOrWhiteSpace(AddTiet.Text) || (string.IsNullOrWhiteSpace(AddPhong.Title)))))
+			{
 				await DisplayAlert("Thông báo", "Vui lòng nhập đầy đủ thông tin!", "OK");
 			}
-			else 
+			else
 			if (_lop != null)
 			{
 				_lop.GiaoVien = AddGV.Text;
@@ -62,10 +62,11 @@ namespace TimetableApp
 				HttpResponseMessage kq;
 
 				kq = await httpClient.PutAsync("http://www.lno-ie307.somee.com/api/LopHoc", stringContent);
-
-				if (kq.ToString() =="1")
+				var kqthem = await kq.Content.ReadAsStringAsync();
+				if (int.Parse(kqthem.ToString()) > 0)
 				{
 					await DisplayAlert("Thông báo", "Sửa lớp học " + _lop.MaLop.ToString() + " thành công", "OK");
+					await Navigation.PopAsync();
 				}
 				else
 					await DisplayAlert("Thông báo", "Sửa lớp học không thành công", "Thử lại");
@@ -90,7 +91,6 @@ namespace TimetableApp
 
 				kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/LopHoc", stringContent);
 				var kqthem = await kq.Content.ReadAsStringAsync();
-				Console.WriteLine(kq.ToString());
 				if (int.Parse(kqthem.ToString()) > 0)
 				{
 					await DisplayAlert("Thông báo", "Thêm lớp thành công", "OK");
@@ -99,13 +99,13 @@ namespace TimetableApp
 				else
 					await DisplayAlert("Thông báo", "Thêm lớp không thành công", "Thử lại");
 			}
-			
+
 		}
-		
-		void Phong ()
+
+		void Phong()
 		{
 			listphong = new List<Phong>();
-			listphong.Add( new Phong { Ten = "A205" } );
+			listphong.Add(new Phong { Ten = "A205" });
 			listphong.Add(new Phong { Ten = "A213" });
 			listphong.Add(new Phong { Ten = "GĐ1 (A1)" });
 			listphong.Add(new Phong { Ten = "GĐ2 (A2)" });
@@ -119,7 +119,7 @@ namespace TimetableApp
 		{
 			var picker = (Picker)sender;
 			int selectrow = picker.SelectedIndex;
-			
+
 			if (selectrow == 0)
 				NameLabel.Text = listphong.First().Ten;
 			else if (selectrow == 1)
@@ -156,6 +156,6 @@ namespace TimetableApp
 			Date2.MaximumDate = DateTime.Now.AddMonths(7);
 		}
 
-		
+
 	}
-	}
+}
