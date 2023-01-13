@@ -1,20 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TimetableApp.QLSV.PageThemSV">
+             x:Class="TimetableApp.QLSV.PageThemSV"
+             Title="Thêm sinh viên vào lớp">
     <ContentPage.Content>
-        <StackLayout>
-            <Picker x:Name="pckSubjects" Title="Chọn môn học" Grid.Row="0" Grid.Column="0"
+        <StackLayout Margin="15,20">
+            <StackLayout Spacing="0">
+                <Label Text="Môn học:"/>
+                <Picker x:Name="pckSubjects" Title="Chọn môn học" 
                         ItemsSource="{Binding TenMon}" ItemDisplayBinding="{Binding TenMon}"
                         SelectedIndexChanged="pckSubjects_SelectedIndexChanged"
-                        FontSize="20" TextColor="Black" />
-            
-            <Picker x:Name="pckClasses" Title="Chọn lớp học" Grid.Row="0" Grid.Column="1"
+                        FontSize="20" TextColor="Black"/>
+
+            </StackLayout>
+
+            <StackLayout Spacing="0">
+                <Label Text="Mã lớp:"/>
+                <Picker x:Name="pckClasses" Title="Chọn lớp học"
                         ItemsSource="{Binding MaLop}" ItemDisplayBinding="{Binding MaLop}"
                         SelectedIndexChanged="pckClasses_SelectedIndexChanged"
                         FontSize="20" TextColor="Black" />
+            </StackLayout>
 
-            <ListView x:Name="lstStudents" ItemSelected="lstStudents_ItemSelected">
+            <SearchBar Placeholder="Tìm kiếm sinh viên" TextChanged="SearchBar_TextChanged"
+                       x:Name="sbSinhVien" IsVisible="false" BackgroundColor="LightGray" Margin="0,15,0,0"/>
+
+            <Label x:Name="txtClassName" IsVisible="false" Text="Không có sinh viên"
+                   HorizontalOptions="CenterAndExpand" FontSize="Medium" Margin="0,15,0,0"/>
+
+            <ListView x:Name="lstStudents" ItemSelected="lstStudents_ItemSelected"
+                      Margin="0,5">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

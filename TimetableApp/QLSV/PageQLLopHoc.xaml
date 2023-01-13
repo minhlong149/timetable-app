@@ -1,27 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TimetableApp.QLSV.PageQLLopHoc">
+             x:Class="TimetableApp.QLSV.PageQLLopHoc"
+             Title="Quản lý sinh viên">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Thêm SV" Clicked="ToolbarItem_Clicked"
+        <ToolbarItem Text="Thêm" Clicked="ToolbarItem_Clicked"
                  Order="Primary" Priority="0" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout Margin="15">
-            <Grid RowDefinitions="auto" ColumnDefinitions="2*, *">
-                <Picker x:Name="pckSubjects" Title="Chọn môn học" Grid.Row="0" Grid.Column="0"
+        <StackLayout Margin="15,20">
+            <StackLayout Spacing="0">
+                <Label Text="Môn học:"/>
+                <Picker x:Name="pckSubjects" Title="Chọn môn học" 
                         ItemsSource="{Binding TenMon}" ItemDisplayBinding="{Binding TenMon}"
                         SelectedIndexChanged="pckSubjects_SelectedIndexChanged"
-                        FontSize="20" TextColor="Black" />
-                
-                <Picker x:Name="pckClasses" Title="Chọn lớp học" Grid.Row="0" Grid.Column="1"
+                        FontSize="20" TextColor="Black"/>
+
+            </StackLayout>
+
+            <StackLayout Spacing="0">
+                <Label Text="Mã lớp:"/>
+                <Picker x:Name="pckClasses" Title="Chọn lớp học"
                         ItemsSource="{Binding MaLop}" ItemDisplayBinding="{Binding MaLop}"
                         SelectedIndexChanged="pckClasses_SelectedIndexChanged"
-                        FontSize="20" TextColor="Black" />
-            </Grid>
+                        FontSize="20" TextColor="Black"/>
+            </StackLayout>
+
+            <SearchBar Placeholder="Tìm kiếm sinh viên" TextChanged="SearchBar_TextChanged"
+                       x:Name="sbSinhVien" IsVisible="false" BackgroundColor="LightGray" Margin="0,15,0,0"/>
+
+            <Label x:Name="txtClassName" IsVisible="false" Text="Không có sinh viên"
+                   HorizontalOptions="CenterAndExpand" FontSize="Medium" Margin="0,15,0,0"/>
 
             <ListView x:Name="lstStudents" SelectionMode="None"
-                      IsPullToRefreshEnabled="True">
+                      IsPullToRefreshEnabled="True" Margin="0,5">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
