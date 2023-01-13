@@ -29,6 +29,12 @@ namespace TimetableApp.QLSV
             RefreshData();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            updateStudentList();
+        }
+
         public void RefreshData()
         {
             lstStudents.RefreshCommand = new Command(() =>

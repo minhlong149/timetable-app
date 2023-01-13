@@ -21,6 +21,13 @@ namespace TimetableApp.Account
             client = new HttpClient();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            // txtUsername.Text = "";
+            txtPassword.Text = "";
+        }
+
         private async void btnLogin_Clicked(object sender, EventArgs e)
         {
             string TenDangNhap = txtUsername.Text;

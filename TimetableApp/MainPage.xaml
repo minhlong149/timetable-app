@@ -7,7 +7,12 @@
        xmlns:views ="clr-namespace:TimetableApp.Views"
        xmlns:ad ="clr-namespace:TimetableApp.AdminViews"
        xmlns:account="clr-namespace:TimetableApp.Account"
-       xmlns:QLSV="clr-namespace:TimetableApp.QLSV">
+       xmlns:QLSV="clr-namespace:TimetableApp.QLSV"
+       BackgroundColor="#08457E"
+       ForegroundColor="White"
+       TitleColor="White"
+       DisabledColor="#B4FFFFFF"
+       UnselectedColor="#95FFFFFF">
 
     <ShellItem Route="login">
         <ShellContent ContentTemplate="{DataTemplate account:PageDangNhap}"/>
@@ -20,7 +25,7 @@
             <ShellContent ContentTemplate="{DataTemplate local:PageDeadline }"/>
         </Tab>
         
-        <Tab Title="Lớp" Icon="add_notes.png">
+        <Tab Title="Môn học" Icon="add_notes.png">
             <ShellContent Title="Tất cả lớp" ContentTemplate="{DataTemplate views:PageAllClass}" />
             <ShellContent Title="Đã đăng ký" ContentTemplate="{DataTemplate views:PageRegistered}"/>
             <ShellContent Title="Chưa đăng ký" ContentTemplate="{DataTemplate views:PageUnregistered}"/>
@@ -35,7 +40,7 @@
                       ContentTemplate="{DataTemplate account:PageThongTin}" />
     </TabBar>
     <TabBar Route="admin" FlyoutDisplayOptions="AsSingleItem">
-        <Tab Route="adminDefault" Title="Môn" Icon="edit_calendar.png">
+        <Tab Route="adminDefault" Title="Lớp học" Icon="edit_calendar.png">
             <ShellContent ContentTemplate="{DataTemplate local:PageAdminMon}"/>
         </Tab>
         <Tab Title="Sinh viên" Icon="edit_note">
