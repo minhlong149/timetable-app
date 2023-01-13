@@ -14,7 +14,6 @@ namespace TimetableApp.AdminViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageTaoThongBao : ContentPage
     {
-        ThongBao _ThongBao;
         public PageTaoThongBao()
         {
             InitializeComponent();
@@ -25,35 +24,47 @@ namespace TimetableApp.AdminViews
         public async void GetMaSinhVien()
         {
             HttpClient httpClient = new HttpClient();
-            var lstMaLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/SinhVien");
-            var lstMaLopConverted = JsonConvert.DeserializeObject<List<Deadline>>(lstMaLop);
+            var lstMaSV = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/SinhVien");
+            var lstMaLopConverted = JsonConvert.DeserializeObject<List<SinhVien>>(lstMaSV);
             picker.ItemsSource = lstMaLopConverted;
         }
 
 
         private async void Save_Clicked(object sender, EventArgs e)
         {
-            ThongBao _ThongBao = new ThongBao();
-            _ThongBao.MaSV = picker.ItemDisplayBinding.StringFormat;
-            _ThongBao.TieuDe = AddTieuDe.Text;
-            _ThongBao.NoiDung = AddNoiDung.Text;
-            _ThongBao.ThoiGian = DateTime.Now;
-
-            HttpClient httpClient = new HttpClient();
-            string json = JsonConvert.SerializeObject(_ThongBao);
-            StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            HttpResponseMessage kq;
-
-            kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/Notification", stringContent);
-            var kqthem = await kq.Content.ReadAsStringAsync();
-            if (int.Parse(kqthem.ToString()) > 0)
+            if (picker.SelectedIndex != -1)
             {
-                await DisplayAlert("Thông báo", "Thêm thông báo thành công", "OK");
-            }
-            else
-                await DisplayAlert("Thông báo", "Thêm thông báo không thành công", "Thử lại");
+                SinhVien selectedClass = (SinhVien)picker.SelectedItem;
+                ThongBao _ThongBao = new ThongBao();
+                _ThongBao.MaSV = selectedClass.MaSV;
+                _ThongBao.TieuDe = AddTieuDe.Text;
+                _ThongBao.NoiDung = AddNoiDung.Text;
+                _ThongBao.ThoiGian = DateTime.Now;
 
-            await Navigation.PushAsync(new PageTaoThongBao());
+                try
+                {
+                    HttpClient httpClient = new HttpClient();
+                    string json = JsonConvert.SerializeObject(_ThongBao);
+                    StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                    HttpResponseMessage kq;
+
+                    kq = await httpClient.PostAsync("http://www.lno-ie307.somee.com/api/Notification", stringContent);
+                    var kqthem = await kq.Content.ReadAsStringAsync();
+                    if (int.Parse(kqthem.ToString()) > 0)
+                    {
+                        await DisplayAlert("Thông báo", "Thêm thông báo thành công", "OK");
+                    }
+                    else
+                        await DisplayAlert("Thông báo", "Thêm thông báo không thành công", "Thử lại");
+
+                    await Navigation.PopAsync();
+                }
+                catch (Exception ex)
+                    {
+                        Console.WriteLine(@"\tERROR {0}", ex.Message);
+                    }
+            }
+            else await DisplayAlert("Thông báo", "Vui lòng chọn sinh viên muốn gửi thông báo đến", "OK");
         }
     }
 }
