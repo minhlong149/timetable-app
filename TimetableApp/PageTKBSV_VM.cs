@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,17 +15,18 @@ namespace TimetableApp
     {
         public EventCollection Events { get; set; }
         HttpClient client;
+        List<LopHoc> studentClasses;
 
         public PageTKBSV_VM()
         {
             client = new HttpClient();
-            Events = new EventCollection { };
             updateEvent();
         }
 
         private async void updateEvent()
         {
-            List<LopHoc> studentClasses = await GetClassList();
+            Events = new EventCollection { };
+            studentClasses = await GetClassList();
             foreach (LopHoc studentClass in studentClasses)
             {
                 // Get start and end date of each class from dB
@@ -42,14 +45,14 @@ namespace TimetableApp
                 {
                     if (!Events.ContainsKey(classDate))
                     {
-                        Events.Add(classDate, new List<LopHoc> { studentClass });
+                        Events.Add(classDate, new ObservableCollection<LopHoc> { studentClass });
                     }
                     else
                     {
                         // Handle multiple class a day
-                        List<LopHoc> classesOnThisDay = (List<LopHoc>)Events[classDate];
+                        ObservableCollection<LopHoc> classesOnThisDay = (ObservableCollection<LopHoc>)Events[classDate];
                         classesOnThisDay.Add(studentClass);
-                        Events[classDate] = classesOnThisDay;
+                        Events[classDate] = classesOnThisDay.OrderBy(lopHoc => lopHoc.TietBD).ToList();
                     }
                 }
             }

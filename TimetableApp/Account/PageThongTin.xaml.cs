@@ -24,7 +24,7 @@ namespace TimetableApp.Account
 
         private void updateInfo()
         {
-            txtWelcome.Text = $"Welcome, {SinhVien.DangNhap.TenSV}!";
+            txtWelcome.Text = $"Xin chào, {SinhVien.DangNhap.TenSV}!";
             txtTenSV.Text = SinhVien.DangNhap.TenSV;
             txtMaSV.Text = SinhVien.DangNhap.MaSV;
             txtTenDangNhap.Text = SinhVien.DangNhap.TenDangNhap;
@@ -55,27 +55,31 @@ namespace TimetableApp.Account
                     Console.WriteLine(content);
                     if (content == "1")
                     {
-                        await DisplayAlert("Success", "Cập nhập thông tin thành công", "OK");
+                        await DisplayAlert("Thành công", "Cập nhập thông tin thành công", "OK");
                         SinhVien.DangNhap = capNhapSV;
-                        txtWelcome.Text = $"Welcome, {SinhVien.DangNhap.TenSV}!";
+                        txtWelcome.Text = $"Xin chào, {SinhVien.DangNhap.TenSV}!";
                     }
                     else
                     {
-                        await DisplayAlert("Failed", "Không thể cập nhập thông tin", "Try again");
+                        await DisplayAlert("Thất bại", "Không thể cập nhập thông tin", "Thử lại");
                     }
                 }
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Failed", ex.Message, "Ok");
+                await DisplayAlert("Lỗi", ex.Message, "Thoát");
                 // Console.WriteLine(@"\tERROR {0}", ex.Message);
             }
         }
 
-        private void Button_Clicked_1(object sender, EventArgs e)
+        private async void Button_Clicked_1(object sender, EventArgs e)
         {
-            SinhVien.DangNhap = new SinhVien();
-            Shell.Current.GoToAsync("//login");
+            bool logout = await DisplayAlert("Đăng xuất", "Bạn có muốn đăng xuất khỏi tải khoản này?", "Đồng ý", "Huỷ");
+            if (logout)
+            {
+                SinhVien.DangNhap = new SinhVien();
+                Shell.Current.GoToAsync("//login");
+            }
         }
     }
 }
