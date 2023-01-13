@@ -33,8 +33,7 @@ namespace TimetableApp
 
         private async void Del_Clicked(object sender, EventArgs e)
         {
-            Button bt = (Button)sender;
-            Deadline deadline = (Deadline)bt.BindingContext;
+            Deadline deadline = _dl;
             try
             {
                 HttpClient httpClient = new HttpClient();
