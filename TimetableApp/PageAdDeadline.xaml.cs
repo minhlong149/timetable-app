@@ -52,28 +52,30 @@ namespace TimetableApp
             if (_dl != null)
             {
                 LopHoc selectedClass = (LopHoc)picker.SelectedItem;
-                _dl.MaSV = SinhVien.DangNhap.MaSV.ToString();
-                _dl.MaLop = selectedClass.MaLop;
-                _dl.TieuDe = AddTieuDe.Text;
-                _dl.NoiDung = AddNoiDung.Text;
-                _dl.ThoiGian = datePicker.Date;
+                //_dl.MaSV = SinhVien.DangNhap.MaSV.ToString();
+                //_dl.MaLop = selectedClass.MaLop;
+                //_dl.TieuDe = AddTieuDe.Text;
+                //_dl.NoiDung = AddNoiDung.Text;
+                //_dl.ThoiGian = datePicker.Date;
+
+                Console.WriteLine("=======>" + selectedClass?.MaLop);
 
                 try
                 {
-                    HttpClient httpClient = new HttpClient();
-                    string json = JsonConvert.SerializeObject(_dl);
-                    StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-                    HttpResponseMessage kq;
+                    //HttpClient httpClient = new HttpClient();
+                    //string json = JsonConvert.SerializeObject(_dl);
+                    //StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                    //HttpResponseMessage kq;
 
-                    kq = await httpClient.PutAsync("http://www.lno-ie307.somee.com/api/Homework?ID=" + _dl.ID, stringContent);
-                    var kqthem = await kq.Content.ReadAsStringAsync();
+                    //kq = await httpClient.PutAsync("http://www.lno-ie307.somee.com/api/Homework?ID=" + _dl.ID, stringContent);
+                    //var kqthem = await kq.Content.ReadAsStringAsync();
 
-                    if (int.Parse(kqthem.ToString()) > 0)
-                    {
-                        await DisplayAlert("Thông báo", "Sửa deadline thành công", "OK");
-                    }
-                    else
-                        await DisplayAlert("Thông báo", "Sửa deadline không thành công", "Thử lại");
+                    //if (int.Parse(kqthem.ToString()) > 0)
+                    //{
+                    //    await DisplayAlert("Thông báo", "Sửa deadline thành công", "OK");
+                    //}
+                    //else
+                    //    await DisplayAlert("Thông báo", "Sửa deadline không thành công", "Thử lại");
                 }
                 catch (Exception ex)
                 {
