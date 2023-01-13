@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using TimetableApp.Class;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -16,6 +17,7 @@ namespace TimetableApp
     public partial class PageAdDeadline : ContentPage
     {
         Deadline _dl;
+        List<LopHoc> lstMaLopConverted;
         public PageAdDeadline()
         {
             InitializeComponent();
@@ -24,27 +26,32 @@ namespace TimetableApp
             AddNoiDung.Focus();
         }
 
-        public async void GetMaLop()
+        public async Task GetMaLop()
         {
             HttpClient httpClient = new HttpClient();
             var lstMaLop = await httpClient.GetStringAsync("http://www.lno-ie307.somee.com/api/LopHoc?MaSV=" + SinhVien.DangNhap.MaSV.ToString());
-            var lstMaLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstMaLop);
+            lstMaLopConverted = JsonConvert.DeserializeObject<List<LopHoc>>(lstMaLop);
             picker.ItemsSource = lstMaLopConverted;
         }
 
         public PageAdDeadline(Deadline deadline)
         {
             InitializeComponent();
-            GetMaLop();
+            assignClassPicker(deadline);
             Title = "Sửa Deadline";
             _dl = deadline;
 
-            picker.Title = deadline.MaLop;
             AddTieuDe.Text = deadline.TieuDe.ToString();
             AddNoiDung.Text = deadline.NoiDung.ToString();
 
             datePicker.Date = deadline.ThoiGian;
             AddNoiDung.Focus();
+        }
+
+        private async void assignClassPicker(Deadline deadline)
+        {
+            await GetMaLop();
+            picker.SelectedIndex = lstMaLopConverted.FindIndex(lopHoc => lopHoc.MaLop == deadline.MaLop);
         }
 
         private async void Save_Clicked(object sender, EventArgs e)
@@ -64,16 +71,18 @@ namespace TimetableApp
                     string json = JsonConvert.SerializeObject(_dl);
                     StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                     HttpResponseMessage kq;
+                    // DAM BAO LAY VE DUOC MA LOP TRUOC KHI GOI API
+                    Console.WriteLine(json);
 
-                    kq = await httpClient.PutAsync("http://www.lno-ie307.somee.com/api/Homework?ID=" + _dl.ID, stringContent);
-                    var kqthem = await kq.Content.ReadAsStringAsync();
+                    //kq = await httpClient.PutAsync("http://www.lno-ie307.somee.com/api/Homework?ID=" + _dl.ID, stringContent);
+                    //var kqthem = await kq.Content.ReadAsStringAsync();
 
-                    if (int.Parse(kqthem.ToString()) > 0)
-                    {
-                        await DisplayAlert("Thông báo", "Sửa deadline thành công", "OK");
-                    }
-                    else
-                        await DisplayAlert("Thông báo", "Sửa deadline không thành công", "Thử lại");
+                    //if (int.Parse(kqthem.ToString()) > 0)
+                    //{
+                    //    await DisplayAlert("Thông báo", "Sửa deadline thành công", "OK");
+                    //}
+                    //else
+                    //    await DisplayAlert("Thông báo", "Sửa deadline không thành công", "Thử lại");
                 }
                 catch (Exception ex)
                 {

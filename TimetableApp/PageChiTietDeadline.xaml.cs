@@ -63,9 +63,7 @@ namespace TimetableApp
 
         private void Update_Clicked(object sender, EventArgs e)
         {
-            Button bt = (Button)sender;
-            Deadline deadline = (Deadline)bt.BindingContext;
-            Navigation.PushAsync(new PageAdDeadline(deadline));
+            Navigation.PushAsync(new PageAdDeadline(_dl));
         }
     }
 }
